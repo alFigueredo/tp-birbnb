@@ -1,0 +1,19 @@
+services:
+  node-app:
+    build:
+      context: .
+      args:
+        - NODE_ENV
+    user: "node"
+    env_file:
+      - ./.env
+    ports:
+      - "3000:3000"
+    develop:
+      watch:
+        - action: sync
+          path: ./src
+          target: /home/node/app/src
+        - action: rebuild
+          path: package.json
+    command: "npm run dev"
