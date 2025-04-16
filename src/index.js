@@ -3,7 +3,7 @@ import "dotenv/config";
 
 const app = express();
 
-app.get("/healthcheck", (_req, res) => {
+app.get("/health", (_req, res) => {
   res.json({
     status: "ok",
   });
