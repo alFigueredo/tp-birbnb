@@ -14,7 +14,7 @@ class Reserva {
     this.estado = EstadoReserva.PENDIENTE;
     this.precioPorNoche = precioPorNoche;
 
-    new crearSegunReserva(this);
+    // new crearSegunReserva(this);
   }
 
   actualizarEstado(nuevoEstado) {
@@ -31,9 +31,9 @@ class CambioEstadoReserva {
     this.usuario = usuario;
 
     this.reserva.actualizarEstado(this.estado);
-    if (this.estado === EstadoReserva.CANCELADA)
-      new crearSegunReserva(this.reserva).agregarMotivo(this.motivo);
-    else new crearSegunReserva(this.reserva);
+    // if (this.motivo)
+    //   new crearSegunReserva(this.reserva).agregarMotivo(this.motivo);
+    // else new crearSegunReserva(this.reserva);
   }
 }
 
