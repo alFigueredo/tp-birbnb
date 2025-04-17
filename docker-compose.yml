@@ -12,8 +12,8 @@ services:
     develop:
       watch:
         - action: sync
-          path: ./src
-          target: /home/node/app/src
+          path: .
+          target: /home/node/app
         - action: rebuild
           path: package.json
     command: "npm run dev"
