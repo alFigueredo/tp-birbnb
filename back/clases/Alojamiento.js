@@ -27,19 +27,10 @@ class Alojamiento {
     this.fotos = fotos;
   }
 
-  fechaEntre(reservaRangoFechas, rangoFechas) {
-    return (
-      (reservaRangoFechas.fechaInicio <= rangoFechas.fechaInicio &&
-        reservaRangoFechas.fechaFin >= rangoFechas.fechaInicio) ||
-      (reservaRangoFechas.fechaInicio <= rangoFechas.fechaFin &&
-        reservaRangoFechas.fechaFin >= rangoFechas.fechaFin)
-    );
-  }
-
   estasDisponibleEn(rangoDeFechas) {
     return !this.reservas.some(
       (reserva) =>
-        fechaEntre(reserva.rangoFechas, rangoDeFechas) &&
+        reserva.rangoFechas.entreFechas(rangoDeFechas) &&
         reserva.estado !== EstadoReserva.CANCELADA,
     );
   }

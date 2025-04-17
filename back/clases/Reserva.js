@@ -1,20 +1,20 @@
 class Reserva {
   constructor(
-    fechaAlta,
     huespedReservador,
     cantHuespedes,
     alojamiento,
     rangoFechas,
-    estado,
     precioPorNoche,
   ) {
-    this.fechaAlta = fechaAlta;
+    this.fechaAlta = new Date();
     this.huespedReservador = huespedReservador;
     this.cantHuespedes = cantHuespedes;
     this.alojamiento = alojamiento;
     this.rangoFechas = rangoFechas;
-    this.estado = estado;
+    this.estado = EstadoReserva.PENDIENTE;
     this.precioPorNoche = precioPorNoche;
+
+    new crearSegunReserva(this);
   }
 
   actualizarEstado(nuevoEstado) {
@@ -23,15 +23,17 @@ class Reserva {
 }
 
 class CambioEstadoReserva {
-  constructor(fecha, estado, reserva, motivo, usuario) {
-    this.fecha = fecha;
+  constructor(estado, reserva, motivo, usuario) {
+    this.fecha = new Date();
     this.estado = estado;
     this.reserva = reserva;
     this.motivo = motivo;
     this.usuario = usuario;
 
     this.reserva.actualizarEstado(this.estado);
-    crearSegunReserva(this.reserva);
+    if (this.estado === EstadoReserva.CANCELADA)
+      new crearSegunReserva(this.reserva).agregarMotivo(this.motivo);
+    else new crearSegunReserva(this.reserva);
   }
 }
 
@@ -40,5 +42,19 @@ class RangoFechas {
     this.fechaInicio = fechaInicio;
     this.fechaFin = fechaFin;
   }
-  cantidadDias() {}
+
+  entreFechas(rangoFechas) {
+    return (
+      (this.fechaInicio <= rangoFechas.fechaInicio &&
+        this.fechaFin > rangoFechas.fechaInicio) ||
+      (this.fechaInicio < rangoFechas.fechaFin &&
+        this.fechaFin >= rangoFechas.fechaFin) ||
+      (this.fechaInicio > rangoFechas.fechaInicio &&
+        this.fechaFin < rangoFechas.fechaFin)
+    );
+  }
+
+  cantidadDias() {
+    return Math.floor(this.fechaFin - this.fechaInicio / (1000 * 60 * 60 * 24));
+  }
 }

@@ -1,8 +1,8 @@
 class Notificacion {
-  constructor(mensaje, usuario, fechaAlta) {
+  constructor(mensaje, usuario) {
     this.mensaje = mensaje;
     this.usuario = usuario; // Usuario
-    this.fechaAlta = fechaAlta;
+    this.fechaAlta = new Date();
     this.leida = false;
     this.fechaLeida = null;
   }
@@ -11,18 +11,25 @@ class Notificacion {
     this.leida = true;
     this.fechaLeida = new Date();
   }
+
+  agregarMotivo(motivo) {
+    mensaje += "\nMotivo: " + motivo;
+  }
 }
 
 class FactoryNotificacion {
-  crearSegunReserva(reserva) {
+  static crearSegunReserva(reserva) {
     let usuario;
-    let mensaje = "";
-    mensaje += "Huésped: " + reserva.huespedReservador + "; ";
-    mensaje +=
-      "Fecha: " + reserva.rangoDeFechas.fechaInicio.toLocaleDateString() + "; ";
-    mensaje +=
-      "Cantidad de días: " + reserva.rangoDeFechas.cantidadDias() + "; ";
-    mensaje += "Alojamiento: " + reserva.alojamiento.nombre + "; ";
+    let mensaje =
+      "Huésped: " +
+      reserva.huespedReservador +
+      "\nFecha: " +
+      reserva.rangoDeFechas.fechaInicio.toLocaleDateString() +
+      "\nCantidad de días: " +
+      reserva.rangoDeFechas.cantidadDias() +
+      "\nAlojamiento: " +
+      reserva.alojamiento.nombre +
+      "\n";
     switch (reserva.estado) {
       case PENDIENTE:
         mensaje += "Estado de la reserva: pendiente";
