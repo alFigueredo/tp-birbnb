@@ -30,18 +30,21 @@ class Alojamiento {
   }
 
   estasDisponibleEn(rangoDeFechas) {
-    this.reservas.forEach((reserva) => {
-      reserva.rangoFechas.fechaInicio != rangoDeFechas.fechaInicio &&
+    this.reservas.forEach(
+      (reserva) =>
+        reserva.rangoFechas.fechaInicio != rangoDeFechas.fechaInicio &&
         reserva.rangoFechas.fechaFin != rangoDeFechas.fechaFin &&
-        reserva.estado == EstadoReserva.CANCELADA;
-    });
+        reserva.estado == EstadoReserva.CANCELADA
+    );
   }
   tuPrecioEstaDentroDe(valorMinimo, valorMaximo) {
     return (
       this.precioPorNoche >= valorMinimo && this.precioPorNoche <= valorMaximo
     );
   }
-  tenesCaracteristica(caracteristica) {}
+  tenesCaracteristica(caracteristica) {
+    this.caracteristicas.includes(caracteristica)
+  }
   puedenAlojarse(cantHuespedes) {
     return this.cantHuespedesMax <= cantHuespedes;
   }
