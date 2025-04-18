@@ -1,4 +1,4 @@
-class Notificacion {
+export class Notificacion {
   constructor(mensaje, usuario) {
     this.mensaje = mensaje;
     this.usuario = usuario; // Usuario
@@ -17,7 +17,7 @@ class Notificacion {
   }
 }
 
-class FactoryNotificacion {
+export class FactoryNotificacion {
   static crearSegunReserva(reserva) {
     let usuario;
     let mensaje =

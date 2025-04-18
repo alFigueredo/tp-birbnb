@@ -1,3 +1,8 @@
+// import { Usuario } from "./clases/Usuario";
+// import { Reserva, CambioEstadoReserva, RangoFechas } from "./clases/Reserva";
+// import { Alojamiento, Foto } from "./clases/Alojamiento";
+// import { Direccion, Ciudad, Pais } from "./clases/Direccion";
+// import { Notificacion, FactoryNotificacion } from "./clases/Notificacion";
 import express from "express";
 import "dotenv/config";
 
