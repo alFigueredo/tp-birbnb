@@ -1,3 +1,6 @@
+import { EstadoReserva } from "../enumeraciones.js";
+import { FactoryNotificacion } from "./Notificacion.js";
+
 export class Reserva {
   constructor(
     huespedReservador,
@@ -15,7 +18,8 @@ export class Reserva {
     this.precioPorNoche = precioPorNoche;
 
     // Crea notificación
-    // crearSegunReserva(this);
+    const notificacion = FactoryNotificacion.crearSegunReserva(this);
+    console.log(notificacion.mensaje);
   }
 
   actualizarEstado(nuevoEstado) {
@@ -32,9 +36,10 @@ export class CambioEstadoReserva {
     this.usuario = usuario;
 
     // Crea notificación
-    // this.reserva.actualizarEstado(this.estado);
-    // if (this.motivo) crearSegunReserva(this.reserva).agregarMotivo(this.motivo);
-    // else crearSegunReserva(this.reserva);
+    this.reserva.actualizarEstado(this.estado);
+    const notificacion = FactoryNotificacion.crearSegunReserva(this.reserva);
+    if (this.motivo) notificacion.agregarMotivo(this.motivo);
+    console.log(notificacion.mensaje);
   }
 }
 
@@ -56,6 +61,8 @@ export class RangoFechas {
   }
 
   cantidadDias() {
-    return Math.floor(this.fechaFin - this.fechaInicio / (1000 * 60 * 60 * 24));
+    return Math.floor(
+      (this.fechaFin - this.fechaInicio) / (1000 * 60 * 60 * 24),
+    );
   }
 }

@@ -1,3 +1,5 @@
+import { EstadoReserva } from "../enumeraciones.js";
+
 export class Alojamiento {
   constructor(
     anfitrion,

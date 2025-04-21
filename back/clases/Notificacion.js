@@ -1,3 +1,5 @@
+import { EstadoReserva } from "../enumeraciones.js";
+
 export class Notificacion {
   constructor(mensaje, usuario) {
     this.mensaje = mensaje;
@@ -13,7 +15,7 @@ export class Notificacion {
   }
 
   agregarMotivo(motivo) {
-    mensaje += "\nMotivo: " + motivo;
+    this.mensaje += "\nMotivo: " + motivo;
   }
 }
 
@@ -22,26 +24,22 @@ export class FactoryNotificacion {
     let usuario;
     let mensaje =
       "Huésped: " +
-      reserva.huespedReservador +
+      reserva.huespedReservador.nombre +
       "\nFecha: " +
-      reserva.rangoDeFechas.fechaInicio.toLocaleDateString() +
+      reserva.rangoFechas.fechaInicio.toLocaleDateString() +
       "\nCantidad de días: " +
-      reserva.rangoDeFechas.cantidadDias() +
+      reserva.rangoFechas.cantidadDias() +
       "\nAlojamiento: " +
       reserva.alojamiento.nombre +
-      "\n";
+      "\nEstado de la reserva: " +
+      reserva.estado;
     switch (reserva.estado) {
-      case PENDIENTE:
-        mensaje += "Estado de la reserva: pendiente";
+      case EstadoReserva.PENDIENTE:
+      case EstadoReserva.CANCELADA:
         usuario = reserva.alojamiento.anfitrion;
         break;
-      case CONFIRMADA:
-        mensaje += "Estado de la reserva: confirmada";
+      case EstadoReserva.CONFIRMADA:
         usuario = reserva.huespedReservador;
-        break;
-      case CANCELADA:
-        mensaje += "Estado de la reserva: cancelada";
-        usuario = reserva.alojamiento.anfitrion;
         break;
     }
     return new Notificacion(mensaje, usuario, reserva.fechaAlta);
