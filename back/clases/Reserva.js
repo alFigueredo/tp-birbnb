@@ -18,8 +18,8 @@ export class Reserva {
     this.precioPorNoche = precioPorNoche;
 
     // Crea notificación
-    const notificacion = FactoryNotificacion.crearSegunReserva(this);
-    console.log(notificacion.mensaje);
+    // const notificacion = FactoryNotificacion.crearSegunReserva(this);
+    // console.log(notificacion.mensaje);
   }
 
   actualizarEstado(nuevoEstado) {
@@ -35,11 +35,12 @@ export class CambioEstadoReserva {
     this.motivo = motivo;
     this.usuario = usuario;
 
-    // Crea notificación
     this.reserva.actualizarEstado(this.estado);
-    const notificacion = FactoryNotificacion.crearSegunReserva(this.reserva);
-    if (this.motivo) notificacion.agregarMotivo(this.motivo);
-    console.log(notificacion.mensaje);
+
+    // Crea notificación
+    // const notificacion = FactoryNotificacion.crearSegunReserva(this.reserva);
+    // if (this.motivo) notificacion.agregarMotivo(this.motivo);
+    // console.log(notificacion.mensaje);
   }
 }
 
