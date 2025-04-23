@@ -1,20 +1,25 @@
-class Reserva {
+import { EstadoReserva } from "../enumeraciones.js";
+import { FactoryNotificacion } from "./Notificacion.js";
+
+export class Reserva {
   constructor(
-    fechaAlta,
     huespedReservador,
     cantHuespedes,
     alojamiento,
     rangoFechas,
-    estado,
     precioPorNoche,
   ) {
-    this.fechaAlta = fechaAlta;
+    this.fechaAlta = new Date();
     this.huespedReservador = huespedReservador;
     this.cantHuespedes = cantHuespedes;
     this.alojamiento = alojamiento;
     this.rangoFechas = rangoFechas;
-    this.estado = estado;
+    this.estado = EstadoReserva.PENDIENTE;
     this.precioPorNoche = precioPorNoche;
+
+    // Crea notificación
+    // const notificacion = FactoryNotificacion.crearSegunReserva(this);
+    // console.log(notificacion.mensaje);
   }
 
   actualizarEstado(nuevoEstado) {
@@ -22,23 +27,43 @@ class Reserva {
   }
 }
 
-class CambioEstadoReserva {
-  constructor(fecha, estado, reserva, motivo, usuario) {
-    this.fecha = fecha;
+export class CambioEstadoReserva {
+  constructor(estado, reserva, motivo, usuario) {
+    this.fecha = new Date();
     this.estado = estado;
     this.reserva = reserva;
     this.motivo = motivo;
     this.usuario = usuario;
 
     this.reserva.actualizarEstado(this.estado);
-    crearSegunReserva(this.reserva);
+
+    // Crea notificación
+    // const notificacion = FactoryNotificacion.crearSegunReserva(this.reserva);
+    // if (this.motivo) notificacion.agregarMotivo(this.motivo);
+    // console.log(notificacion.mensaje);
   }
 }
 
-class RangoFechas {
+export class RangoFechas {
   constructor(fechaInicio, fechaFin) {
     this.fechaInicio = fechaInicio;
     this.fechaFin = fechaFin;
   }
-  cantidadDias() {}
+
+  entreFechas(rangoFechas) {
+    return (
+      (this.fechaInicio <= rangoFechas.fechaInicio &&
+        this.fechaFin > rangoFechas.fechaInicio) ||
+      (this.fechaInicio < rangoFechas.fechaFin &&
+        this.fechaFin >= rangoFechas.fechaFin) ||
+      (this.fechaInicio > rangoFechas.fechaInicio &&
+        this.fechaFin < rangoFechas.fechaFin)
+    );
+  }
+
+  cantidadDias() {
+    return Math.floor(
+      (this.fechaFin - this.fechaInicio) / (1000 * 60 * 60 * 24),
+    );
+  }
 }

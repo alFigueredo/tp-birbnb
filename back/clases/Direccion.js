@@ -1,4 +1,4 @@
-class Direccion {
+export class Direccion {
   constructor(calle, altura, ciudad, lat, long) {
     this.calle = calle;
     this.altura = altura;
@@ -8,14 +8,14 @@ class Direccion {
   }
 }
 
-class Ciudad {
+export class Ciudad {
   constructor(nombre, pais) {
     this.nombre = nombre;
     this.pais = pais;
   }
 }
 
-class Pais {
+export class Pais {
   constructor(nombre) {
     this.nombre = nombre;
   }

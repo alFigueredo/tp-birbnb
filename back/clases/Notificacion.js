@@ -1,8 +1,10 @@
-class Notificacion {
-  constructor(mensaje, usuario, fechaAlta) {
+import { EstadoReserva } from "../enumeraciones.js";
+
+export class Notificacion {
+  constructor(mensaje, usuario) {
     this.mensaje = mensaje;
     this.usuario = usuario; // Usuario
-    this.fechaAlta = fechaAlta;
+    this.fechaAlta = new Date();
     this.leida = false;
     this.fechaLeida = null;
   }
@@ -11,30 +13,33 @@ class Notificacion {
     this.leida = true;
     this.fechaLeida = new Date();
   }
+
+  agregarMotivo(motivo) {
+    this.mensaje += "\nMotivo: " + motivo;
+  }
 }
 
-class FactoryNotificacion {
-  crearSegunReserva(reserva) {
+export class FactoryNotificacion {
+  static crearSegunReserva(reserva) {
     let usuario;
-    let mensaje = "";
-    mensaje += "Huésped: " + reserva.huespedReservador + "; ";
-    mensaje +=
-      "Fecha: " + reserva.rangoDeFechas.fechaInicio.toLocaleDateString() + "; ";
-    mensaje +=
-      "Cantidad de días: " + reserva.rangoDeFechas.cantidadDias() + "; ";
-    mensaje += "Alojamiento: " + reserva.alojamiento.nombre + "; ";
+    let mensaje =
+      "Huésped: " +
+      reserva.huespedReservador.nombre +
+      "\nFecha: " +
+      reserva.rangoFechas.fechaInicio.toLocaleDateString() +
+      "\nCantidad de días: " +
+      reserva.rangoFechas.cantidadDias() +
+      "\nAlojamiento: " +
+      reserva.alojamiento.nombre +
+      "\nEstado de la reserva: " +
+      reserva.estado;
     switch (reserva.estado) {
-      case PENDIENTE:
-        mensaje += "Estado de la reserva: pendiente";
+      case EstadoReserva.PENDIENTE:
+      case EstadoReserva.CANCELADA:
         usuario = reserva.alojamiento.anfitrion;
         break;
-      case CONFIRMADA:
-        mensaje += "Estado de la reserva: confirmada";
+      case EstadoReserva.CONFIRMADA:
         usuario = reserva.huespedReservador;
-        break;
-      case CANCELADA:
-        mensaje += "Estado de la reserva: cancelada";
-        usuario = reserva.alojamiento.anfitrion;
         break;
     }
     return new Notificacion(mensaje, usuario, reserva.fechaAlta);

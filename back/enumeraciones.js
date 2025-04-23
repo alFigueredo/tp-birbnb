@@ -1,25 +1,24 @@
 // Enumeraciones
-const TipoUsuario = {
+export const TipoUsuario = {
   HUESPED: "HUESPED",
   ANFITRION: "ANFITRION",
 };
 
-const Moneda = {
+export const Moneda = {
   DOLAR_USA: "DOLAR_USA",
   PESO_ARG: "PESO_ARG",
   REALES: "REALES",
 };
 
-const Caracteristica = {
+export const Caracteristica = {
   WIFI: "WIFI",
   PISCINA: "PISCINA",
   MASCOTAS_PERMITIDAS: "MASCOTAS_PERMITIDAS",
   ESTACIONAMIENTO: "ESTACIONAMIENTO",
 };
 
-const EstadoReserva = {
+export const EstadoReserva = {
   PENDIENTE: "PENDIENTE",
   CONFIRMADA: "CONFIRMADA",
   CANCELADA: "CANCELADA",
 };
-
