@@ -22,6 +22,7 @@ export class Notificacion {
 export class FactoryNotificacion {
   static crearSegunReserva(reserva) {
     let usuario;
+    // Usar comillas graves
     let mensaje =
       "Huésped: " +
       reserva.huespedReservador.nombre +
@@ -33,6 +34,7 @@ export class FactoryNotificacion {
       reserva.alojamiento.nombre +
       "\nEstado de la reserva: " +
       reserva.estado;
+    // Eliminar switch y convertir estados en objetos
     switch (reserva.estado) {
       case EstadoReserva.PENDIENTE:
       case EstadoReserva.CANCELADA:

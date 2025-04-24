@@ -48,8 +48,11 @@ export class RangoFechas {
   constructor(fechaInicio, fechaFin) {
     this.fechaInicio = fechaInicio;
     this.fechaFin = fechaFin;
+
+    // test si cumple
   }
 
+  // mejorar logica
   entreFechas(rangoFechas) {
     return (
       (this.fechaInicio <= rangoFechas.fechaInicio &&
