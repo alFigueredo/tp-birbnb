@@ -21,29 +21,14 @@ export class Notificacion {
 
 export class FactoryNotificacion {
   static crearSegunReserva(reserva) {
-    let usuario;
-    // Usar comillas graves
-    let mensaje =
-      "Huésped: " +
-      reserva.huespedReservador.nombre +
-      "\nFecha: " +
-      reserva.rangoFechas.fechaInicio.toLocaleDateString() +
-      "\nCantidad de días: " +
-      reserva.rangoFechas.cantidadDias() +
-      "\nAlojamiento: " +
-      reserva.alojamiento.nombre +
-      "\nEstado de la reserva: " +
-      reserva.estado;
-    // Eliminar switch y convertir estados en objetos
-    switch (reserva.estado) {
-      case EstadoReserva.PENDIENTE:
-      case EstadoReserva.CANCELADA:
-        usuario = reserva.alojamiento.anfitrion;
-        break;
-      case EstadoReserva.CONFIRMADA:
-        usuario = reserva.huespedReservador;
-        break;
-    }
+    const usuario = reserva.obtenerUsuario();
+
+    const mensaje = `Huesped ${reserva.huespedReservador.nombre}
+    Fecha: ${reserva.rangoFechas.fechaInicio.toLocaleDateString()}
+    Cantidad de días: ${reserva.rangoFechas.cantidadDias()}
+    Alojamiento: ${reserva.alojamiento.nombre}
+    Estado de la reserva: ${reserva.estado}`;
+
     return new Notificacion(mensaje, usuario, reserva.fechaAlta);
   }
 }
