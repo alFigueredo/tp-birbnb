@@ -1,6 +1,6 @@
-import { Alojamiento } from "../../clases/Alojamiento.js";
-import { Usuario } from "../../clases/Usuario.js";
-import { Caracteristica, Moneda, TipoUsuario } from "../../enumeraciones.js";
+import { Alojamiento, Caracteristica } from "../../back/models/Alojamiento.js";
+import { Usuario, TipoUsuario } from "../../back/models/Usuario.js";
+import { Moneda } from "../../back/models/Alojamiento.js";
 
 const anfi1 = new Usuario(
   "John Doe",
