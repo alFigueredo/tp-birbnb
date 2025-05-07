@@ -5,3 +5,8 @@ export class Usuario {
     this.tipo = tipo; // TipoUsuario
   }
 }
+
+export const TipoUsuario = {
+  HUESPED: "HUESPED",
+  ANFITRION: "ANFITRION",
+};

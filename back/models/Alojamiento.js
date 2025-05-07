@@ -1,5 +1,3 @@
-import { EstadoReserva } from "../enumeraciones.js";
-
 export class Alojamiento {
   constructor(
     anfitrion,
@@ -13,7 +11,7 @@ export class Alojamiento {
     cantHuespedesMax,
     caracteristicas,
     reservas,
-    fotos,
+    fotos
   ) {
     this.anfitrion = anfitrion;
     this.nombre = nombre;
@@ -33,7 +31,7 @@ export class Alojamiento {
     return !this.reservas.some(
       (reserva) =>
         reserva.rangoFechas.entreFechas(rangoDeFechas) &&
-        reserva.estado !== EstadoReserva.CANCELADA,
+        reserva.estado !== EstadoReserva.CANCELADA
     );
   }
   tuPrecioEstaDentroDe(valorMinimo, valorMaximo) {
@@ -55,3 +53,16 @@ export class Foto {
     this.path = path;
   }
 }
+
+export const Caracteristica = {
+  WIFI: "WIFI",
+  PISCINA: "PISCINA",
+  MASCOTAS_PERMITIDAS: "MASCOTAS_PERMITIDAS",
+  ESTACIONAMIENTO: "ESTACIONAMIENTO",
+};
+
+export const Moneda = {
+  DOLAR_USA: "DOLAR_USA",
+  PESO_ARG: "PESO_ARG",
+  REALES: "REALES",
+};
