@@ -16,4 +16,4 @@ services:
           target: /home/node/app
         - action: rebuild
           path: package.json
-    command: "npm run dev"
+    command: "npm run test"
