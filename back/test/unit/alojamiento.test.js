@@ -32,3 +32,9 @@ describe("Test Alojamiento", () => {
     expect(aloja1.tuPrecioEstaDentroDe(6000, 8000)).toBeTruthy();
   });
 });
+
+/*describe("Test Alojamiento", () => {
+  test("tenesCaracteristica", () => {
+    expect(aloja1.tenesCaracteristica(carac1)).toBeTruthy();
+  });
+});*/
