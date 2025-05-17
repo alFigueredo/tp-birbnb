@@ -1,26 +1,28 @@
-import { reserva } from "./Reserva.js";
+class Estado {
+  obtenerUsuario(_reserva) {}
+}
 
 // Tipos de Estado
-export const pendiente = {
-  estado: "PENDIENTE",
-  obtenerUsuario: (reserva) => {
-    reserva.alojamiento.anfitrion;
-  },
-};
+export class Pendiente extends Estado {
+  estado = "PENDIENTE";
+  obtenerUsuario(reserva) {
+    return reserva.alojamiento.anfitrion;
+  }
+}
 
-export const cancelada = {
-  estado: "CANCELADA",
-  obtenerUsuario: (reserva) => {
+export class Cancelada extends Estado {
+  estado = "CANCELADA";
+  obtenerUsuario(reserva) {
     reserva.alojamiento.anfitrion;
-  },
-};
+  }
+}
 
-export const confirmada = {
-  estado: "CONFIRMADA",
-  obtenerUsuario: (reserva) => {
+export class Confirmada extends Estado {
+  estado = "CONFIRMADA";
+  obtenerUsuario(reserva) {
     reserva.huespedReservador;
-  },
-};
+  }
+}
 
 export class CambioEstadoReserva {
   constructor(estado, reserva, motivo, usuario) {
