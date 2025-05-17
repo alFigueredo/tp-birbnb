@@ -11,7 +11,7 @@ export class Alojamiento {
     cantHuespedesMax,
     caracteristicas,
     reservas,
-    fotos
+    fotos,
   ) {
     this.anfitrion = anfitrion;
     this.nombre = nombre;
@@ -31,7 +31,7 @@ export class Alojamiento {
     return !this.reservas.some(
       (reserva) =>
         reserva.rangoFechas.entreFechas(rangoDeFechas) &&
-        reserva.estado !== EstadoReserva.CANCELADA
+        reserva.estado.estado !== "CANCELADA",
     );
   }
   tuPrecioEstaDentroDe(valorMinimo, valorMaximo) {

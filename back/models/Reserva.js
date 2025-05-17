@@ -1,5 +1,4 @@
-import { pendiente } from "./CambioEstadoReserva.js";
-import { Usuario, TipoUsuario } from "./Usuario.js";
+import { Pendiente } from "./CambioEstadoReserva.js";
 
 export class Reserva {
   constructor(
@@ -7,14 +6,14 @@ export class Reserva {
     cantHuespedes,
     alojamiento,
     rangoFechas,
-    precioPorNoche
+    precioPorNoche,
   ) {
     this.fechaAlta = new Date();
     this.huespedReservador = huespedReservador;
     this.cantHuespedes = cantHuespedes;
     this.alojamiento = alojamiento;
     this.rangoFechas = rangoFechas;
-    this.estado = pendiente;
+    this.estado = new Pendiente();
     this.precioPorNoche = precioPorNoche;
 
     // Crea notificación
@@ -31,7 +30,7 @@ export class Reserva {
 
     if (!usuarioANotificar) {
       throw new Error(
-        `No hay registro del usuario para el estado: ${this.estado.estado}`
+        `No hay registro del usuario para el estado: ${this.estado.estado}`,
       );
     }
     return usuarioANotificar;
@@ -49,14 +48,14 @@ export class RangoFechas {
 
   entreFechas(rangoFechas) {
     return (
-      this.fechaInicio <= rangoFechas.fechaFin &&
-      this.fechaFin >= rangoFechas.fechaInicio
+      this.fechaInicio < rangoFechas.fechaFin &&
+      this.fechaFin > rangoFechas.fechaInicio
     );
   }
 
   cantidadDias() {
     return Math.floor(
-      (this.fechaFin - this.fechaInicio) / (1000 * 60 * 60 * 24)
+      (this.fechaFin - this.fechaInicio) / (1000 * 60 * 60 * 24),
     );
   }
 }
