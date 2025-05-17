@@ -1,5 +1,4 @@
 class Estado {
-  estado;
   obtenerUsuario(_reserva) {}
 }
 

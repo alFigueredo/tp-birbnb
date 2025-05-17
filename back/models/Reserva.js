@@ -1,4 +1,5 @@
 import { Pendiente } from "./CambioEstadoReserva.js";
+import { Usuario } from "./Usuario.js";
 
 export class Reserva {
   constructor(
@@ -28,7 +29,7 @@ export class Reserva {
   obtenerUsuario() {
     const usuarioANotificar = this.estado.obtenerUsuario(this);
 
-    if (!usuarioANotificar) {
+    if (!(usuarioANotificar instanceof Usuario)) {
       throw new Error(
         `No hay registro del usuario para el estado: ${this.estado.estado}`,
       );

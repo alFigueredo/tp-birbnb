@@ -30,6 +30,20 @@ const aloja1 = new Alojamiento(
   [],
   "",
 );
+const aloja2 = new Alojamiento(
+  carac1,
+  "El Bolson",
+  "Un lindo lugar",
+  7000,
+  Moneda.PESO_ARG,
+  "21:00",
+  "11:00",
+  "",
+  5,
+  carac1,
+  [],
+  "",
+);
 
 const usu1 = new Usuario("John Doe", "johndoe@gmail.con", TipoUsuario.HUESPED);
 
@@ -39,14 +53,21 @@ const entre3 = new RangoFechas(new Date(2025, 5, 4), new Date(2025, 5, 6));
 
 const reser1 = new Reserva(usu1, 4, aloja1, entre1, 7000);
 const reser2 = new Reserva(usu1, 4, carac1, entre1, 7000);
+const reser3 = new Reserva(usu1, 4, aloja2, entre1, 7000);
 
 describe("Test obtenerUsuario", () => {
   test("Se obtiene el usuario a notificar", () => {
     expect(reser1.obtenerUsuario()).toBe(anfi1);
   });
 
-  test("No se obtiene el usuario a notificar", () => {
+  test("El método a llamar no existe", () => {
     expect(() => reser2.obtenerUsuario()).toThrow(
+      "No hay registro del usuario para el estado: PENDIENTE",
+    );
+  });
+
+  test("Se obtiene un objeto distinto a Usuario", () => {
+    expect(() => reser3.obtenerUsuario()).toThrow(
       "No hay registro del usuario para el estado: PENDIENTE",
     );
   });
