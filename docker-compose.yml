@@ -17,3 +17,15 @@ services:
         - action: rebuild
           path: package.json
     command: "npm run test"
+
+  mongo:
+    image: mongo
+    env_file:
+      - ./.env
+    volumes:
+      - mongo-db-data:/data/db
+      - mongo-db-config:/data/configdb
+
+volumes:
+  mongo-db-data:
+  mongo-db-config:
