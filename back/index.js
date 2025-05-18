@@ -1,14 +1,19 @@
 import express from "express";
 import mongoose from "mongoose";
 import "dotenv/config";
+import { errorHandler } from "./middlewares/errorHandler.js";
+import { MongoDBClient } from "./config/database";
+import { NotificacionRepository } from "./models/repositories/NotificacionRepository.js";
+import { NotificacionService } from "./services/NotificacionService.js";
+import { NotificacionController } from "./controllers/NotificacionController";
+import { registerNotificacionRoutes } from "./routes/NotificacionRoutes";
 
 export const app = express();
 
-//Conexion con MONGO (hay que cambiar el MONGO_URL, luego lo veo)
-mongoose
-  .connect(process.env.MONGO_URL)
-  .then(() => console.log("Conectado a MongoDB"))
-  .catch((err) => console.error("Error al conectar a MongoDB", err));
+app.use(express.json());
+app.use(errorHandler);
+
+MongoDBClient.connect();
 
 //Endpoint de prueba
 app.get("/health", (_req, res) => {
@@ -17,7 +22,12 @@ app.get("/health", (_req, res) => {
   });
 });
 
-//Conexicion con el Server
+const notificationRepository = new NotificacionRepository();
+const notificacionService = new NotificacionService(notificationRepository);
+const notificacionController = new NotificacionController(notificacionService);
+registerNotificacionRoutes(app, notificacionController);
+
+//Conexion con el Server
 const port = process.env.SERVER_PORT ?? 3000;
 app.listen(port, () => {
   console.log("Server on port " + port);
@@ -33,4 +43,3 @@ app.delete
 "/api/notificaciones/sinleer"
 "/api/notificaciones/leido"
 */
-

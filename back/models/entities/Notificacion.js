@@ -2,14 +2,14 @@ export class Notificacion {
   constructor(mensaje, usuario) {
     this.mensaje = mensaje;
     this.usuario = usuario; // Usuario
-    this.fechaAlta = new Date();
+    this.fechaAlta = Date.now();
     this.leida = false;
     this.fechaLeida = null;
   }
 
   marcarComoLeida() {
     this.leida = true;
-    this.fechaLeida = new Date();
+    this.fechaLeida = Date.now();
   }
 }
 

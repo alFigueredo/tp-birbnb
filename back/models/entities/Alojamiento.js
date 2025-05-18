@@ -3,7 +3,7 @@ export class Alojamiento {
     anfitrion,
     nombre,
     descripcion,
-    precioPorNoche,
+    precioPorNoche, //sacar
     moneda,
     horarioCheckIn,
     horarioCheckOut,
@@ -31,7 +31,7 @@ export class Alojamiento {
     return !this.reservas.some(
       (reserva) =>
         reserva.rangoFechas.entreFechas(rangoDeFechas) &&
-        reserva.estado.estado !== "CANCELADA",
+        reserva.estado !== "CANCELADA",
     );
   }
   tuPrecioEstaDentroDe(valorMinimo, valorMaximo) {

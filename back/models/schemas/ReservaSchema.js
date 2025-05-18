@@ -1,9 +1,52 @@
 import mongoose from "mongoose";
-import { Reserva } from "../Reserva";
+import { Reserva } from "../entities/Reserva";
+import { Estados, Pendiente } from "../entities/CambioEstadoReserva";
 
-const reservaSchema= new mongoose.Schema({
-    //crear todos sus datos
-})
+const reservaSchema = new mongoose.Schema({
+  //crear todos sus datos
+  fechaAlta: { type: Date, default: Date.now() },
+  huespedReservador: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Usuario",
+    required: true,
+  },
+  cantHuespedes: Number,
+  alojamiento: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Alojamiento",
+    required: true,
+  },
+  rangoFechas: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "RangoFechas",
+    required: true,
+  },
+  precioPorNoche: { type: Double, required: true },
+  estado: {
+    //Enum de Estado
+    type: String,
+    enum: Object.keys(Estados),
+    default: "PENDIENTE",
+    required: true,
+  },
+  estado: {
+    type: mongoose.Schema.Types.ObjectId,
+    // enums: [Pendiente, Confirmada, Cancelada],
+    ref: "Estado",
+    required: true,
+  },
+});
+
+const rangoFechasSchema = new mongoose.Schema({
+  fechaInicio: { type: Date, required: true },
+  fechaFin: { type: Date, required: true },
+});
 
 reservaSchema.loadClass(Reserva);
-const ReservaModel = mongoose.model('Reserva',reservaSchema)
+rangoFechasSchema.loadClass(RangoFechas);
+
+export const ReservaModel = mongoose.model("Reserva", reservaSchema);
+export const RangoFechasModel = mongoose.model(
+  "RangoFechas",
+  rangoFechasSchema
+);
