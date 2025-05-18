@@ -1,4 +1,7 @@
-import { Alojamiento, Caracteristica } from "../../back/models/entities/Alojamiento.js";
+import {
+  Alojamiento,
+  Caracteristica,
+} from "../../back/models/entities/Alojamiento.js";
 import { Usuario, TipoUsuario } from "../../back/models/entities/Usuario.js";
 import { Moneda } from "../../back/models/entities/Alojamiento.js";
 import { Reserva, RangoFechas } from "../../back/models/entities/Reserva.js";
@@ -6,7 +9,7 @@ import { Reserva, RangoFechas } from "../../back/models/entities/Reserva.js";
 const anfi1 = new Usuario(
   "John Doe",
   "johndoe@gmail.com",
-  TipoUsuario.ANFITRION,
+  TipoUsuario.ANFITRION
 );
 const carac1 = [
   Caracteristica.WIFI,
@@ -25,7 +28,7 @@ const aloja1 = new Alojamiento(
   5,
   carac1,
   [],
-  "",
+  ""
 );
 
 const usu1 = new Usuario("John Doe", "johndoe@gmail.con", TipoUsuario.HUESPED);
@@ -46,6 +49,11 @@ describe("Test estasDisponibleEn", () => {
   });
   test("El alojamiento tiene disponibilidad en esas fechas", () => {
     expect(aloja1.estasDisponibleEn(entre4)).toBeTruthy();
+  });
+  test("Una de las reservas fue cancelada, asi que hay disponibilidad", () => {
+    aloja1.reservas[0].actualizarEstado("CANCELADA");
+    expect(aloja1.estasDisponibleEn(entre3)).toBeTruthy();
+    aloja1.reservas[0].actualizarEstado("PENDIENTE");
   });
 });
 
@@ -72,7 +80,7 @@ describe("Test tenesCaracteristica", () => {
 
   test("El alojamiento no tiene la característica", () => {
     expect(
-      aloja1.tenesCaracteristica(Caracteristica.MASCOTAS_PERMITIDAS),
+      aloja1.tenesCaracteristica(Caracteristica.MASCOTAS_PERMITIDAS)
     ).toBeFalsy();
   });
 });

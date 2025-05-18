@@ -23,6 +23,8 @@ export class Reserva {
   }
 
   actualizarEstado(nuevoEstado) {
+    if (!Object.keys(Estados).includes(nuevoEstado))
+      throw new Error(`El estado especificado no existe: ${nuevoEstado}`);
     this.estado = nuevoEstado;
   }
 
