@@ -20,6 +20,7 @@ services:
 
   mongo:
     image: mongo
+    attach: false
     env_file:
       - ./.env
     volumes:
