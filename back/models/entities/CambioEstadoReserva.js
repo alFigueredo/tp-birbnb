@@ -1,3 +1,9 @@
+export const Estados = {
+  PENDIENTE: () => new Pendiente(),
+  CANCELADA: () => new Cancelada(),
+  CONFIRMADA: () => new Confirmada(),
+};
+
 class Estado {
   obtenerUsuario(_reserva) {}
 }
@@ -26,7 +32,7 @@ export class Confirmada extends Estado {
 
 export class CambioEstadoReserva {
   constructor(estado, reserva, motivo, usuario) {
-    this.fecha = new Date();
+    this.fecha = Date.now();
     this.estado = estado;
     this.reserva = reserva;
     this.motivo = motivo;

@@ -1,5 +1,10 @@
 import request from "supertest";
-import { app } from "../../back/index.js";
+import { Server } from "../../back/server/server.js";
+import express from "express";
+
+const app = express();
+const server = new Server(app);
+server.configureRoutes();
 
 describe("GET /health", () => {
   test("Testeo de healthcheck", async () => {

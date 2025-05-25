@@ -8,7 +8,7 @@ services:
     env_file:
       - ./.env
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=test
     ports:
       - "3000:3000"
     develop:
@@ -18,7 +18,7 @@ services:
           target: /home/node/app
         - action: rebuild
           path: package.json
-    command: "npm run dev"
+    command: "npm run test"
 
   mongo:
     image: mongo

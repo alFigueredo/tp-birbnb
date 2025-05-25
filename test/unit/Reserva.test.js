@@ -2,14 +2,14 @@ import {
   Alojamiento,
   Caracteristica,
   Moneda,
-} from "../../back/models/Alojamiento.js";
-import { RangoFechas, Reserva } from "../../back/models/Reserva.js";
-import { TipoUsuario, Usuario } from "../../back/models/Usuario";
+} from "../../back/models/entities/Alojamiento.js";
+import { RangoFechas, Reserva } from "../../back/models/entities/Reserva.js";
+import { TipoUsuario, Usuario } from "../../back/models/entities/Usuario.js";
 
 const anfi1 = new Usuario(
   "John Doe",
   "johndoe@gmail.com",
-  TipoUsuario.ANFITRION,
+  TipoUsuario.ANFITRION
 );
 const carac1 = [
   Caracteristica.WIFI,
@@ -28,7 +28,7 @@ const aloja1 = new Alojamiento(
   5,
   carac1,
   [],
-  "",
+  ""
 );
 const aloja2 = new Alojamiento(
   carac1,
@@ -42,7 +42,7 @@ const aloja2 = new Alojamiento(
   5,
   carac1,
   [],
-  "",
+  ""
 );
 
 const usu1 = new Usuario("John Doe", "johndoe@gmail.con", TipoUsuario.HUESPED);
@@ -55,6 +55,20 @@ const reser1 = new Reserva(usu1, 4, aloja1, entre1, 7000);
 const reser2 = new Reserva(usu1, 4, carac1, entre1, 7000);
 const reser3 = new Reserva(usu1, 4, aloja2, entre1, 7000);
 
+describe("Test actualizarEstado", () => {
+  test("El estado especificado existe", () => {
+    reser3.actualizarEstado("CONFIRMADA");
+    expect(reser3.estado).toBe("CONFIRMADA");
+    reser3.actualizarEstado("PENDIENTE");
+  });
+
+  test("El estado especificado no existe", () => {
+    expect(() => reser3.actualizarEstado("ACEPTADA")).toThrow(
+      "El estado especificado no existe: ACEPTADA"
+    );
+  });
+});
+
 describe("Test obtenerUsuario", () => {
   test("Se obtiene el usuario a notificar", () => {
     expect(reser1.obtenerUsuario()).toBe(anfi1);
@@ -62,13 +76,13 @@ describe("Test obtenerUsuario", () => {
 
   test("El método a llamar no existe", () => {
     expect(() => reser2.obtenerUsuario()).toThrow(
-      "No hay registro del usuario para el estado: PENDIENTE",
+      "No hay registro del usuario para el estado: PENDIENTE"
     );
   });
 
   test("Se obtiene un objeto distinto a Usuario", () => {
     expect(() => reser3.obtenerUsuario()).toThrow(
-      "No hay registro del usuario para el estado: PENDIENTE",
+      "No hay registro del usuario para el estado: PENDIENTE"
     );
   });
 });
@@ -76,7 +90,7 @@ describe("Test obtenerUsuario", () => {
 describe("Test RangoFechas", () => {
   test("Fecha inicial mayor que fecha final", () => {
     expect(
-      () => new RangoFechas(new Date(2025, 5, 3), new Date(2025, 5, 2)),
+      () => new RangoFechas(new Date(2025, 5, 3), new Date(2025, 5, 2))
     ).toThrow("Rango de fechas incorrecto");
   });
 });

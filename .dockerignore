@@ -7,5 +7,6 @@ docs/
 .gitignore
 README.md
 docker-compose.yml
+docker-compose-test.yml
 Dockerfile
 package-lock.json
