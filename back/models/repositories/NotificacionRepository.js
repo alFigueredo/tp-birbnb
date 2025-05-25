@@ -1,4 +1,4 @@
-import { NotificacionModel } from "../schemas/NotificacionSchema";
+import { NotificacionModel } from "../schemas/NotificacionSchema.js";
 
 export class NotificacionRepository {
   constructor() {
@@ -6,17 +6,17 @@ export class NotificacionRepository {
   }
 
   async findAll({ leida }) {
-    return (notificaciones = await this.model.findAll({ leida }));
+    return await this.model.find({ leida });
   }
 
   async findById(id) {
-    return (notificacion = await this.model.findById(id));
+    return await this.model.findById(id);
   }
 
   async save(notificacion) {
     return await this.model.findByIdAndUpdate(
       { _id: notificacion.id },
-      notificacion
+      notificacion,
     );
   }
 }

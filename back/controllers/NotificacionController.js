@@ -1,12 +1,14 @@
+import { NotificacionService } from "../services/NotificacionService.js";
+
 export class NotificacionController {
-  constructor(notificacionService) {
+  constructor(notificacionService = new NotificacionService()) {
     this.notificacionService = notificacionService;
   }
 
   async findAll(req, res, next) {
     try {
       const notificaciones = await this.notificacionService.findAll(
-        req.params.type
+        req.params.type,
       );
       res.json(notificaciones);
     } catch (error) {

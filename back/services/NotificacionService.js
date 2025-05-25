@@ -1,7 +1,8 @@
 import { ValidationError, NotFoundError } from "../errors/appError.js";
+import { NotificacionRepository } from "../models/repositories/NotificacionRepository.js";
 
 export class NotificacionService {
-  constructor(notificacionRepository) {
+  constructor(notificacionRepository = new NotificacionRepository()) {
     this.notificacionRepository = notificacionRepository;
   }
 
@@ -22,9 +23,7 @@ export class NotificacionService {
   }
 
   async update(id) {
-    const notificacion = await this.notificacionRepository.findById(
-      idCategoria
-    );
+    const notificacion = await this.notificacionRepository.findById(id);
     if (!notificacion)
       throw new NotFoundError(`Notificacion con ${id} no encontrado`);
     notificacion.marcarComoLeida();

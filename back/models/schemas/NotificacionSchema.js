@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { Notificacion } from "../entities/Notificacion";
+import { Notificacion } from "../entities/Notificacion.js";
 
 const notificacionSchema = new mongoose.Schema({
   mensaje: String,
@@ -12,5 +12,5 @@ const notificacionSchema = new mongoose.Schema({
 notificacionSchema.loadClass(Notificacion);
 export const NotificacionModel = mongoose.model(
   "Notificacion",
-  notificacionSchema
+  notificacionSchema,
 );
