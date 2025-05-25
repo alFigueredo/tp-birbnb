@@ -1,5 +1,5 @@
 import express from "express";
-import { configureRoutes } from "../routes/index.routes.js";
+import { configureRoutes } from "../routes/routes.js";
 import { errorHandler } from "../middlewares/errorHandler.js";
 
 export class Server {
