@@ -1,2 +1,11 @@
 ### healthcheck
 GET http://localhost:3000/health
+
+### notif_sin_leer
+GET http://localhost:3000/notificacion/sinleer
+
+### notif_leidas
+GET http://localhost:3000/notificacion/leida
+
+### leer_notif
+PUT http://localhost:3000/notificacion/leida/6832b883245e32c15bcb4850

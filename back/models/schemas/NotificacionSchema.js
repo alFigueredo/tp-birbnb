@@ -3,7 +3,11 @@ import { Notificacion } from "../entities/Notificacion.js";
 
 const notificacionSchema = new mongoose.Schema({
   mensaje: String,
-  usuario: { type: String, required: true },
+  usuario: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Usuario",
+    required: true,
+  },
   fechaAlta: { type: Date, default: Date.now() },
   leida: { type: Boolean, default: false },
   fechaLeida: Date,

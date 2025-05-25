@@ -8,8 +8,10 @@ export class Notificacion {
   }
 
   marcarComoLeida() {
-    this.leida = true;
-    this.fechaLeida = Date.now();
+    if (!this.leida) {
+      this.leida = true;
+      this.fechaLeida = Date.now();
+    }
   }
 }
 
