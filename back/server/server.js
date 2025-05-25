@@ -1,5 +1,5 @@
 import express from "express";
-import { configureRoutes } from "../routes/indexRoutes.js";
+import { configureRoutes } from "../routes/index.routes.js";
 import { errorHandler } from "../middlewares/errorHandler.js";
 
 export class Server {
@@ -16,7 +16,7 @@ export class Server {
     return this.#app;
   }
 
-  setController(controllerClass, controller) {
+  setController(controllerClass, controller = new controllerClass()) {
     this.#controllers[controllerClass.name] = controller;
   }
 

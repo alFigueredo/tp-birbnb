@@ -1,4 +1,4 @@
-import { NotificacionController } from "../controllers/NotificacionController.js";
+import { NotificacionController } from "../controllers/Notificacion.controller.js";
 
 export function registerNotificacionRoutes(app, getController) {
   app.get("/notificacion/{:type}", (req, res, next) =>

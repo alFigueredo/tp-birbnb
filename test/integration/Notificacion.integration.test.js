@@ -3,9 +3,8 @@ import { jest } from "@jest/globals";
 import express from "express";
 import { TipoUsuario } from "../../back/models/entities/Usuario.js";
 import { Notificacion } from "../../back/models/entities/Notificacion.js";
-import { NotificacionService } from "../../back/services/NotificacionService.js";
-import { NotificacionController } from "../../back/controllers/NotificacionController.js";
-import { registerNotificacionRoutes } from "../../back/routes/NotificacionRoutes.js";
+import { NotificacionService } from "../../back/services/Notificacion.service.js";
+import { NotificacionController } from "../../back/controllers/Notificacion.controller.js";
 import { Server } from "../../back/server/server.js";
 
 const usu1 = {
