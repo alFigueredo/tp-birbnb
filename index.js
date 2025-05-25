@@ -2,7 +2,7 @@ import { Server } from "./back/server/server.js";
 import "dotenv/config";
 import { MongoDBClient } from "./back/config/database.js";
 import express from "express";
-import { NotificacionController } from "./back/controllers/Notificacion.controller.js";
+import { NotificacionController } from "./back/controllers/NotificacionController.js";
 
 const app = express();
 const port = process.env.PORT || 3000;

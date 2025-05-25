@@ -1,4 +1,4 @@
-import { registerNotificacionRoutes } from "./Notificacion.routes.js";
+import { registerNotificacionRoutes } from "./NotificacionRoutes.js";
 
 export function configureRoutes(app, getController) {
   registerNotificacionRoutes(app, getController);

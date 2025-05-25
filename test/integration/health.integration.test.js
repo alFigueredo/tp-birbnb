@@ -1,5 +1,5 @@
 import request from "supertest";
-import { Server } from "../../back/server/server";
+import { Server } from "../../back/server/server.js";
 import express from "express";
 
 const app = express();

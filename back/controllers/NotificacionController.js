@@ -1,4 +1,4 @@
-import { NotificacionService } from "../services/Notificacion.service.js";
+import { NotificacionService } from "../services/NotificacionService.js";
 
 export class NotificacionController {
   constructor(notificacionService = new NotificacionService()) {
