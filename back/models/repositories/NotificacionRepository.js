@@ -14,10 +14,8 @@ export class NotificacionRepository {
   }
 
   async save(notificacion) {
-    return await this.model.findByIdAndUpdate(
-      { _id: notificacion.id },
-      notificacion,
-      { new: true },
-    );
+    return await this.model
+      .findByIdAndUpdate({ _id: notificacion.id }, notificacion, { new: true })
+      .populate("usuario");
   }
 }
