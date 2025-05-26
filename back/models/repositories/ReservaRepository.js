@@ -2,31 +2,34 @@ import {ReservaModel} from "../schemas/ReservaSchema.js";
 
 export class ReservaRepository {
     constructor() {
+        //este model representa una coleccion de reservas
         this.model = ReservaModel;
     }
 
-    async findAll(){
-        const reservas = await this.model.find();
-        return reservas
+    async findAll(query = {}){
+        return this.model.find(query).populate('usuario');
     }
 
     async findById(id){
-        const reserva = await this.model.findById(id)
-        return reserva
+        return this.model.findById(id).populate('usuario')
     }
 
-    async findByName(nombre){
-        const reserva = await this.model.findByName(nombre)
-    }
-
+    //para crear un doc en la base y para updatear (actualizar la reserva)
     async save(reserva){
-        if (reserva.id){
-            const reservaActualizada = await this.model.findByIdAndUpdate(reserva.id, reserva,{new: true, runValidators: true});
-        return reservaActualizada;
+        //return await this.model.findByIdAndUpdate(reserva.id, reserva,{new: true, runValidators: true});
+        if (reserva.id) {
+            //actualizacion
+            const reservaActualizada = this.model.findByIdAndUpdate(reserva.id, reserva);
+            return reservaActualizada;
         }
-        else{
-            
+        else {
+            const nuevaReserva = new this.model(reserva);
+            const reservaGuardada = await nuevaReserva.save();
+            return reservaGuardada;
         }
+    }
+
+    async deleteById(id){
 
     }
 

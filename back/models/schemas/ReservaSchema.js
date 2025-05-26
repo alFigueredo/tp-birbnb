@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import { Reserva } from "../entities/Reserva";
-import { Estados, Pendiente } from "../entities/CambioEstadoReserva";
+import { Reserva, RangoFechas } from "../entities/Reserva.js";
+import { Estados, Pendiente } from "../entities/CambioEstadoReserva.js";
 
 const reservaSchema = new mongoose.Schema({
   //crear todos sus datos
@@ -21,7 +21,7 @@ const reservaSchema = new mongoose.Schema({
     ref: "RangoFechas",
     required: true,
   },
-  precioPorNoche: { type: Double, required: true },
+  precioPorNoche: { type: Number, required: true },
   estado: {
     //Enum de Estado
     type: String,
@@ -42,6 +42,7 @@ const rangoFechasSchema = new mongoose.Schema({
   fechaFin: { type: Date, required: true },
 });
 
+//vinculamos las clases de Reserva y RangoFechas con los schemas
 reservaSchema.loadClass(Reserva);
 rangoFechasSchema.loadClass(RangoFechas);
 

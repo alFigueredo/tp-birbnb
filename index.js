@@ -3,6 +3,7 @@ import "dotenv/config";
 import { MongoDBClient } from "./back/config/database.js";
 import express from "express";
 import { NotificacionController } from "./back/controllers/NotificacionController.js";
+import { ReservaController } from "./back/controllers/ReservaController.js";
 // import { exec } from "./exec.js";
 
 const app = express();
@@ -14,5 +15,6 @@ MongoDBClient.connect();
 // setTimeout(() => exec(), 3000);
 
 server.setController(NotificacionController);
+server.setController(ReservaController);
 server.configureRoutes();
 server.launch();

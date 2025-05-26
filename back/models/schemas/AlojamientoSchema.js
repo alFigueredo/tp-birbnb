@@ -5,7 +5,7 @@ import {
   Moneda,
   Caracteristica,
   Foto,
-} from "../entities/Alojamiento";
+} from "../entities/Alojamiento.js";
 
 const alojamientoSchema = new mongoose.Schema({
   anfitrion: {
@@ -34,16 +34,14 @@ const alojamientoSchema = new mongoose.Schema({
   },
   cantHuespedesMax: Number,
   caracteristicas: [
-    new Schema({
+    {
       type: String,
       enum: Object.values(Caracteristica),
       required: true,
-    }),
+    },
   ], //Lista de Enun de Caracteristicas
-  reservas: [
-    new Schema({ type: mongoose.Schema.Types.ObjectId, ref: "Reserva" }),
-  ], //un alojamiento puede NO tener una reserva
-  fotos: [fotoSchema],
+  reservas: [{ type: mongoose.Schema.Types.ObjectId, ref: "Reserva" }], //un alojamiento puede NO tener una reserva
+  fotos: [{ type: mongoose.Schema.Types.ObjectId, ref: "Foto" }],
 });
 
 const fotoSchema = new mongoose.Schema({
