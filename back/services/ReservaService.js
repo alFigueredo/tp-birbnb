@@ -1,5 +1,9 @@
-import { ValidationError, NotFoundError, ConflictError } from "../errors/appError.js";
-import { Reserva } from "../models/entities/Reserva.js";
+import {
+  ValidationError,
+  NotFoundError,
+  ConflictError,
+} from "../errors/appError.js";
+import { RangoFechas, Reserva } from "../models/entities/Reserva.js";
 import { ReservaRepository } from "../models/repositories/ReservaRepository.js";
 import { UsuarioRepository } from "../models/repositories/UsuarioRepository.js";
 import { AlojamientoRepository } from "../models/repositories/AlojamientoRepository.js";
@@ -20,49 +24,81 @@ DUDAS:
 */
 
 export class ReservaService {
-    constructor(reservaRepository = new ReservaRepository(), usuarioRepository = new UsuarioRepository(),
-        alojamientoRepository = new AlojamientoRepository()){
-        this.reservaRepository = reservaRepository
-        this.usuarioRepository = usuarioRepository
-        this.alojamientoRepository = alojamientoRepository
+  constructor(
+    reservaRepository = new ReservaRepository(),
+    usuarioRepository = new UsuarioRepository(),
+    alojamientoRepository = new AlojamientoRepository(),
+  ) {
+    this.reservaRepository = reservaRepository;
+    this.usuarioRepository = usuarioRepository;
+    this.alojamientoRepository = alojamientoRepository;
+  }
+
+  async findAll() {
+    const reservas = await this.reservaRepository.findAll();
+    return reservas;
+  }
+
+  async create(reserva) {
+    const alojamiento = await this.alojamientoRepository.findById(
+      reserva.alojamiento,
+    );
+    if (!alojamiento) {
+      throw new NotFoundError(
+        `El alojamiento ${reserva.alojamiento} no existe`,
+      );
+    }
+    const usuario = await this.usuarioRepository.findById(
+      reserva.huespedReservador,
+    );
+    if (!usuario) {
+      throw new NotFoundError(
+        `El usuario ${reserva.huespedReservador} no existe`,
+      );
     }
 
+    const rangoFechas = new RangoFechas(
+      new Date(reserva.rangoFechas.fechaInicio),
+      new Date(reserva.rangoFechas.fechaFin),
+    );
 
-    async findAll(){
-        const reservas = await this.reservaRepository.findAll();
-        return reservas;
+    //solo se crea la reserva si el alojamiento esta disponible en las fechas seleccionadas
+    if (!alojamiento.estasDisponibleEn(rangoFechas)) {
+      throw new ConflictError(
+        `El alojamiento ${alojamiento.nombre} no esta disponible en las fechas seleccionadas`,
+      );
+    }
+    if (!alojamiento.puedenAlojarse(reserva.cantHuespedes)) {
+      throw new ConflictError(`Cantidad de huéspedes no permitida`);
     }
 
-    async create(reserva){
-        // const alojamiento = await this.alojamientoRepository.findById(reserva.alojamiento);
-        // if (alojamiento) {
-        //     throw new NotFoundError(`El alojamiento ${reserva.alojamiento} no existe`)
-        // }
+    const nuevaReserva = new Reserva(
+      reserva.huespedReservador,
+      reserva.cantHuespedes,
+      reserva.alojamiento,
+      rangoFechas,
+      reserva.precioPorNoche,
+    );
 
-        //solo se crea la reserva si el alojamiento esta disponible en las fechas seleccionadas
-        if (!reserva.alojamiento.estasDisponibleEn(reserva.rangoFechas)){
-            throw new ConflictError(`El alojamiento ${reserva.alojamiento.nombre} no esta disponible en las fechas seleccionadas`);
-        }
-        if (!reserva.alojamiento.puedenAlojarse(reserva.cantHuespedes)) {
-            throw new ConflictError(`Cantidad de huéspedes no permitida`)
-        }
-        const nuevaReserva = new Reserva(reserva.huespedReservador, reserva.cantHuespedes, reserva.alojamiento, reserva.rangoFechas, reserva.precioPorNoche);
-        const reservaGuardada = await this.reservaRepository.save(nuevaReserva);
+    const reservaGuardada = await this.reservaRepository.save(nuevaReserva);
 
-        return reservaGuardada;
+    alojamiento.agregarReserva(reservaGuardada);
+    await this.alojamientoRepository.save(alojamiento);
+
+    return reservaGuardada;
+  }
+
+  //cancelacion reserva
+
+  //historial de reservas de un usuario
+  async historialReservas(idUsuario) {
+    const usuario = await this.usuarioRepository.findById(idUsuario);
+    if (!usuario) {
+      throw new NotFoundError(`Usuario con el id ${usuario.id} no existe`);
     }
-
-    //cancelacion reserva
-
-    //historial de reservas de un usuario
-    async historialReservas(idUsuario){
-        const usuario = await this.usuarioRepository.findById(idUsuario)
-        if (!usuario){
-            throw new NotFoundError(`Usuario con el id ${usuario.id} no existe`);
-        }
-        const listaReservas = await this.reservaRepository.findAll({huespedReservador: idUsuario});
-        return listaReservas;
-    }
+    const listaReservas = await this.reservaRepository.findAll({
+      huespedReservador: idUsuario,
+    });
+    return listaReservas;
+  }
 }
-
-

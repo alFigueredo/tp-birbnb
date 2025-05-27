@@ -10,7 +10,7 @@ export class NotificacionController {
       const notificaciones = await this.notificacionService.findAll(
         req.params.type,
       );
-      res.json(notificaciones);
+      res.status(200).json(notificaciones);
     } catch (error) {
       next(error);
     }
@@ -19,7 +19,7 @@ export class NotificacionController {
   async update(req, res, next) {
     try {
       const actualizado = await this.notificacionService.update(req.params.id);
-      res.json(actualizado);
+      res.status(200).json(actualizado);
     } catch (error) {
       next(error);
     }

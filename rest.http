@@ -7,8 +7,30 @@ GET http://localhost:3000/notificacion/sinleer
 ### notif_leidas
 GET http://localhost:3000/notificacion/leida
 
+### Depende de un id
 ### leer_notif
-# PUT http://localhost:3000/notificacion/leida/6832b9d5c396e009239e63b9
+PUT http://localhost:3000/notificacion/leida/6832b9d5c396e009239e63b9
 
 ### obtener_reservas
 GET http://localhost:3000/reserva
+
+### Depende de varios ids
+### hacer_reserva
+POST http://localhost:3000/reserva
+Content_Type: application/json
+
+{
+	"huespedReservador": "683557d089b01a31b87771fc",
+	"cantHuespedes": 3,
+	"alojamiento": "683557d089b01a31b877720e",
+	"rangoFechas": {
+		"fechaInicio": "2025-08-10T00:00:00.000Z",
+		"fechaFin": "2025-08-12T00:00:00.000Z"
+	},
+	"precioPorNoche": 7000,
+	"estado": "PENDIENTE"
+}
+
+### Depende de un id
+### historial_reservas
+GET http://localhost:3000/reserva/68353477ab7cd927df97ee72

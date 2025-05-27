@@ -5,10 +5,10 @@ export class ReservaController {
     this.reservaService = reservaService;
   }
 
-  async findAll(req, res, next) {
+  async findAll(_req, res, next) {
     try {
       const reserva = await this.reservaService.findAll();
-      res.json(reserva);
+      res.status(200).json(reserva);
     } catch (error) {
       next(error);
     }
@@ -16,8 +16,8 @@ export class ReservaController {
 
   async create(req, res, next) {
     try {
-      const reserva = await this.reservaService.create(req.params.id);
-      res.json(reserva);
+      const reserva = await this.reservaService.create(req.body);
+      res.status(201).json(reserva);
     } catch (error) {
       next(error);
     }
@@ -25,8 +25,10 @@ export class ReservaController {
 
   async historialReservas(req, res, next) {
     try {
-      const listaReservas = await this.reservaService.historialReservas(req.params.idUsuario);
-      res.json(listaReservas);
+      const listaReservas = await this.reservaService.historialReservas(
+        req.params.idUsuario,
+      );
+      res.status(200).json(listaReservas);
     } catch (error) {
       next(error);
     }

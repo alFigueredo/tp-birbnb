@@ -6,6 +6,7 @@ import {
   Caracteristica,
   Foto,
 } from "../entities/Alojamiento.js";
+import { direccionSchema } from "./DireccionSchema.js";
 
 const alojamientoSchema = new mongoose.Schema({
   anfitrion: {
@@ -28,8 +29,7 @@ const alojamientoSchema = new mongoose.Schema({
   horarioCheckOut: String,
   direccion: {
     //Lo relaciono con la direccion
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Direccion",
+    type: direccionSchema,
     required: true,
   },
   cantHuespedesMax: Number,
@@ -56,7 +56,7 @@ fotoSchema.loadClass(Foto);
 //Exportar el modelo
 export const AlojamientoModel = mongoose.model(
   "Alojamiento",
-  alojamientoSchema
+  alojamientoSchema,
 );
 
 export const FotoModel = mongoose.model("Foto", fotoSchema);

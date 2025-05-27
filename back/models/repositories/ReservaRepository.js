@@ -16,19 +16,26 @@ export class ReservaRepository {
 
   //para crear un doc en la base y para updatear (actualizar la reserva)
   async save(reserva) {
-    //return await this.model.findByIdAndUpdate(reserva.id, reserva,{new: true, runValidators: true});
-    if (reserva.id) {
-      //actualizacion
-      const reservaActualizada = this.model.findByIdAndUpdate(
-        reserva.id,
-        reserva,
-      );
-      return reservaActualizada;
-    } else {
-      const nuevaReserva = new this.model(reserva);
-      const reservaGuardada = await nuevaReserva.save();
-      return reservaGuardada;
-    }
+    const query = reserva.id
+      ? { _id: reserva.id }
+      : { _id: new this.model()._id };
+    return await this.model.findByIdAndUpdate(query, reserva, {
+      new: true,
+      upsert: true,
+    });
+    // if (reserva.id) {
+    //   //actualizacion
+    //   const reservaActualizada = await this.model.findByIdAndUpdate(
+    //     reserva.id,
+    //     reserva,
+    //     { new: true },
+    //   );
+    //   return reservaActualizada;
+    // } else {
+    //   const nuevaReserva = new this.model(reserva);
+    //   const reservaGuardada = await nuevaReserva.save();
+    //   return reservaGuardada;
+    // }
   }
 
   async deleteById(id) {}
