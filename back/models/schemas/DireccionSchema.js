@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { Direccion } from "../Direccion";
+import { Direccion, Ciudad, Pais } from "../entities/Direccion.js";
 
 const direccionSchema = new mongoose.Schema({
   calle: { type: String, required: true },

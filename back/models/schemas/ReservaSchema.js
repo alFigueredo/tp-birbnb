@@ -29,12 +29,12 @@ const reservaSchema = new mongoose.Schema({
     default: "PENDIENTE",
     required: true,
   },
-  estado: {
-    type: mongoose.Schema.Types.ObjectId,
-    // enums: [Pendiente, Confirmada, Cancelada],
-    ref: "Estado",
-    required: true,
-  },
+  // estado: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   enums: [Pendiente, Confirmada, Cancelada],
+  //   ref: "Estado",
+  //   required: true,
+  // },
 });
 
 const rangoFechasSchema = new mongoose.Schema({
@@ -49,5 +49,5 @@ rangoFechasSchema.loadClass(RangoFechas);
 export const ReservaModel = mongoose.model("Reserva", reservaSchema);
 export const RangoFechasModel = mongoose.model(
   "RangoFechas",
-  rangoFechasSchema
+  rangoFechasSchema,
 );
