@@ -3,7 +3,7 @@ import { Direccion } from "../Direccion";
 
 const direccionSchema = new mongoose.Schema({
   calle: { type: String, required: true },
-  altura: { type: String, required: true },
+  altura: { type: Number, required: true },
   ciudad: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Ciudad",

@@ -1,12 +1,22 @@
 import {
   Alojamiento,
   Caracteristica,
+  Foto,
   Moneda,
 } from "./back/models/entities/Alojamiento.js";
+import { Ciudad, Direccion, Pais } from "./back/models/entities/Direccion.js";
 import { Notificacion } from "./back/models/entities/Notificacion.js";
 import { RangoFechas, Reserva } from "./back/models/entities/Reserva.js";
 import { TipoUsuario, Usuario } from "./back/models/entities/Usuario.js";
-import { AlojamientoModel } from "./back/models/schemas/AlojamientoSchema.js";
+import {
+  AlojamientoModel,
+  FotoModel,
+} from "./back/models/schemas/AlojamientoSchema.js";
+import {
+  CiudadModel,
+  DireccionModel,
+  PaisModel,
+} from "./back/models/schemas/DireccionSchema.js";
 import { NotificacionModel } from "./back/models/schemas/NotificacionSchema.js";
 import {
   RangoFechasModel,
@@ -40,11 +50,21 @@ export async function exec() {
   await notif5.save();
 
   const anfi1 = new UsuarioModel(
-    new Usuario("Caruso Lombardi", "clombardi@gmail.com", TipoUsuario.ANFITRION)
+    new Usuario("Jane Doe", "janedoe@gmail.com", TipoUsuario.ANFITRION)
   );
 
   const rango1 = new RangoFechasModel(
     new RangoFechas(new Date(2025, 5, 1), new Date(2025, 5, 5))
+  );
+
+  const foto1 = new FotoModel(new Foto("Foto 1", "foto1"));
+
+  const pais1 = new PaisModel(new Pais("Pais 1"));
+
+  const ciudad1 = new CiudadModel(new Ciudad("Ciudad 1", pais1));
+
+  const direc1 = new DireccionModel(
+    new Direccion("Calle Falsa", 123, ciudad1, "1", "1")
   );
 
   const aloja1 = new AlojamientoModel(
@@ -68,6 +88,10 @@ export async function exec() {
 
   await anfi1.save();
   await rango1.save();
+  await foto1.save();
+  await pais1.save();
+  await ciudad1.save();
+  await direc1.save();
   await aloja1.save();
   await reser1.save();
 
