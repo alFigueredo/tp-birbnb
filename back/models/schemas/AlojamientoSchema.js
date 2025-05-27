@@ -1,11 +1,14 @@
 // Define estructura para Mongo (con Mongoose)
 import mongoose from "mongoose";
-import {
-  Alojamiento,
-  Moneda,
-  Caracteristica,
-  Foto,
-} from "../entities/Alojamiento";
+
+import {Alojamiento,Moneda,Caracteristica,Foto} from "../entities/Alojamiento.js";
+
+const Schema = mongoose.Schema;                   // para el new schema de caracteristicas y el de reserva
+
+const fotoSchema = new mongoose.Schema({
+  descripcion: String,
+  path: String,
+});
 
 const alojamientoSchema = new mongoose.Schema({
   anfitrion: {
@@ -33,22 +36,16 @@ const alojamientoSchema = new mongoose.Schema({
     required: true,
   },
   cantHuespedesMax: Number,
-  caracteristicas: [
-    new Schema({
+  caracteristicas: [{
       type: String,
       enum: Object.values(Caracteristica),
       required: true,
-    }),
-  ], //Lista de Enun de Caracteristicas
-  reservas: [
-    new Schema({ type: mongoose.Schema.Types.ObjectId, ref: "Reserva" }),
-  ], //un alojamiento puede NO tener una reserva
-  fotos: [fotoSchema],
-});
+    }], //Lista de Enun de Caracteristicas
+  reservas: [{
+  type: mongoose.Schema.Types.ObjectId,
+  ref: "Reserva" }],             //un alojamiento puede NO tener una reserva
 
-const fotoSchema = new mongoose.Schema({
-  descripcion: String,
-  path: String,
+  fotos: [fotoSchema],
 });
 
 //Vinculamos las clases con sus respectivos Schemas

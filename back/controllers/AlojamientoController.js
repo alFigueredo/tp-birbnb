@@ -1,2 +1,44 @@
-import { AlojamientoRepository } from "../repositories/AlojamientoRepository.js";
+import { AlojamientoService } from "../services/AlojamientoService.js";
 
+export class AlojamientoController {
+    constructor(alojamientoService = new AlojamientoService()) {
+        this.alojamientoService = alojamientoService;
+    }
+    
+    async findAll(req, res, next) {
+        try {
+        const filtros = req.query; // Tomamos los filtros desde query params
+        const alojamientos = await this.alojamientoService.findAll(filtros);
+        res.json(alojamientos);
+        } catch (error) {
+        next(error);
+        }
+    }
+
+    async findById(req, res, next) {
+        try {
+        const alojamiento = await this.alojamientoService.findById(req.params.id);
+        if (alojamiento) {
+            res.json(alojamiento);
+        } else {
+            res.status(404).json({ mensaje: "Alojamiento no encontrado" });
+        }
+        } catch (error) {
+        next(error);
+        }
+    }
+
+    async delete(req, res, next) {
+        try {
+        const borrado = await this.alojamientoService.delete(req.params.id);
+        if (borrado) {
+            res.status(204).send(); // Sin contenido, borrado exitoso
+        } else {
+            res.status(404).json({ mensaje: "Alojamiento no encontrado" });
+        }
+        } catch (error) {
+        next(error);
+        }
+    }
+
+}

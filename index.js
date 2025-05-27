@@ -1,5 +1,5 @@
-import { Server } from "./back/server/server.js";
 import "dotenv/config";
+import { Server } from "./back/server/server.js";
 import { MongoDBClient } from "./back/config/database.js";
 import express from "express";
 import { NotificacionController } from "./back/controllers/NotificacionController.js";
