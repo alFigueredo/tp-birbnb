@@ -25,9 +25,12 @@ export class ReservaController {
 
   async cancelacionReserva(req, res, next) {
     try {
-      const reserva = await this.reservaService.cancelacionReserva(req.params.idReserva);
-      res.status(201).json(reserva);
-    } catch(error) {
+      const reserva = await this.reservaService.cancelacionReserva(
+        req.params.idReserva,
+        req.body,
+      );
+      res.status(200).json(reserva);
+    } catch (error) {
       next(error);
     }
   }
@@ -42,13 +45,38 @@ export class ReservaController {
       next(error);
     }
   }
-  async modificacionReserva(req, res, next){
+  async modificacionReserva(req, res, next) {
     try {
-      const reserva = await this.reservaService.modificacionReserva(req.params.idReserva);
-      res.status(201).json(reserva);
-    } catch(error) {
+      const reserva = await this.reservaService.modificacionReserva(
+        req.params.idReserva,
+        req.body,
+      );
+      res.status(200).json(reserva);
+    } catch (error) {
       next(error);
     }
   }
 
+  async confirmarReserva(req, res, next) {
+    try {
+      const reserva = await this.reservaService.confirmacionReserva(
+        req.params.idReserva,
+      );
+      res.status(200).json(reserva);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async rechazarReserva(req, res, next) {
+    try {
+      const reserva = await this.reservaService.rechazoReserva(
+        req.params.idReserva,
+        req.body,
+      );
+      res.status(200).json(reserva);
+    } catch (error) {
+      next(error);
+    }
+  }
 }

@@ -142,6 +142,10 @@ const usuarioRepository = {
   findById: jest.fn().mockResolvedValue(usu1),
 };
 
+const notificationRepository = {
+  create: jest.fn(),
+};
+
 const app = express();
 const server = new Server(app);
 server.configureRoutes();
@@ -149,6 +153,7 @@ const reservaService = new ReservaService(
   reservaRepository,
   usuarioRepository,
   alojamientoRepository,
+  notificationRepository,
 );
 const reservaController = new ReservaController(reservaService);
 server.setController(ReservaController, reservaController);

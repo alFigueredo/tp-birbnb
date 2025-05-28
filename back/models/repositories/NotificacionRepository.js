@@ -1,3 +1,4 @@
+import { FactoryNotificacion } from "../entities/Notificacion.js";
 import { NotificacionModel } from "../schemas/NotificacionSchema.js";
 
 export class NotificacionRepository {
@@ -18,4 +19,20 @@ export class NotificacionRepository {
       .findByIdAndUpdate({ _id: notificacion.id }, notificacion, { new: true })
       .populate("usuario");
   }
+
+  async create(reserva, motivo = "") {
+    const notificacion = FactoryNotificacion.crearSegunReserva(reserva, motivo);
+    const nuevaNotificacion = new this.model(notificacion);
+    await nuevaNotificacion.save(nuevaNotificacion);
+  }
+
+  // async save(notificacion) {
+  //   const query = notificacion.id
+  //     ? { _id: notificacion.id }
+  //     : { _id: new this.model()._id };
+  //   return await this.model.findByIdAndUpdate(query, notificacion, {
+  //     new: true,
+  //     upsert: true,
+  //   });
+  // }
 }

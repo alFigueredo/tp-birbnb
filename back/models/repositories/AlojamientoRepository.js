@@ -34,17 +34,15 @@ export class AlojamientoRepository {
   }
 
   async findById(id) {
-    return this.model.findById(id).populate("reservas"); // Buscar alojamiento por ID
+    return this.model.findById(id).populate("reservas").populate("anfitrion"); // Buscar alojamiento por ID
   }
 
   async save(alojamiento) {
     if (alojamiento.id) {
       //actualizacion
-      const alojamientoActualizado = await this.model.findByIdAndUpdate(
-        alojamiento.id,
-        alojamiento,
-        { new: true },
-      );
+      const alojamientoActualizado = await this.model
+        .findByIdAndUpdate(alojamiento.id, alojamiento, { new: true })
+        .populate("anfitrion");
       return alojamientoActualizado;
     } else {
       const nuevoAlojamiento = new this.model(alojamiento);

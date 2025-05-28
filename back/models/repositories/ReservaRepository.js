@@ -11,7 +11,10 @@ export class ReservaRepository {
   }
 
   async findById(id) {
-    return this.model.findById(id).populate("huespedReservador");
+    return this.model
+      .findById(id)
+      .populate("huespedReservador")
+      .populate("alojamiento");
   }
 
   // se guarda la reserva primero verificando que exista
@@ -23,7 +26,5 @@ export class ReservaRepository {
       new: true,
       upsert: true,
     });
-    
   }
-
 }

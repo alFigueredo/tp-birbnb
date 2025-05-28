@@ -8,7 +8,7 @@ export class Reserva {
     cantHuespedes,
     alojamiento,
     rangoFechas,
-    precioPorNoche
+    precioPorNoche,
   ) {
     this.fechaAlta = Date.now();
     this.huespedReservador = huespedReservador;
@@ -17,24 +17,33 @@ export class Reserva {
     this.rangoFechas = rangoFechas;
     this.estado = "PENDIENTE";
     this.precioPorNoche = precioPorNoche;
-
   }
 
   actualizarEstado(nuevoEstado) {
     if (!Object.keys(Estados).includes(nuevoEstado))
-      throw new ValidationError(`El estado especificado no existe: ${nuevoEstado}`);
+      throw new ValidationError(
+        `El estado especificado no existe: ${nuevoEstado}`,
+      );
     this.estado = nuevoEstado;
   }
 
   obtenerUsuario() {
     const usuarioANotificar = Estados[this.estado]().obtenerUsuario(this);
 
-    if (!(usuarioANotificar instanceof Usuario)) {
+    if (!usuarioANotificar) {
       throw new ValidationError(
-        `No hay registro del usuario para el estado: ${this.estado}`
+        `No hay registro del usuario para el estado: ${this.estado}`,
       );
     }
     return usuarioANotificar;
+  }
+
+  modificarCantidadHuespedes(numeroHuespedes) {
+    this.numeroHuespedes = numeroHuespedes;
+  }
+
+  modificarFechas(rangoFechas) {
+    this.rangoFechas.modificarFechas(rangoFechas);
   }
 }
 
@@ -54,19 +63,14 @@ export class RangoFechas {
     );
   }
 
-  modificarFechas(rangoFechas){
-    this.fechaInicio = rangoFechas.fechaInicio;
-    this.fechaFin = rangoFechas.fechaFin;
-  }
-
-  modificarCantidadHuespedes(numeroHuespedes){
-    this.numeroHuespedes = numeroHuespedes;
-  }
-
   cantidadDias() {
     return Math.floor(
-      (this.fechaFin - this.fechaInicio) / (1000 * 60 * 60 * 24)
+      (this.fechaFin - this.fechaInicio) / (1000 * 60 * 60 * 24),
     );
   }
 
+  modificarFechas(rangoFechas) {
+    this.fechaInicio = rangoFechas.fechaInicio;
+    this.fechaFin = rangoFechas.fechaFin;
+  }
 }

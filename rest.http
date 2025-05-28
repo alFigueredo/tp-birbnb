@@ -1,15 +1,20 @@
 ### healthcheck
 GET http://localhost:3000/health
 
-### notif_sin_leer
-GET http://localhost:3000/notificacion/sinleer
+### obtener_notif
+GET http://localhost:3000/notificacion
 
+### Depende de un id
+### notif_sin_leer
+GET http://localhost:3000/notificacion/68370c535198cf164a309d79/sinleer
+
+### Depende de un id
 ### notif_leidas
-GET http://localhost:3000/notificacion/leida
+GET http://localhost:3000/notificacion/68370c535198cf164a309d79/leida
 
 ### Depende de un id
 ### leer_notif
-PUT http://localhost:3000/notificacion/leida/6836769881ee27a93153a87c
+PUT http://localhost:3000/notificacion/leer/68370c535198cf164a309d7e
 
 ### obtener_reservas
 GET http://localhost:3000/reserva
@@ -20,17 +25,45 @@ POST http://localhost:3000/reserva
 Content_Type: application/json
 
 {
-	"huespedReservador": "683557d089b01a31b87771fc",
+	"huespedReservador": "68373bd7d9fb3ff01386636d",
 	"cantHuespedes": 3,
-	"alojamiento": "683557d089b01a31b877720e",
+	"alojamiento": "68373bd7d9fb3ff013866381",
 	"rangoFechas": {
-		"fechaInicio": "2025-08-10T00:00:00.000Z",
-		"fechaFin": "2025-08-12T00:00:00.000Z"
+		"fechaInicio": "2025-09-04T00:00:00.000Z",
+		"fechaFin": "2025-09-05T00:00:00.000Z"
 	},
-	"precioPorNoche": 7000,
-	"estado": "PENDIENTE"
+	"precioPorNoche": 7000
 }
 
 ### Depende de un id
 ### historial_reservas
-GET http://localhost:3000/reserva/68353477ab7cd927df97ee72
+GET http://localhost:3000/reserva/68374012eaba399eb9e6775f
+
+### Depende de un id
+### cancelar_reserva
+PUT http://localhost:3000/reserva/cancelar/683741191147eaa392a16653
+
+### Depende de un id
+### modificar_reserva
+PUT http://localhost:3000/reserva/6837168d68c25d97e8627e42
+Content_Type: application/json
+
+{
+	"huespedReservador": "6837168d68c25d97e8627e2c",
+	"cantHuespedes": 3,
+	"alojamiento": "6837168d68c25d97e8627e40",
+	"rangoFechas": {
+		"fechaInicio": "2025-09-21T00:00:00.000Z",
+		"fechaFin": "2025-09-23T00:00:00.000Z"
+	},
+	"precioPorNoche": 7000,
+	"estado": "CONFIRMADA"
+}
+
+### Depende de un id
+### confirmar_reserva
+PUT http://localhost:3000/reserva/confirmar/683744728b48e34f99453a1c
+
+### Depende de un id
+### rechazar_reserva
+PUT http://localhost:3000/reserva/rechazar/6837438b08f3ca1b23af7bc0

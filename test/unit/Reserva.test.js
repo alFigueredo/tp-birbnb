@@ -30,7 +30,7 @@ const aloja1 = new Alojamiento(
   "",
 );
 const aloja2 = new Alojamiento(
-  carac1,
+  null,
   "El Bolson",
   "Un lindo lugar",
   7000,

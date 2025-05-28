@@ -40,10 +40,10 @@ export async function exec() {
   );
 
   const notif1 = new NotificacionModel(new Notificacion("Mensaje 1", usu1));
-  const notif2 = new NotificacionModel(new Notificacion("Mensaje 2", usu1));
-  const notif3 = new NotificacionModel(new Notificacion("Mensaje 3", usu1));
-  const notif4 = new NotificacionModel(new Notificacion("Mensaje 4", usu1));
-  const notif5 = new NotificacionModel(new Notificacion("Mensaje 5", usu1));
+  const notif2 = new NotificacionModel(new Notificacion("Mensaje 2", usu2));
+  const notif3 = new NotificacionModel(new Notificacion("Mensaje 3", usu3));
+  const notif4 = new NotificacionModel(new Notificacion("Mensaje 4", usu2));
+  const notif5 = new NotificacionModel(new Notificacion("Mensaje 5", usu3));
 
   await usu1.save();
   await usu2.save();
