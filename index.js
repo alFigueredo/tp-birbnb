@@ -6,7 +6,6 @@ import { AlojamientoController } from "./back/controllers/AlojamientoController.
 import { NotificacionController } from "./back/controllers/NotificacionController.js";
 import { ReservaController } from "./back/controllers/ReservaController.js";
 import { exec } from "./exec.js";
-import { swaggerRoutes } from "./back/routes/swaggerRoutes.js";
 
 const app = express();
 const port = process.env.PORT || 3000;

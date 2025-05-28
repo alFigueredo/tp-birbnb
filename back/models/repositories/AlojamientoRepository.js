@@ -53,12 +53,14 @@ export class AlojamientoRepository {
     }
     //Filtro por coordenadas
     if (filters.lat && filters.long) {
-      const direcciones = await this.model.find({
-        "direccion.lat": filters.lat,
-        "direccion.long": filters.long,
-      });
-      direccionIds.push(...direcciones.map((d) => d._id));
+      query.direccion = {
+        lat: { $all: filters.lat.toString() },
+        long: { $all: filters.long.toString() },
+      };
     }
+    // if (filters.caractPedidas) {
+    //   query.caracteristicas = { $all: filters.caractPedidas }; //Los que tengan TODAS esas caracteristicas
+    // }
 
     //Saco los duplicados por si realizo varios filtros
     if (direccionIds.length > 0) {

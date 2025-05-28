@@ -68,10 +68,14 @@ export async function exec() {
   const foto1 = new FotoModel(new Foto("Foto 1", "foto1"));
 
   const pais1 = new PaisModel(new Pais("Pais 1"));
+  const pais2 = new PaisModel(new Pais("Pais 2"));
 
   const ciudad1 = new CiudadModel(new Ciudad("Ciudad 1", pais1));
+  const ciudad2 = new CiudadModel(new Ciudad("Ciudad 2", pais2));
 
   const direc1 = new Direccion("Calle Falsa", 123, ciudad1, "1", "1");
+  const direc2 = new Direccion("Calle Falsa", 123, ciudad2, "2", "2");
+  const direc3 = new Direccion("Calle Falsa", 123, ciudad2, "1", "2");
 
   const aloja1 = new AlojamientoModel(
     new Alojamiento(
@@ -84,7 +88,7 @@ export async function exec() {
       "10:00",
       direc1,
       5,
-      [Caracteristica.WIFI],
+      [Caracteristica.WIFI, Caracteristica.ESTACIONAMIENTO],
       foto1,
     ),
   );
@@ -94,13 +98,13 @@ export async function exec() {
       anfi1,
       "Alojamiento 2",
       "Alojamiento 2",
-      7000,
+      6000,
       Moneda.PESO_ARG,
       "14:00",
       "10:00",
-      direc1,
-      5,
-      [Caracteristica.WIFI],
+      direc2,
+      6,
+      [Caracteristica.WIFI, Caracteristica.ESTACIONAMIENTO],
       foto1,
     ),
   );
@@ -110,13 +114,17 @@ export async function exec() {
       anfi1,
       "Alojamiento 3",
       "Alojamiento 3",
-      7000,
+      8000,
       Moneda.PESO_ARG,
       "14:00",
       "10:00",
-      direc1,
-      5,
-      [Caracteristica.WIFI],
+      direc3,
+      7,
+      [
+        Caracteristica.WIFI,
+        Caracteristica.ESTACIONAMIENTO,
+        Caracteristica.PISCINA,
+      ],
       foto1,
     ),
   );
@@ -132,7 +140,7 @@ export async function exec() {
       "10:00",
       direc1,
       5,
-      [Caracteristica.WIFI],
+      [Caracteristica.WIFI, Caracteristica.MASCOTAS_PERMITIDAS],
       foto1,
     ),
   );
