@@ -9,7 +9,7 @@ import { TipoUsuario, Usuario } from "../../back/models/entities/Usuario.js";
 const anfi1 = new Usuario(
   "John Doe",
   "johndoe@gmail.com",
-  TipoUsuario.ANFITRION
+  TipoUsuario.ANFITRION,
 );
 const carac1 = [
   Caracteristica.WIFI,
@@ -22,27 +22,25 @@ const aloja1 = new Alojamiento(
   "Un lindo lugar",
   7000,
   Moneda.PESO_ARG,
-  "21:00",
-  "11:00",
+  "14:00",
+  "10:00",
   "",
   5,
   carac1,
-  [],
-  ""
+  "",
 );
 const aloja2 = new Alojamiento(
-  carac1,
+  null,
   "El Bolson",
   "Un lindo lugar",
   7000,
   Moneda.PESO_ARG,
-  "21:00",
-  "11:00",
+  "14:00",
+  "10:00",
   "",
   5,
   carac1,
-  [],
-  ""
+  "",
 );
 
 const usu1 = new Usuario("John Doe", "johndoe@gmail.con", TipoUsuario.HUESPED);
@@ -64,7 +62,7 @@ describe("Test actualizarEstado", () => {
 
   test("El estado especificado no existe", () => {
     expect(() => reser3.actualizarEstado("ACEPTADA")).toThrow(
-      "El estado especificado no existe: ACEPTADA"
+      "El estado especificado no existe: ACEPTADA",
     );
   });
 });
@@ -76,13 +74,13 @@ describe("Test obtenerUsuario", () => {
 
   test("El método a llamar no existe", () => {
     expect(() => reser2.obtenerUsuario()).toThrow(
-      "No hay registro del usuario para el estado: PENDIENTE"
+      "No hay registro del usuario para el estado: PENDIENTE",
     );
   });
 
   test("Se obtiene un objeto distinto a Usuario", () => {
     expect(() => reser3.obtenerUsuario()).toThrow(
-      "No hay registro del usuario para el estado: PENDIENTE"
+      "No hay registro del usuario para el estado: PENDIENTE",
     );
   });
 });
@@ -90,7 +88,7 @@ describe("Test obtenerUsuario", () => {
 describe("Test RangoFechas", () => {
   test("Fecha inicial mayor que fecha final", () => {
     expect(
-      () => new RangoFechas(new Date(2025, 5, 3), new Date(2025, 5, 2))
+      () => new RangoFechas(new Date(2025, 5, 3), new Date(2025, 5, 2)),
     ).toThrow("Rango de fechas incorrecto");
   });
 });

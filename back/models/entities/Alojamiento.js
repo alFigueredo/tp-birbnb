@@ -3,14 +3,13 @@ export class Alojamiento {
     anfitrion,
     nombre,
     descripcion,
-    precioPorNoche, //sacar
+    precioPorNoche,
     moneda,
     horarioCheckIn,
     horarioCheckOut,
     direccion,
     cantHuespedesMax,
     caracteristicas,
-    reservas,
     fotos,
   ) {
     this.anfitrion = anfitrion;
@@ -23,7 +22,7 @@ export class Alojamiento {
     this.direccion = direccion;
     this.cantHuespedesMax = cantHuespedesMax;
     this.caracteristicas = caracteristicas; //Lista Enumeraciones
-    this.reservas = reservas;
+    this.reservas = [];
     this.fotos = fotos;
   }
 
@@ -44,6 +43,9 @@ export class Alojamiento {
   }
   puedenAlojarse(cantHuespedes) {
     return this.cantHuespedesMax >= cantHuespedes;
+  }
+  agregarReserva(reserva) {
+    this.reservas.push(reserva);
   }
 }
 

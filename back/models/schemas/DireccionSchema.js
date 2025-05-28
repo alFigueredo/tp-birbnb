@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
-import { Direccion } from "../Direccion";
+import { Direccion, Ciudad, Pais } from "../entities/Direccion.js";
 
-const direccionSchema = new mongoose.Schema({
+export const direccionSchema = new mongoose.Schema({
   calle: { type: String, required: true },
-  altura: { type: String, required: true },
+  altura: { type: Number, required: true },
   ciudad: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Ciudad",
@@ -25,6 +25,5 @@ const paisSchema = new mongoose.Schema({
 direccionSchema.loadClass(Direccion);
 ciudadSchema.loadClass(Ciudad);
 paisSchema.loadClass(Pais);
-export const DireccionModel = mongoose.model("Direccion", direccionSchema);
 export const CiudadModel = mongoose.model("Ciudad", ciudadSchema);
 export const PaisModel = mongoose.model("Pais", paisSchema);

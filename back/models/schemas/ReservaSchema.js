@@ -1,9 +1,17 @@
 import mongoose from "mongoose";
-import { Reserva } from "../entities/Reserva";
-import { Estados, Pendiente } from "../entities/CambioEstadoReserva";
+import { Reserva, RangoFechas } from "../entities/Reserva.js";
+import { Estados } from "../entities/CambioEstadoReserva.js";
+
+const rangoFechasSchema = new mongoose.Schema({
+  fechaInicio: { type: Date, required: true },
+  fechaFin: { type: Date, required: true },
+});
+
+//vinculamos la clase de RangoFechas con los schemas
+rangoFechasSchema.loadClass(RangoFechas);
 
 const reservaSchema = new mongoose.Schema({
-  //crear todos sus datos
+ 
   fechaAlta: { type: Date, default: Date.now() },
   huespedReservador: {
     type: mongoose.Schema.Types.ObjectId,
@@ -16,12 +24,12 @@ const reservaSchema = new mongoose.Schema({
     ref: "Alojamiento",
     required: true,
   },
+ 
   rangoFechas: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "RangoFechas",
+    type: rangoFechasSchema,
     required: true,
   },
-  precioPorNoche: { type: Double, required: true },
+  precioPorNoche: { type: Number, required: true },
   estado: {
     //Enum de Estado
     type: String,
@@ -29,24 +37,10 @@ const reservaSchema = new mongoose.Schema({
     default: "PENDIENTE",
     required: true,
   },
-  estado: {
-    type: mongoose.Schema.Types.ObjectId,
-    // enums: [Pendiente, Confirmada, Cancelada],
-    ref: "Estado",
-    required: true,
-  },
+  
 });
 
-const rangoFechasSchema = new mongoose.Schema({
-  fechaInicio: { type: Date, required: true },
-  fechaFin: { type: Date, required: true },
-});
-
+//vinculamos la clase de Reserva con los schemas
 reservaSchema.loadClass(Reserva);
-rangoFechasSchema.loadClass(RangoFechas);
 
 export const ReservaModel = mongoose.model("Reserva", reservaSchema);
-export const RangoFechasModel = mongoose.model(
-  "RangoFechas",
-  rangoFechasSchema
-);

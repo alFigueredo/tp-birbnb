@@ -9,7 +9,7 @@ import { Reserva, RangoFechas } from "../../back/models/entities/Reserva.js";
 const anfi1 = new Usuario(
   "John Doe",
   "johndoe@gmail.com",
-  TipoUsuario.ANFITRION
+  TipoUsuario.ANFITRION,
 );
 const carac1 = [
   Caracteristica.WIFI,
@@ -22,13 +22,12 @@ const aloja1 = new Alojamiento(
   "Un lindo lugar",
   7000,
   Moneda.PESO_ARG,
-  "21:00",
-  "11:00",
+  "14:00",
+  "10:00",
   "",
   5,
   carac1,
-  [],
-  ""
+  "",
 );
 
 const usu1 = new Usuario("John Doe", "johndoe@gmail.con", TipoUsuario.HUESPED);
@@ -39,9 +38,9 @@ const entre3 = new RangoFechas(new Date(2025, 5, 4), new Date(2025, 5, 6));
 const entre4 = new RangoFechas(new Date(2025, 5, 1), new Date(2025, 5, 3));
 
 const reser1 = new Reserva(usu1, 4, aloja1, entre1, 7000);
-aloja1.reservas.push(reser1);
+aloja1.agregarReserva(reser1);
 const reser2 = new Reserva(usu1, 4, aloja1, entre2, 7000);
-aloja1.reservas.push(reser2);
+aloja1.agregarReserva(reser2);
 
 describe("Test estasDisponibleEn", () => {
   test("El alojamiento no tiene disponibilidad en esas fechas", () => {
@@ -80,7 +79,7 @@ describe("Test tenesCaracteristica", () => {
 
   test("El alojamiento no tiene la característica", () => {
     expect(
-      aloja1.tenesCaracteristica(Caracteristica.MASCOTAS_PERMITIDAS)
+      aloja1.tenesCaracteristica(Caracteristica.MASCOTAS_PERMITIDAS),
     ).toBeFalsy();
   });
 });

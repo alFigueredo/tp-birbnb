@@ -1,34 +1,30 @@
-import {ReservaModel} from "../schemas/ReservaSchema.js";
+import { ReservaModel } from "../schemas/ReservaSchema.js";
 
 export class ReservaRepository {
-    constructor() {
-        this.model = ReservaModel;
-    }
+  constructor() {
+    //este model representa una coleccion de reservas
+    this.model = ReservaModel;
+  }
 
-    async findAll(){
-        const reservas = await this.model.find();
-        return reservas
-    }
+  async findAll(query = {}) {
+    return this.model.find(query).populate("huespedReservador");
+  }
 
-    async findById(id){
-        const reserva = await this.model.findById(id)
-        return reserva
-    }
+  async findById(id) {
+    return this.model
+      .findById(id)
+      .populate("huespedReservador")
+      .populate("alojamiento");
+  }
 
-    async findByName(nombre){
-        const reserva = await this.model.findByName(nombre)
-    }
-
-    async save(reserva){
-        if (reserva.id){
-            const reservaActualizada = await this.model.findByIdAndUpdate(reserva.id, reserva,{new: true, runValidators: true});
-        return reservaActualizada;
-        }
-        else{
-            
-        }
-
-    }
-
+  // se guarda la reserva primero verificando que exista
+  async save(reserva) {
+    const query = reserva.id
+      ? { _id: reserva.id }
+      : { _id: new this.model()._id };
+    return await this.model.findByIdAndUpdate(query, reserva, {
+      new: true,
+      upsert: true,
+    });
+  }
 }
-

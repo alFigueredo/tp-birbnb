@@ -1,7 +1,8 @@
 export const Estados = {
-  PENDIENTE: () => new Pendiente(),
-  CANCELADA: () => new Cancelada(),
-  CONFIRMADA: () => new Confirmada(),
+  PENDIENTE: () => Pendiente,
+  CANCELADA: () => Cancelada,
+  CONFIRMADA: () => Confirmada,
+  RECHAZADA: () => Rechazada,
 };
 
 class Estado {
@@ -10,23 +11,26 @@ class Estado {
 
 // Tipos de Estado
 export class Pendiente extends Estado {
-  estado = "PENDIENTE";
-  obtenerUsuario(reserva) {
+  static obtenerUsuario(reserva) {
     return reserva.alojamiento.anfitrion;
   }
 }
 
 export class Cancelada extends Estado {
-  estado = "CANCELADA";
-  obtenerUsuario(reserva) {
-    reserva.alojamiento.anfitrion;
+  static obtenerUsuario(reserva) {
+    return reserva.alojamiento.anfitrion;
   }
 }
 
 export class Confirmada extends Estado {
-  estado = "CONFIRMADA";
-  obtenerUsuario(reserva) {
-    reserva.huespedReservador;
+  static obtenerUsuario(reserva) {
+    return reserva.huespedReservador;
+  }
+}
+
+export class Rechazada extends Estado {
+  static obtenerUsuario(reserva) {
+    return reserva.huespedReservador;
   }
 }
 
