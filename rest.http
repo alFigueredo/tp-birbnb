@@ -9,7 +9,7 @@ GET http://localhost:3000/notificacion/leida
 
 ### Depende de un id
 ### leer_notif
-PUT http://localhost:3000/notificacion/leida/6832b9d5c396e009239e63b9
+PUT http://localhost:3000/notificacion/leida/6836769881ee27a93153a87c
 
 ### obtener_reservas
 GET http://localhost:3000/reserva

@@ -5,9 +5,19 @@ export class NotificacionController {
     this.notificacionService = notificacionService;
   }
 
-  async findAll(req, res, next) {
+  async findAll(_req, res, next) {
     try {
-      const notificaciones = await this.notificacionService.findAll(
+      const notificaciones = await this.notificacionService.findAll();
+      res.status(200).json(notificaciones);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async findByUsuario(req, res, next) {
+    try {
+      const notificaciones = await this.notificacionService.findByUsuario(
+        req.params.idUsuario,
         req.params.type,
       );
       res.status(200).json(notificaciones);

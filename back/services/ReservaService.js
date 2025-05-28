@@ -8,20 +8,6 @@ import { ReservaRepository } from "../models/repositories/ReservaRepository.js";
 import { UsuarioRepository } from "../models/repositories/UsuarioRepository.js";
 import { AlojamientoRepository } from "../models/repositories/AlojamientoRepository.js";
 
-/*
-Gestión de Reservas
-La plataforma debe permitir a los usuarios realizar reservas sobre los alojamientos disponibles. Esto implica la implementación de endpoints que gestionen el ciclo de vida de una reserva:
-1) Creación de una reserva, asegurando la disponibilidad del alojamiento en las fechas seleccionadas.
-2) Cancelación de una reserva antes de su fecha de inicio.
-3) Consulta del historial de reservas de un usuario.
-4) Modificación de una reserva dentro de las reglas establecidas por el Sistema (por ejemplo, cambios de fechas si el alojamiento sigue disponible).
-
-DUDAS:
-1) Si el alojamiento no esta disponible se tira mensaje de error? Validation o Conflict?
-2) El usuario ya cancelo la reserva y nosotros tenemos que verificar que sea ANTES de su fecha de inicio correspondiente o directamente validar para no dejarle al usuario cancelar si se pasa de fecha
-3) La unica forma de acceder a una lista de reservas es mediante alojamiento y recien ahí accedemos a su huesped reservador
-4) 
-*/
 
 export class ReservaService {
   constructor(
@@ -89,6 +75,28 @@ export class ReservaService {
   }
 
   //cancelacion reserva
+  async cancelacionReserva(idReserva){
+     
+    const reserva = await this.reservaRepository.findById(
+      idReserva
+    );
+    if (!reserva.id) {
+      throw new NotFoundError(
+        `La reserva no existe`,
+      );
+    }
+    if(reserva.RangoFechas.fechaInicio < Date.now()){
+      throw new ConflictError(`Fecha limite de cancelacion superada`);
+    }
+    if(reserva.estado == "CANCELADA"){
+      throw new ConflictError(`Esta reserva ya fue cancelada`);
+    }
+    
+    reserva.actualizarEstado("CANCELADA");
+    await this.reservaRepository.save(reserva);
+
+    return reserva;
+  }
 
   //historial de reservas de un usuario
   async historialReservas(idUsuario) {
@@ -101,4 +109,51 @@ export class ReservaService {
     });
     return listaReservas;
   }
+
+  //modificacion de reserva
+  async modificacionReserva(idReserva){
+    const reserva = await this.reservaRepository.findById(
+      idReserva
+    );
+    if (!reserva.id) {
+      throw new NotFoundError(
+        `La reserva no existe`,
+      );
+    }
+
+    const alojamiento = await this.alojamientoRepository.findById(
+      reserva.alojamiento,
+    );
+
+    const rangoFechas = new RangoFechas(
+      new Date(reserva.rangoFechas.fechaInicio),
+      new Date(reserva.rangoFechas.fechaFin),
+    );
+
+    if (!alojamiento) {
+      throw new NotFoundError(
+        `El alojamiento ${reserva.alojamiento} no existe`,
+      );
+    }
+    
+    if (!alojamiento.estasDisponibleEn(rangoFechas)) {
+      throw new ConflictError(
+        `El alojamiento ${alojamiento.nombre} no esta disponible en las fechas seleccionadas`,
+      );
+    }
+
+    if (!alojamiento.puedenAlojarse(reserva.cantHuespedes)) {
+      throw new ConflictError(`Cantidad de huéspedes no permitida`);
+    }
+    
+    //se modifican la cantidad de huespedes
+    reserva.modificarCantidadHuespedes(reserva.cantHuespedes);
+
+    //se modifican las fechas de la reserva
+    reserva.modificarFechas(rangoFechas);
+    
+    await this.reservaRepository.save(reserva);
+    return reserva;
+  }
+
 }

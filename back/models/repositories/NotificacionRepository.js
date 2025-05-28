@@ -5,8 +5,8 @@ export class NotificacionRepository {
     this.model = NotificacionModel;
   }
 
-  async findAll({ leida }) {
-    return await this.model.find({ leida }).populate("usuario");
+  async findAll(query) {
+    return await this.model.find(query).populate("usuario");
   }
 
   async findById(id) {

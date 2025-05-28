@@ -23,6 +23,15 @@ export class ReservaController {
     }
   }
 
+  async cancelacionReserva(req, res, next) {
+    try {
+      const reserva = await this.reservaService.cancelacionReserva(req.params.idReserva);
+      res.status(201).json(reserva);
+    } catch(error) {
+      next(error);
+    }
+  }
+
   async historialReservas(req, res, next) {
     try {
       const listaReservas = await this.reservaService.historialReservas(
@@ -33,4 +42,13 @@ export class ReservaController {
       next(error);
     }
   }
+  async modificacionReserva(req, res, next){
+    try {
+      const reserva = await this.reservaService.modificacionReserva(req.params.idReserva);
+      res.status(201).json(reserva);
+    } catch(error) {
+      next(error);
+    }
+  }
+
 }

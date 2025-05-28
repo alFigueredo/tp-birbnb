@@ -14,7 +14,7 @@ export class ReservaRepository {
     return this.model.findById(id).populate("huespedReservador");
   }
 
-  //para crear un doc en la base y para updatear (actualizar la reserva)
+  // se guarda la reserva primero verificando que exista
   async save(reserva) {
     const query = reserva.id
       ? { _id: reserva.id }
@@ -23,20 +23,7 @@ export class ReservaRepository {
       new: true,
       upsert: true,
     });
-    // if (reserva.id) {
-    //   //actualizacion
-    //   const reservaActualizada = await this.model.findByIdAndUpdate(
-    //     reserva.id,
-    //     reserva,
-    //     { new: true },
-    //   );
-    //   return reservaActualizada;
-    // } else {
-    //   const nuevaReserva = new this.model(reserva);
-    //   const reservaGuardada = await nuevaReserva.save();
-    //   return reservaGuardada;
-    // }
+    
   }
 
-  async deleteById(id) {}
 }

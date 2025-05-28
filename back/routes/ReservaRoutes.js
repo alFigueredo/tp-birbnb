@@ -9,7 +9,15 @@ export function registerReservaRoutes(app, getController) {
     getController(ReservaController).create(req, res, next),
   );
 
+  app.post("/reserva/{:idReserva}", (req, res, next) =>
+    getController(ReservaController).cancelacionReserva(req, res, next),
+  );
+
   app.get("/reserva/{:idUsuario}", (req, res, next) =>
     getController(ReservaController).historialReservas(req, res, next),
+  );
+
+  app.post("/reserva/{:idReserva}", (req, res, next) =>
+    getController(ReservaController).modificacionReserva(req, res, next),
   );
 }

@@ -11,7 +11,7 @@ const rangoFechasSchema = new mongoose.Schema({
 rangoFechasSchema.loadClass(RangoFechas);
 
 const reservaSchema = new mongoose.Schema({
-  //crear todos sus datos
+ 
   fechaAlta: { type: Date, default: Date.now() },
   huespedReservador: {
     type: mongoose.Schema.Types.ObjectId,
@@ -24,11 +24,7 @@ const reservaSchema = new mongoose.Schema({
     ref: "Alojamiento",
     required: true,
   },
-  // rangoFechas: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: "RangoFechas",
-  //   required: true,
-  // },
+ 
   rangoFechas: {
     type: rangoFechasSchema,
     required: true,
@@ -41,12 +37,7 @@ const reservaSchema = new mongoose.Schema({
     default: "PENDIENTE",
     required: true,
   },
-  // estado: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   enums: [Pendiente, Confirmada, Cancelada],
-  //   ref: "Estado",
-  //   required: true,
-  // },
+  
 });
 
 //vinculamos la clase de Reserva con los schemas
