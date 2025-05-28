@@ -1,6 +1,9 @@
 ### healthcheck
 GET http://localhost:3000/health
 
+### api-docs
+GET http://localhost:3000/api-docs
+
 ### obtener_notif
 GET http://localhost:3000/notificacion
 

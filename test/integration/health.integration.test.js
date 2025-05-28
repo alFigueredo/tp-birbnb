@@ -14,3 +14,12 @@ describe("GET /health", () => {
     expect(response.body.status).toBe("ok");
   });
 });
+
+describe("GET /api-docs", () => {
+  test("Testeo de api-docs", async () => {
+    const response = await request(app).get("/api-docs");
+    // Código 301 indica que el recurso requerido se ha movido permanentemente
+    expect(response.status).toBe(301);
+    expect(response.type).toBe("text/html");
+  });
+});
