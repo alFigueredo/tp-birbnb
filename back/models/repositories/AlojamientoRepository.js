@@ -7,8 +7,6 @@ export class AlojamientoRepository {
     this.model = AlojamientoModel; 
   }
 
-
-
   async findAll(filters = {}) {
     const query = {}
 
@@ -57,18 +55,52 @@ export class AlojamientoRepository {
       direccionIds.push(...direcciones.map((d) => d._id));
     }
 
-    //Saco los duplicados por si realizo ambos filtros
+    //Saco los duplicados por si realizo varios filtros
     if (direccionIds.length > 0) {
       const sinDuplicados = [...new Set(direccionIds)];
       query.direccion = { $in: sinDuplicados };
     }
 
-    // solo muestro el nombre, precio, calle y altura.
-    return this.model.find(query).select("nombre precioPorNoche direccion").populate({
-    path: "direccion",
-    select: "calle altura", 
-    });
+    //PAGINACION
+    const total = await this.model.countDocuments(query);   
+    const page = parseInt(filters.page) || 1;               
+    const limit = parseInt(filters.limit) || 10;            
+    const skip = (page - 1) * limit;                        //los alojamientos que tengo que saltear
 
+    const alojamientos= await this.model.find(query)
+    .select("nombre descripcion precioPorNoche direccion")
+    .populate({
+        path: "direccion",
+        select: "calle altura", })
+    .skip(skip)                     
+    .limit(limit);                  
+
+    return {
+    page,
+    limit,
+    total,
+    alojamientos
+  };
+  }
+
+  async findByPage(page, limit){
+    const skip = (page - 1) * limit;
+    const total = await this.model.countDocuments();
+
+    const alojamientos = await this.model.find()
+    .select("nombre descripcion precioPorNoche direccion")
+    .populate({
+      path: "direccion",
+      select: "calle altura"})
+    .skip(skip)
+    .limit(limit);
+
+    return {
+      page,
+      limit,
+      total,
+      alojamientos
+    };
   }
 
   async findById(id) {

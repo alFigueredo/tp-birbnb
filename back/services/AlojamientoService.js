@@ -9,6 +9,10 @@ export class AlojamientoService {
     return this.alojamientoRepository.findAll(filters);
   }
 
+  async findByPage(page, limit) {
+    return this.alojamientoRepository.findByPage(page, limit);
+  }
+
   async findById(id) {
     return this.alojamientoRepository.findById(id);
   }

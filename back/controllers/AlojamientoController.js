@@ -7,9 +7,20 @@ export class AlojamientoController {
     
     async findAll(req, res, next) {
         try {
-        const filtros = req.query; // Tomamos los filtros desde query params
+        const filtros = req.query;                          // Tomamos los filtros desde query
         const alojamientos = await this.alojamientoService.findAll(filtros);
         res.json(alojamientos);
+        } catch (error) {
+        next(error);
+        }
+    }
+    
+    async findByPage(req, res, next) {
+        try {
+            const page = parseInt(req.query.page) || 1;
+            const limit = parseInt(req.query.limit) || 10;
+            const resultado = await this.alojamientoService.findByPage(page, limit);
+            res.json(resultado);
         } catch (error) {
         next(error);
         }
@@ -32,7 +43,7 @@ export class AlojamientoController {
         try {
         const borrado = await this.alojamientoService.delete(req.params.id);
         if (borrado) {
-            res.status(204).send(); // Sin contenido, borrado exitoso
+            res.status(204).send();                             // Se borro exitosamente!!
         } else {
             res.status(404).json({ mensaje: "Alojamiento no encontrado" });
         }
