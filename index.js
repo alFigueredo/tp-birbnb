@@ -1,7 +1,8 @@
-import { Server } from "./back/server/server.js";
 import "dotenv/config";
+import { Server } from "./back/server/server.js";
 import { MongoDBClient } from "./back/config/database.js";
 import express from "express";
+import { AlojamientoController } from "./back/controllers/AlojamientoController.js";
 import { NotificacionController } from "./back/controllers/NotificacionController.js";
 import { ReservaController } from "./back/controllers/ReservaController.js";
 import { exec } from "./exec.js";
@@ -16,5 +17,6 @@ setTimeout(() => exec(), 1000);
 
 server.setController(NotificacionController);
 server.setController(ReservaController);
+server.setController(AlojamientoController);
 server.configureRoutes();
 server.launch();

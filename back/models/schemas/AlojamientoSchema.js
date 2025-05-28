@@ -8,9 +8,13 @@ import {
 } from "../entities/Alojamiento.js";
 import { direccionSchema } from "./DireccionSchema.js";
 
+const fotoSchema = new mongoose.Schema({
+  descripcion: String,
+  path: String,
+});
+
 const alojamientoSchema = new mongoose.Schema({
   anfitrion: {
-    //Esta relacionado al objecto de Usuario
     type: mongoose.Schema.Types.ObjectId,
     ref: "Usuario",
     required: true,
@@ -19,7 +23,6 @@ const alojamientoSchema = new mongoose.Schema({
   descripcion: String,
   precioPorNoche: { type: Number, required: true },
   moneda: {
-    //Enum de Moneda
     type: String,
     enum: Object.values(Moneda),
     default: Moneda.PESO_ARG,
@@ -41,12 +44,7 @@ const alojamientoSchema = new mongoose.Schema({
     },
   ], //Lista de Enun de Caracteristicas
   reservas: [{ type: mongoose.Schema.Types.ObjectId, ref: "Reserva" }], //un alojamiento puede NO tener una reserva
-  fotos: [{ type: mongoose.Schema.Types.ObjectId, ref: "Foto" }],
-});
-
-const fotoSchema = new mongoose.Schema({
-  descripcion: String,
-  path: String,
+  fotos: [fotoSchema],
 });
 
 //Vinculamos las clases con sus respectivos Schemas
@@ -56,7 +54,7 @@ fotoSchema.loadClass(Foto);
 //Exportar el modelo
 export const AlojamientoModel = mongoose.model(
   "Alojamiento",
-  alojamientoSchema,
+  alojamientoSchema
 );
 
 export const FotoModel = mongoose.model("Foto", fotoSchema);

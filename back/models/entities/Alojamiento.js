@@ -3,7 +3,7 @@ export class Alojamiento {
     anfitrion,
     nombre,
     descripcion,
-    precioPorNoche, //sacar
+    precioPorNoche,
     moneda,
     horarioCheckIn,
     horarioCheckOut,
