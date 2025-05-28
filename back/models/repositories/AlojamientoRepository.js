@@ -1,6 +1,5 @@
-import {AlojamientoModel} from "../schemas/AlojamientoSchema.js";
-import {DireccionModel, CiudadModel, PaisModel} from "../schemas/DireccionSchema.js";
-
+import { AlojamientoModel } from "../schemas/AlojamientoSchema.js";
+import { CiudadModel, PaisModel } from "../schemas/DireccionSchema.js";
 
 export class AlojamientoRepository {
   constructor() {
@@ -11,10 +10,12 @@ export class AlojamientoRepository {
     const query = {};
 
     //Filtro por Rango de precios
-    if (filters.precioGt || filters.precioLt){
+    if (filters.precioGt || filters.precioLt) {
       query.precioPorNoche = {}; // creo el objeto
-      if (filters.precioGt) query.precioPorNoche.$gte = Number(filters.precioGt);//mayor que x precio
-      if (filters.precioLt) query.precioPorNoche.$lte = Number(filters.precioLt);//menor que x precio
+      if (filters.precioGt)
+        query.precioPorNoche.$gte = Number(filters.precioGt); //mayor que x precio
+      if (filters.precioLt)
+        query.precioPorNoche.$lte = Number(filters.precioLt); //menor que x precio
     }
 
     //Filtro por cantidad de huespedes permitidos
@@ -23,8 +24,8 @@ export class AlojamientoRepository {
     }
 
     //Filtro por caracteristicas especiales
-    if(filters.caractPedidas){
-        query.caracteristicas = {$all: filters.caractPedidas}; //Los que tengan TODAS esas caracteristicas
+    if (filters.caractPedidas) {
+      query.caracteristicas = { $all: filters.caractPedidas }; //Los que tengan TODAS esas caracteristicas
     }
 
     let direccionIds = [];
@@ -32,7 +33,9 @@ export class AlojamientoRepository {
     if (filters.ciudad) {
       const ciudad = await CiudadModel.findOne({ nombre: filters.ciudad });
       if (ciudad) {
-        const direcciones = await DireccionModel.find({ ciudad: ciudad._id });
+        const direcciones = await model.find({
+          "direccion.ciudad": ciudad._id,
+        });
         direccionIds.push(...direcciones.map((d) => d._id));
       }
     }
@@ -42,15 +45,17 @@ export class AlojamientoRepository {
       if (pais) {
         const ciudades = await CiudadModel.find({ pais: pais._id });
         const ciudadIds = ciudades.map((c) => c._id);
-        const direcciones = await DireccionModel.find({ ciudad: { $in: ciudadIds } });
+        const direcciones = await this.model.find({
+          "direccion.ciudad": { $in: ciudadIds },
+        });
         direccionIds.push(...direcciones.map((d) => d._id));
       }
     }
     //Filtro por coordenadas
     if (filters.lat && filters.long) {
-      const direcciones = await DireccionModel.find({
-        lat: filters.lat,
-        long: filters.long,
+      const direcciones = await this.model.find({
+        "direccion.lat": filters.lat,
+        "direccion.long": filters.long,
       });
       direccionIds.push(...direcciones.map((d) => d._id));
     }
@@ -62,53 +67,57 @@ export class AlojamientoRepository {
     }
 
     //PAGINACION
-    const total = await this.model.countDocuments(query);   
-    const page = parseInt(filters.page) || 1;               
-    const limit = parseInt(filters.limit) || 10;            
-    const skip = (page - 1) * limit;                        //los alojamientos que tengo que saltear
+    const total = await this.model.countDocuments(query);
+    const page = parseInt(filters.page) || 1;
+    const limit = parseInt(filters.limit) || 10;
+    const skip = (page - 1) * limit; //los alojamientos que tengo que saltear
 
-    const alojamientos= await this.model.find(query)
-    .select("nombre descripcion precioPorNoche direccion")
-    .populate({
+    const alojamientos = await this.model
+      .find(query)
+      .select("nombre descripcion precioPorNoche direccion")
+      .populate({
         path: "direccion",
-        select: "calle altura", })
-    .skip(skip)                     
-    .limit(limit);                  
-
-    return {
-    page,
-    limit,
-    total,
-    alojamientos
-  };
-  }
-
-  async findByPage(page, limit){
-    const skip = (page - 1) * limit;
-    const total = await this.model.countDocuments();
-
-    const alojamientos = await this.model.find()
-    .select("nombre descripcion precioPorNoche direccion")
-    .populate({
-      path: "direccion",
-      select: "calle altura"})
-    .skip(skip)
-    .limit(limit);
+        select: "calle altura",
+      })
+      .skip(skip)
+      .limit(limit);
 
     return {
       page,
       limit,
       total,
-      alojamientos
+      alojamientos,
+    };
+  }
+
+  async findByPage(page, limit) {
+    const skip = (page - 1) * limit;
+    const total = await this.model.countDocuments();
+
+    const alojamientos = await this.model
+      .find()
+      .select("nombre descripcion precioPorNoche direccion")
+      .populate({
+        path: "direccion",
+        select: "calle altura",
+      })
+      .skip(skip)
+      .limit(limit);
+
+    return {
+      page,
+      limit,
+      total,
+      alojamientos,
     };
   }
 
   async findById(id) {
-    return this.model.findById(id); 
-  } 
+    return this.model.findById(id);
+  }
 
-  async deleteById(id){
-    const resultado= await this.model.findByIdAndDelete(id);
+  async deleteById(id) {
+    const resultado = await this.model.findByIdAndDelete(id);
     return resultado !== null; //true: si borramos algo   false: no encontramos el id
   }
 
