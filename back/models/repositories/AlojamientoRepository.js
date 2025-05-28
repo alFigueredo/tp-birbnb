@@ -113,15 +113,6 @@ export class AlojamientoRepository {
   }
 
   async findById(id) {
-    return this.model.findById(id);
-  }
-
-  async deleteById(id) {
-    const resultado = await this.model.findByIdAndDelete(id);
-    return resultado !== null; //true: si borramos algo   false: no encontramos el id
-  }
-
-  async findById(id) {
     return this.model.findById(id).populate("reservas").populate("anfitrion"); // Buscar alojamiento por ID
   }
 
@@ -137,10 +128,5 @@ export class AlojamientoRepository {
       const alojamientoGuardado = await nuevoAlojamiento.save();
       return alojamientoGuardado;
     }
-  }
-
-  async deleteById(id) {
-    const resultado = await this.model.findByIdAndDelete(id);
-    return resultado !== null; //true: si borramos algo   false: no encontramos el id
   }
 }

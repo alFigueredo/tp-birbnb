@@ -5,15 +5,15 @@ export function registerNotificacionRoutes(app, getController) {
     getController(NotificacionController).findAll(req, res, next),
   );
 
-  app.get("/notificacion/{:idUsuario}", (req, res, next) =>
+  app.get("/notificacion/:idUsuario", (req, res, next) =>
     getController(NotificacionController).findByUsuario(req, res, next),
   );
 
-  app.get("/notificacion/{:idUsuario}/{:type}", (req, res, next) =>
+  app.get("/notificacion/:idUsuario/:type", (req, res, next) =>
     getController(NotificacionController).findByUsuario(req, res, next),
   );
 
-  app.put("/notificacion/leer/{:id}", (req, res, next) =>
+  app.put("/notificacion/leer/:id", (req, res, next) =>
     getController(NotificacionController).update(req, res, next),
   );
 }

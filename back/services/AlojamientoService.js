@@ -1,4 +1,5 @@
 import { AlojamientoRepository } from "../models/repositories/AlojamientoRepository.js";
+import { NotFoundError } from "../errors/appError.js";
 
 export class AlojamientoService {
   constructor(alojamientoRepository = new AlojamientoRepository()) {
@@ -14,10 +15,8 @@ export class AlojamientoService {
   }
 
   async findById(id) {
-    return this.alojamientoRepository.findById(id);
-  }
-
-  async delete(id) {
-    return this.alojamientoRepository.deleteById(id);
+    const alojamiento = await this.alojamientoRepository.findById(id);
+    if (!alojamiento) throw new NotFoundError("Alojamiento no encontrado");
+    return alojamiento;
   }
 }

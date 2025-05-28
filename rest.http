@@ -14,7 +14,7 @@ GET http://localhost:3000/notificacion/68370c535198cf164a309d79/leida
 
 ### Depende de un id
 ### leer_notif
-PUT http://localhost:3000/notificacion/leer/68370c535198cf164a309d7e
+PUT http://localhost:3000/notificacion/leer/6837585414214f84c533d292
 
 ### obtener_reservas
 GET http://localhost:3000/reserva
@@ -62,8 +62,15 @@ Content_Type: application/json
 
 ### Depende de un id
 ### confirmar_reserva
-PUT http://localhost:3000/reserva/confirmar/683744728b48e34f99453a1c
+PUT http://localhost:3000/reserva/confirmar/6837585414214f84c533d2a6
 
 ### Depende de un id
 ### rechazar_reserva
 PUT http://localhost:3000/reserva/rechazar/6837438b08f3ca1b23af7bc0
+
+### obtener_alojamientos
+GET http://localhost:3000/alojamientos
+
+### Depende de un id
+### obtener_alojamiento
+GET http://localhost:3000/alojamientos/68376d695abb55bf3cbd8d97

@@ -95,8 +95,11 @@ export class ReservaService {
       motivo,
       reserva.huespedReservador,
     );
-    await this.reservaRepository.save(reserva);
-    await this.notificacionRepository.create(reserva, cambioEstado.motivo);
+    await this.reservaRepository.save(cambioEstado.reserva);
+    await this.notificacionRepository.create(
+      cambioEstado.reserva,
+      cambioEstado.motivo,
+    );
 
     return reserva;
   }
@@ -176,8 +179,16 @@ export class ReservaService {
       "",
       reserva.alojamiento.anfitrion,
     );
-    await this.reservaRepository.save(reserva);
+    await this.reservaRepository.save(cambioEstado.reserva);
     await this.notificacionRepository.create(cambioEstado.reserva);
+    await this.notificacionRepository.create(
+      cambioEstado.reserva,
+      `Horario Check-in: ${cambioEstado.reserva.alojamiento.horarioCheckIn}`,
+    );
+    await this.notificacionRepository.create(
+      cambioEstado.reserva,
+      `Horario Check-out: ${cambioEstado.reserva.alojamiento.horarioCheckOut}`,
+    );
 
     return reserva;
   }
@@ -203,8 +214,11 @@ export class ReservaService {
       reserva.alojamiento.anfitrion,
     );
 
-    await this.reservaRepository.save(reserva);
-    await this.notificacionRepository.create(reserva, cambioEstado.motivo);
+    await this.reservaRepository.save(cambioEstado.reserva);
+    await this.notificacionRepository.create(
+      cambioEstado.reserva,
+      cambioEstado.motivo,
+    );
 
     return reserva;
   }

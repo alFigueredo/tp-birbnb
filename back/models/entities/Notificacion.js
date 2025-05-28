@@ -19,7 +19,7 @@ export class FactoryNotificacion {
   static crearSegunReserva(reserva, motivo = "") {
     const usuario = reserva.obtenerUsuario();
 
-    const mensaje = `Huesped: ${reserva.huespedReservador.nombre}
+    let mensaje = `Huesped: ${reserva.huespedReservador.nombre}
     Fecha: ${reserva.rangoFechas.fechaInicio.toLocaleDateString()}
     Cantidad de días: ${reserva.rangoFechas.cantidadDias()}
     Alojamiento: ${reserva.alojamiento.nombre}

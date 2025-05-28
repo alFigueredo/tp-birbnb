@@ -4,15 +4,18 @@ import {
   ConflictError,
 } from "../errors/appError.js";
 import { NotificacionRepository } from "../models/repositories/NotificacionRepository.js";
+import { ReservaRepository } from "../models/repositories/ReservaRepository.js";
 import { UsuarioRepository } from "../models/repositories/UsuarioRepository.js";
 
 export class NotificacionService {
   constructor(
     notificacionRepository = new NotificacionRepository(),
     usuarioRepository = new UsuarioRepository(),
+    reservaRepository = new ReservaRepository(),
   ) {
     this.notificacionRepository = notificacionRepository;
     this.usuarioRepository = usuarioRepository;
+    this.reservaRepository = reservaRepository;
   }
 
   async findAll() {

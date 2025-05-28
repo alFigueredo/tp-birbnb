@@ -89,6 +89,54 @@ export async function exec() {
     ),
   );
 
+  const aloja2 = new AlojamientoModel(
+    new Alojamiento(
+      anfi1,
+      "Alojamiento 2",
+      "Alojamiento 2",
+      7000,
+      Moneda.PESO_ARG,
+      "14:00",
+      "10:00",
+      direc1,
+      5,
+      [Caracteristica.WIFI],
+      foto1,
+    ),
+  );
+
+  const aloja3 = new AlojamientoModel(
+    new Alojamiento(
+      anfi1,
+      "Alojamiento 3",
+      "Alojamiento 3",
+      7000,
+      Moneda.PESO_ARG,
+      "14:00",
+      "10:00",
+      direc1,
+      5,
+      [Caracteristica.WIFI],
+      foto1,
+    ),
+  );
+
+  const aloja4 = new AlojamientoModel(
+    new Alojamiento(
+      anfi1,
+      "Alojamiento 4",
+      "Alojamiento 4",
+      7000,
+      Moneda.PESO_ARG,
+      "14:00",
+      "10:00",
+      direc1,
+      5,
+      [Caracteristica.WIFI],
+      foto1,
+    ),
+  );
+
   const reser1 = new ReservaModel(new Reserva(usu1, 3, aloja1, rango1, 7000));
   aloja1.agregarReserva(reser1);
   const reser2 = new ReservaModel(new Reserva(usu2, 3, aloja1, rango2, 7000));
@@ -105,6 +153,9 @@ export async function exec() {
   await pais1.save();
   await ciudad1.save();
   await aloja1.save();
+  await aloja2.save();
+  await aloja3.save();
+  await aloja4.save();
   await reser1.save();
   await reser2.save();
   await reser3.save();

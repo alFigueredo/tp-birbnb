@@ -62,6 +62,21 @@ const aloja1 = {
   agregarReserva: jest.fn(),
 };
 
+const reser1 = {
+  id: 1,
+  fechaAlta: Date.now(),
+  huespedReservador: usu1,
+  cantHuespedes: 3,
+  alojamiento: aloja1,
+  rangoFechas: {
+    fechaInicio: new Date(2025, 7, 1),
+    fechaFin: new Date(2025, 7, 3),
+  },
+  estado: "PENDIENTE",
+  precioPorNoche: 7000,
+  actualizarEstado: (_nuevoEstado) => true,
+};
+
 const reservaRepository = {
   findAll: jest.fn().mockResolvedValue([
     {
@@ -113,7 +128,7 @@ const reservaRepository = {
         fechaInicio: new Date(2025, 7, 10),
         fechaFin: new Date(2025, 7, 12),
       },
-      estado: "PENDIENTE",
+      estado: "CONFIRMADA",
       precioPorNoche: 7000,
     },
     {
@@ -126,11 +141,12 @@ const reservaRepository = {
         fechaInicio: new Date(2025, 7, 13),
         fechaFin: new Date(2025, 7, 15),
       },
-      estado: "PENDIENTE",
+      estado: "CANCELADA",
       precioPorNoche: 7000,
     },
   ]),
   save: jest.fn(),
+  findById: jest.fn().mockResolvedValue(reser1),
 };
 
 const alojamientoRepository = {
@@ -178,6 +194,16 @@ describe("GET /reserva/{:idUsuario}", () => {
     expect(response.body.length).toBe(5);
     expect(response.error).toBeFalsy();
   });
+
+  test("Debería retornar un 404", async () => {
+    usuarioRepository.findById.mockResolvedValue(null);
+
+    const response = await request(app).get("/reserva/1");
+
+    expect(response.status).toBe(404);
+    expect(response.error).toBeTruthy();
+    usuarioRepository.findById.mockResolvedValue(usu1);
+  });
 });
 
 describe("POST /reserva", () => {
@@ -202,6 +228,26 @@ describe("POST /reserva", () => {
     expect(response.error).toBeFalsy();
   });
 
+  test("No encuentra el alojamiento", async () => {
+    alojamientoRepository.findById.mockResolvedValue(null);
+
+    const response = await request(app).post("/reserva").send(reserva);
+
+    expect(response.status).toBe(404);
+    expect(response.error).toBeTruthy();
+    alojamientoRepository.findById.mockResolvedValue(aloja1);
+  });
+
+  test("No encuentra el usuario", async () => {
+    usuarioRepository.findById.mockResolvedValue(null);
+
+    const response = await request(app).post("/reserva").send(reserva);
+
+    expect(response.status).toBe(404);
+    expect(response.error).toBeTruthy();
+    usuarioRepository.findById.mockResolvedValue(aloja1);
+  });
+
   test("Horario no disponible, debería lanzar un 409", async () => {
     aloja1.estasDisponibleEn = (_rangoFechas) => false;
     const response = await request(app).post("/reserva").send(reserva);
@@ -218,5 +264,34 @@ describe("POST /reserva", () => {
     expect(response.status).toBe(409);
     expect(response.error).toBeTruthy();
     aloja1.puedenAlojarse = (_cantHuespedes) => true;
+  });
+});
+
+describe("PUT /reserva", () => {
+  test("Debería cancelar una reserva", async () => {
+    const response = await request(app).put("/reserva/cancelar/1");
+
+    expect(response.status).toBe(200);
+    expect(response.error).toBeFalsy();
+  });
+
+  test("No encuentra el alojamiento", async () => {
+    reservaRepository.findById.mockResolvedValue(null);
+
+    const response = await request(app).put("/reserva/cancelar/1");
+
+    expect(response.status).toBe(404);
+    expect(response.error).toBeTruthy();
+    reservaRepository.findById.mockResolvedValue(reser1);
+  });
+
+  test("La reserva ya fue cancelada", async () => {
+    reser1.estado = "CANCELADA";
+
+    const response = await request(app).put("/reserva/cancelar/1");
+
+    expect(response.status).toBe(409);
+    expect(response.error).toBeTruthy();
+    reser1.estado = "PENDIENTE";
   });
 });
