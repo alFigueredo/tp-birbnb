@@ -65,7 +65,7 @@ describe("GET /notificacion", () => {
   });
 
   test("Debería retornar todas las notificaciones de un usuario", async () => {
-    const response = await request(app).get("/notificacion/123");
+    const response = await request(app).get("/usuario/123/notificacion");
 
     expect(response.status).toBe(200);
     expect(response.type).toBe("application/json");
@@ -74,7 +74,9 @@ describe("GET /notificacion", () => {
   });
 
   test("Debería retornar notificaciones sin leer de un usuario", async () => {
-    const response = await request(app).get("/notificacion/123/sinleer");
+    const response = await request(app).get(
+      "/usuario/123/notificacion/sinleer",
+    );
 
     expect(response.status).toBe(200);
     expect(response.type).toBe("application/json");
@@ -83,7 +85,7 @@ describe("GET /notificacion", () => {
   });
 
   test("Debería retornar notificaciones leidas de un usuario", async () => {
-    const response = await request(app).get("/notificacion/123/leida");
+    const response = await request(app).get("/usuario/123/notificacion/leida");
 
     expect(response.status).toBe(200);
     expect(response.type).toBe("application/json");
@@ -92,15 +94,15 @@ describe("GET /notificacion", () => {
   });
 
   test("Debería retornar un error 400", async () => {
-    const response = await request(app).get("/notificacion/123/leidas");
+    const response = await request(app).get("/usuario/123/notificacion/leidas");
 
     expect(response.status).toBe(400);
     expect(response.error).toBeTruthy();
   });
 
-  test("Debería retornar un error 400", async () => {
+  test("Debería retornar un error 404", async () => {
     usuarioRepository.findById.mockResolvedValue(null);
-    const response = await request(app).get("/notificacion/123/leida");
+    const response = await request(app).get("/usuario/123/notificacion/leida");
 
     expect(response.status).toBe(404);
     expect(response.error).toBeTruthy();
@@ -108,9 +110,9 @@ describe("GET /notificacion", () => {
   });
 });
 
-describe("PUT /notificacion/leida", () => {
+describe("PUT /notificacion/:id/leer", () => {
   test("Debería actualizar el estado de la notificación", async () => {
-    const response = await request(app).put("/notificacion/leer/1");
+    const response = await request(app).put("/notificacion/1/leer");
 
     expect(response.status).toBe(200);
     expect(notificacionRepository.save).toHaveBeenCalled();
@@ -123,7 +125,7 @@ describe("PUT /notificacion/leida", () => {
   test("Debería retornar un 404", async () => {
     notificacionRepository.findById.mockResolvedValue(null);
 
-    const response = await request(app).put("/notificacion/leer/1");
+    const response = await request(app).put("/notificacion/1/leer");
 
     expect(response.status).toBe(404);
     expect(response.error).toBeTruthy();
@@ -133,7 +135,7 @@ describe("PUT /notificacion/leida", () => {
     notif1.leida = true;
     notificacionRepository.findById.mockResolvedValue(notif1);
 
-    const response = await request(app).put("/notificacion/leer/1");
+    const response = await request(app).put("/notificacion/1/leer");
 
     expect(response.status).toBe(409);
     expect(response.error).toBeTruthy();

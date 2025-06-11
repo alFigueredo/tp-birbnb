@@ -159,7 +159,9 @@ export async function exec() {
   await anfi1.save();
   await foto1.save();
   await pais1.save();
+  await pais2.save();
   await ciudad1.save();
+  await ciudad2.save();
   await aloja1.save();
   await aloja2.save();
   await aloja3.save();

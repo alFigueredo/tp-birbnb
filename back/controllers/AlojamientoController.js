@@ -15,17 +15,6 @@ export class AlojamientoController {
     }
   }
 
-  async findByPage(req, res, next) {
-    try {
-      const page = parseInt(req.query.page) || 1;
-      const limit = parseInt(req.query.limit) || 10;
-      const resultado = await this.alojamientoService.findByPage(page, limit);
-      res.json(resultado);
-    } catch (error) {
-      next(error);
-    }
-  }
-
   async findById(req, res, next) {
     try {
       const alojamiento = await this.alojamientoService.findById(req.params.id);
