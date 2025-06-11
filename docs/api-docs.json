@@ -15,7 +15,7 @@
     }
   ],
   "paths": {
-    "/alojamientos": {
+    "/alojamiento": {
       "get": {
         "summary": "Obtener alojamientos filtrados",
         "description": "Devuelve alojamientos según filtros como ciudad, precio, características y paginación",
@@ -94,7 +94,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/inline_response_200"
+                  "$ref": "#/components/schemas/Alojamiento_response"
                 }
               }
             }
@@ -102,7 +102,7 @@
         }
       }
     },
-    "/alojamientos/{id}": {
+    "/alojamiento/{id}": {
       "get": {
         "summary": "Obtener un alojamiento por ID",
         "description": "Devuelve el detalle de un alojamiento específico por su ID",
@@ -133,45 +133,6 @@
         }
       }
     },
-    "/alojamientos/page": {
-      "get": {
-        "summary": "Obtener alojamientos paginados",
-        "description": "Lista de alojamientos sin filtros, pero con paginación",
-        "parameters": [
-          {
-            "name": "page",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Lista paginada de alojamientos",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Alojamiento"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/notificacion": {
       "get": {
         "summary": "Obtener todas las notificaciones",
@@ -193,7 +154,7 @@
         }
       }
     },
-    "/notificacion/{idUsuario}": {
+    "/usuario/{idUsuario}/notificacion": {
       "get": {
         "summary": "Obtener notificaciones por usuario",
         "description": "Devuelve las notificaciones correspondientes a un usuario dado.",
@@ -227,7 +188,7 @@
         }
       }
     },
-    "/notificacion/{idUsuario}/{type}": {
+    "/usuario/{idUsuario}/notificacion/{type}": {
       "get": {
         "summary": "Obtener notificaciones filtradas por tipo",
         "description": "Devuelve las notificaciones de un usuario filtradas por   tipo (ej: ALERTA, INFO, etc.)",
@@ -269,7 +230,7 @@
         }
       }
     },
-    "/notificacion/leer/{id}": {
+    "/notificacion/{id}/leer": {
       "put": {
         "summary": "Marcar notificación como leída",
         "description": "Cambia el estado de una notificación a \"leída\".",
@@ -343,7 +304,7 @@
         }
       }
     },
-    "/reserva/cancelar/{idReserva}": {
+    "/reserva/{idReserva}/cancelar": {
       "put": {
         "summary": "Cancelar una reserva",
         "description": "Cambia el estado de la reserva a \"cancelada\".",
@@ -368,7 +329,7 @@
         }
       }
     },
-    "/reserva/{idUsuario}": {
+    "/usuario/{idUsuario}/reserva": {
       "get": {
         "summary": "Historial de reservas de un usuario",
         "description": "Devuelve todas las reservas realizadas por un usuario.",
@@ -438,7 +399,7 @@
         }
       }
     },
-    "/reserva/confirmar/{idReserva}": {
+    "/reserva/{idReserva}/confirmar": {
       "put": {
         "summary": "Confirmar una reserva",
         "description": "Cambia el estado de la reserva a \"confirmada\".",
@@ -462,7 +423,7 @@
         }
       }
     },
-    "/reserva/rechazar/{idReserva}": {
+    "/reserva/{idReserva}/rechazar": {
       "put": {
         "summary": "Rechazar una reserva",
         "description": "Cambia el estado de la reserva a \"rechazada\".",
@@ -572,7 +533,7 @@
           }
         }
       },
-      "inline_response_200": {
+      "Alojamiento_response": {
         "type": "object",
         "properties": {
           "page": {

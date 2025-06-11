@@ -185,9 +185,9 @@ describe("GET /reserva", () => {
   });
 });
 
-describe("GET /reserva/{:idUsuario}", () => {
+describe("GET /usuario/{:idUsuario}/reserva", () => {
   test("Debería retornar reservas", async () => {
-    const response = await request(app).get("/reserva/1");
+    const response = await request(app).get("/usuario/1/reserva");
 
     expect(response.status).toBe(200);
     expect(response.type).toBe("application/json");
@@ -198,7 +198,7 @@ describe("GET /reserva/{:idUsuario}", () => {
   test("Debería retornar un 404", async () => {
     usuarioRepository.findById.mockResolvedValue(null);
 
-    const response = await request(app).get("/reserva/1");
+    const response = await request(app).get("/usuario/1/reserva");
 
     expect(response.status).toBe(404);
     expect(response.error).toBeTruthy();
@@ -269,7 +269,7 @@ describe("POST /reserva", () => {
 
 describe("PUT /reserva", () => {
   test("Debería cancelar una reserva", async () => {
-    const response = await request(app).put("/reserva/cancelar/1");
+    const response = await request(app).put("/reserva/1/cancelar");
 
     expect(response.status).toBe(200);
     expect(response.error).toBeFalsy();
@@ -278,7 +278,7 @@ describe("PUT /reserva", () => {
   test("No encuentra el alojamiento", async () => {
     reservaRepository.findById.mockResolvedValue(null);
 
-    const response = await request(app).put("/reserva/cancelar/1");
+    const response = await request(app).put("/reserva/1/cancelar");
 
     expect(response.status).toBe(404);
     expect(response.error).toBeTruthy();
@@ -288,7 +288,7 @@ describe("PUT /reserva", () => {
   test("La reserva ya fue cancelada", async () => {
     reser1.estado = "CANCELADA";
 
-    const response = await request(app).put("/reserva/cancelar/1");
+    const response = await request(app).put("/reserva/1/cancelar");
 
     expect(response.status).toBe(409);
     expect(response.error).toBeTruthy();

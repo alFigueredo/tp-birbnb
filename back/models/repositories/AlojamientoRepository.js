@@ -28,15 +28,12 @@ export class AlojamientoRepository {
       query.caracteristicas = { $all: filters.caractPedidas }; //Los que tengan TODAS esas caracteristicas
     }
 
-    let direccionIds = [];
+    // let direccionIds = [];
     //Filtro por ciudad
     if (filters.ciudad) {
       const ciudad = await CiudadModel.findOne({ nombre: filters.ciudad });
       if (ciudad) {
-        const direcciones = await model.find({
-          "direccion.ciudad": ciudad._id,
-        });
-        direccionIds.push(...direcciones.map((d) => d._id));
+        query["direccion.ciudad"] = ciudad._id;
       }
     }
     //Filtro por pais
@@ -45,25 +42,14 @@ export class AlojamientoRepository {
       if (pais) {
         const ciudades = await CiudadModel.find({ pais: pais._id });
         const ciudadIds = ciudades.map((c) => c._id);
-        const direcciones = await this.model.find({
-          "direccion.ciudad": { $in: ciudadIds },
-        });
-        direccionIds.push(...direcciones.map((d) => d._id));
+        query["direccion.ciudad"] = {$in: ciudadIds}
       }
     }
+    
     //Filtro por coordenadas
     if (filters.lat && filters.long) {
-      const direcciones = await this.model.find({
-        "direccion.lat": filters.lat,
-        "direccion.long": filters.long,
-      });
-      direccionIds.push(...direcciones.map((d) => d._id));
-    }
-
-    //Saco los duplicados por si realizo varios filtros
-    if (direccionIds.length > 0) {
-      const sinDuplicados = [...new Set(direccionIds)];
-      query.direccion = { $in: sinDuplicados };
+      query["direccion.lat"] = filters.lat;
+      query["direccion.long"] = filters.long;
     }
 
     //PAGINACION
@@ -74,28 +60,6 @@ export class AlojamientoRepository {
 
     const alojamientos = await this.model
       .find(query)
-      .select("nombre descripcion precioPorNoche direccion")
-      .populate({
-        path: "direccion",
-        select: "calle altura",
-      })
-      .skip(skip)
-      .limit(limit);
-
-    return {
-      page,
-      limit,
-      total,
-      alojamientos,
-    };
-  }
-
-  async findByPage(page, limit) {
-    const skip = (page - 1) * limit;
-    const total = await this.model.countDocuments();
-
-    const alojamientos = await this.model
-      .find()
       .select("nombre descripcion precioPorNoche direccion")
       .populate({
         path: "direccion",

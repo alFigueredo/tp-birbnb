@@ -86,9 +86,9 @@ const alojamientoService = new AlojamientoService(alojamientoRepository);
 const alojamientoController = new AlojamientoController(alojamientoService);
 server.setController(AlojamientoController, alojamientoController);
 
-describe("GET /alojamientos", () => {
+describe("GET /alojamiento", () => {
   test("Debería retornar alojamientos", async () => {
-    const response = await request(app).get("/alojamientos");
+    const response = await request(app).get("/alojamiento");
 
     expect(response.status).toBe(200);
     expect(response.type).toBe("application/json");
@@ -97,9 +97,9 @@ describe("GET /alojamientos", () => {
   });
 });
 
-describe("GET /alojamientos/:id", () => {
+describe("GET /alojamiento/:id", () => {
   test("Debería retornar alojamientos", async () => {
-    const response = await request(app).get("/alojamientos/123");
+    const response = await request(app).get("/alojamiento/123");
 
     expect(response.status).toBe(200);
     expect(response.type).toBe("application/json");
@@ -109,7 +109,7 @@ describe("GET /alojamientos/:id", () => {
   test("Debería retornar un 404", async () => {
     alojamientoRepository.findById.mockResolvedValue(null);
 
-    const response = await request(app).get("/alojamientos/1");
+    const response = await request(app).get("/alojamiento/1");
 
     expect(response.status).toBe(404);
     expect(response.error).toBeTruthy();
