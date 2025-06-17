@@ -1,0 +1,588 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API TP DDS - Alojamientos",
+    "description": "Documentación de la API de búsqueda de alojamientos",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://virtserver.swaggerhub.com/utn-1bc/TP-DDS/1.0.0",
+      "description": "SwaggerHub API Auto Mocking"
+    },
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "paths": {
+    "/alojamiento": {
+      "get": {
+        "summary": "Obtener alojamientos filtrados",
+        "description": "Devuelve alojamientos según filtros como ciudad, precio, características y paginación",
+        "parameters": [
+          {
+            "name": "ciudad",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pais",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "precioGt",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "precioLt",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "cantHuespedes",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "caractPedidas",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de alojamientos encontrados",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Alojamiento_response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/alojamiento/{id}": {
+      "get": {
+        "summary": "Obtener un alojamiento por ID",
+        "description": "Devuelve el detalle de un alojamiento específico por su ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Alojamiento encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Alojamiento"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Alojamiento no encontrado"
+          }
+        }
+      }
+    },
+    "/notificacion": {
+      "get": {
+        "summary": "Obtener todas las notificaciones",
+        "description": "Devuelve una lista de todas las notificaciones en el sistema.",
+        "responses": {
+          "200": {
+            "description": "Lista de notificaciones",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Notificacion"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/usuario/{idUsuario}/notificacion": {
+      "get": {
+        "summary": "Obtener notificaciones por usuario",
+        "description": "Devuelve las notificaciones correspondientes a un usuario dado.",
+        "parameters": [
+          {
+            "name": "idUsuario",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de notificaciones del usuario",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Notificacion"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuario no encontrado"
+          }
+        }
+      }
+    },
+    "/usuario/{idUsuario}/notificacion/{type}": {
+      "get": {
+        "summary": "Obtener notificaciones filtradas por tipo",
+        "description": "Devuelve las notificaciones de un usuario filtradas por   tipo (ej: ALERTA, INFO, etc.)",
+        "parameters": [
+          {
+            "name": "idUsuario",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista filtrada de notificaciones",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Notificacion"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No se encontraron notificaciones"
+          }
+        }
+      }
+    },
+    "/notificacion/{id}/leer": {
+      "put": {
+        "summary": "Marcar notificación como leída",
+        "description": "Cambia el estado de una notificación a \"leída\".",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Notificación actualizada correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Notificacion"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Notificación no encontrada"
+          }
+        }
+      }
+    },
+    "/reserva": {
+      "get": {
+        "summary": "Obtener todas las reservas",
+        "description": "Devuelve una lista completa de reservas del sistema.",
+        "responses": {
+          "200": {
+            "description": "Lista de reservas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Reserva"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear una nueva reserva",
+        "description": "Registra una nueva reserva en el sistema.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NuevaReserva"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Reserva creada exitosamente"
+          },
+          "400": {
+            "description": "Error en los datos enviados"
+          }
+        }
+      }
+    },
+    "/reserva/{idReserva}/cancelar": {
+      "put": {
+        "summary": "Cancelar una reserva",
+        "description": "Cambia el estado de la reserva a \"cancelada\".",
+        "parameters": [
+          {
+            "name": "idReserva",
+            "in": "path",
+            "description": "ID de la reserva a cancelar",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Reserva cancelada correctamente"
+          },
+          "404": {
+            "description": "Reserva no encontrada"
+          }
+        }
+      }
+    },
+    "/usuario/{idUsuario}/reserva": {
+      "get": {
+        "summary": "Historial de reservas de un usuario",
+        "description": "Devuelve todas las reservas realizadas por un usuario.",
+        "parameters": [
+          {
+            "name": "idUsuario",
+            "in": "path",
+            "description": "ID del usuario",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de reservas del usuario",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Reserva"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuario no encontrado"
+          }
+        }
+      }
+    },
+    "/reserva/{idReserva}": {
+      "put": {
+        "summary": "Modificar una reserva",
+        "description": "Permite modificar los datos de una reserva existente.",
+        "parameters": [
+          {
+            "name": "idReserva",
+            "in": "path",
+            "description": "ID de la reserva a modificar",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NuevaReserva"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Reserva actualizada correctamente"
+          },
+          "404": {
+            "description": "Reserva no encontrada"
+          }
+        }
+      }
+    },
+    "/reserva/{idReserva}/confirmar": {
+      "put": {
+        "summary": "Confirmar una reserva",
+        "description": "Cambia el estado de la reserva a \"confirmada\".",
+        "parameters": [
+          {
+            "name": "idReserva",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Reserva confirmada"
+          },
+          "404": {
+            "description": "Reserva no encontrada"
+          }
+        }
+      }
+    },
+    "/reserva/{idReserva}/rechazar": {
+      "put": {
+        "summary": "Rechazar una reserva",
+        "description": "Cambia el estado de la reserva a \"rechazada\".",
+        "parameters": [
+          {
+            "name": "idReserva",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Reserva rechazada"
+          },
+          "404": {
+            "description": "Reserva no encontrada"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Notificacion": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "mensaje": {
+            "type": "string"
+          },
+          "leida": {
+            "type": "boolean"
+          },
+          "tipo": {
+            "type": "string"
+          },
+          "usuario": {
+            "type": "string"
+          }
+        }
+      },
+      "NuevaReserva": {
+        "type": "object",
+        "properties": {
+          "usuario": {
+            "type": "string"
+          },
+          "alojamiento": {
+            "type": "string"
+          },
+          "rangoFechas": {
+            "$ref": "#/components/schemas/NuevaReserva_rangoFechas"
+          }
+        }
+      },
+      "Reserva": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "usuario": {
+            "type": "string"
+          },
+          "alojamiento": {
+            "type": "string"
+          },
+          "rangoFechas": {
+            "$ref": "#/components/schemas/NuevaReserva_rangoFechas"
+          },
+          "estado": {
+            "type": "string"
+          }
+        }
+      },
+      "Alojamiento": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "nombre": {
+            "type": "string"
+          },
+          "descripcion": {
+            "type": "string"
+          },
+          "precioPorNoche": {
+            "type": "number"
+          },
+          "direccion": {
+            "$ref": "#/components/schemas/Alojamiento_direccion"
+          },
+          "capacidad": {
+            "type": "integer"
+          },
+          "caracteristicas": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "Alojamiento_response": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "integer"
+          },
+          "limit": {
+            "type": "integer"
+          },
+          "total": {
+            "type": "integer"
+          },
+          "alojamientos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Alojamiento"
+            }
+          }
+        }
+      },
+      "NuevaReserva_rangoFechas": {
+        "type": "object",
+        "properties": {
+          "desde": {
+            "type": "string",
+            "format": "date"
+          },
+          "hasta": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      },
+      "Alojamiento_direccion": {
+        "type": "object",
+        "properties": {
+          "calle": {
+            "type": "string"
+          },
+          "altura": {
+            "type": "string"
+          },
+          "ciudad": {
+            "type": "string"
+          },
+          "pais": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
