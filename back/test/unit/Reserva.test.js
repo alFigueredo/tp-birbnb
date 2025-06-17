@@ -2,9 +2,9 @@ import {
   Alojamiento,
   Caracteristica,
   Moneda,
-} from "../../back/models/entities/Alojamiento.js";
-import { RangoFechas, Reserva } from "../../back/models/entities/Reserva.js";
-import { TipoUsuario, Usuario } from "../../back/models/entities/Usuario.js";
+} from "../../models/entities/Alojamiento.js";
+import { RangoFechas, Reserva } from "../../models/entities/Reserva.js";
+import { TipoUsuario, Usuario } from "../../models/entities/Usuario.js";
 
 const anfi1 = new Usuario(
   "John Doe",

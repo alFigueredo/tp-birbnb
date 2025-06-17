@@ -1,11 +1,11 @@
 import request from "supertest";
 import { jest } from "@jest/globals";
 import express from "express";
-import { TipoUsuario } from "../../back/models/entities/Usuario.js";
-import { Notificacion } from "../../back/models/entities/Notificacion.js";
-import { NotificacionService } from "../../back/services/NotificacionService.js";
-import { NotificacionController } from "../../back/controllers/NotificacionController.js";
-import { Server } from "../../back/server/server.js";
+import { TipoUsuario } from "../../models/entities/Usuario.js";
+import { Notificacion } from "../../models/entities/Notificacion.js";
+import { NotificacionService } from "../../services/NotificacionService.js";
+import { NotificacionController } from "../../controllers/NotificacionController.js";
+import { Server } from "../../server/server.js";
 
 const usu1 = {
   nombre: "John Doe",

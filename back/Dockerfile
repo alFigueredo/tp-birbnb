@@ -6,4 +6,4 @@ ARG NODE_ENV
 RUN npm install
 
 COPY . ./
-CMD ["node", "back/index.js"]
+CMD ["node", "index.js"]

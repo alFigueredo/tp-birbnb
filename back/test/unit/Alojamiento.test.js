@@ -1,10 +1,10 @@
 import {
   Alojamiento,
   Caracteristica,
-} from "../../back/models/entities/Alojamiento.js";
-import { Usuario, TipoUsuario } from "../../back/models/entities/Usuario.js";
-import { Moneda } from "../../back/models/entities/Alojamiento.js";
-import { Reserva, RangoFechas } from "../../back/models/entities/Reserva.js";
+} from "../../models/entities/Alojamiento.js";
+import { Usuario, TipoUsuario } from "../../models/entities/Usuario.js";
+import { Moneda } from "../../models/entities/Alojamiento.js";
+import { Reserva, RangoFechas } from "../../models/entities/Reserva.js";
 
 const anfi1 = new Usuario(
   "John Doe",

@@ -1,14 +1,14 @@
 import "dotenv/config";
-import { Server } from "./back/server/server.js";
-import { MongoDBClient } from "./back/config/database.js";
+import { Server } from "./server/server.js";
+import { MongoDBClient } from "./config/database.js";
 import express from "express";
-import { AlojamientoController } from "./back/controllers/AlojamientoController.js";
-import { NotificacionController } from "./back/controllers/NotificacionController.js";
-import { ReservaController } from "./back/controllers/ReservaController.js";
+import { AlojamientoController } from "./controllers/AlojamientoController.js";
+import { NotificacionController } from "./controllers/NotificacionController.js";
+import { ReservaController } from "./controllers/ReservaController.js";
 import { exec } from "./exec.js";
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.SERVER_PORT || 3000;
 const server = new Server(app, port);
 
 MongoDBClient.connect();

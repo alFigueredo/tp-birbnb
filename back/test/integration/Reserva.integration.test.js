@@ -1,12 +1,12 @@
 import request from "supertest";
 import { jest } from "@jest/globals";
 import express from "express";
-import { TipoUsuario } from "../../back/models/entities/Usuario.js";
-import { Server } from "../../back/server/server.js";
-import { Moneda } from "../../back/models/entities/Alojamiento.js";
-import { ReservaService } from "../../back/services/ReservaService.js";
-import { ReservaController } from "../../back/controllers/ReservaController.js";
-import { Reserva } from "../../back/models/entities/Reserva.js";
+import { TipoUsuario } from "../../models/entities/Usuario.js";
+import { Server } from "../../server/server.js";
+import { Moneda } from "../../models/entities/Alojamiento.js";
+import { ReservaService } from "../../services/ReservaService.js";
+import { ReservaController } from "../../controllers/ReservaController.js";
+import { Reserva } from "../../models/entities/Reserva.js";
 
 const usu1 = {
   nombre: "John Doe",

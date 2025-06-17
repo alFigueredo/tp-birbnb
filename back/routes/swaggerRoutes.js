@@ -3,7 +3,7 @@ import swaggerUiExpress from "swagger-ui-express";
 import { readFile } from "node:fs/promises";
 
 const swaggerDocument = JSON.parse(
-  await readFile(new URL("../../docs/api-docs.json", import.meta.url)),
+  await readFile(new URL("../docs/api-docs.json", import.meta.url)),
 );
 
 export function swaggerRoutes() {
