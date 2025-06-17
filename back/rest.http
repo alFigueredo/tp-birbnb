@@ -1,30 +1,34 @@
 ### healthcheck
-GET http://localhost:3000/health
+
+GET http://localhost:4000/health HTTP/1.1
 
 ### api-docs
-GET http://localhost:3000/api-docs
+
+GET http://localhost:4000/api-docs HTTP/1.1
 
 ### obtener_notif
-GET http://localhost:3000/notificacion
 
-### Depende de un id
+GET http://localhost:4000/notificacion HTTP/1.1
+
 ### notif_sin_leer
-GET http://localhost:3000/notificacion/68370c535198cf164a309d79/sinleer
 
-### Depende de un id
+GET http://localhost:4000/notificacion/68370c535198cf164a309d79/sinleer HTTP/1.1
+
 ### notif_leidas
-GET http://localhost:3000/notificacion/68370c535198cf164a309d79/leida
 
-### Depende de un id
+GET http://localhost:4000/notificacion/68370c535198cf164a309d79/leida HTTP/1.1
+
 ### leer_notif
-PUT http://localhost:3000/notificacion/leer/6837585414214f84c533d292
+
+PUT http://localhost:4000/notificacion/leer/6837585414214f84c533d292 HTTP/1.1
 
 ### obtener_reservas
-GET http://localhost:3000/reserva
 
-### Depende de varios ids
+GET http://localhost:4000/reserva HTTP/1.1
+
 ### hacer_reserva
-POST http://localhost:3000/reserva
+
+POST http://localhost:4000/reserva HTTP/1.1
 Content_Type: application/json
 
 {
@@ -38,17 +42,17 @@ Content_Type: application/json
 	"precioPorNoche": 7000
 }
 
-### Depende de un id
 ### historial_reservas
-GET http://localhost:3000/reserva/68374012eaba399eb9e6775f
 
-### Depende de un id
+GET http://localhost:4000/reserva/68374012eaba399eb9e6775f HTTP/1.1
+
 ### cancelar_reserva
-PUT http://localhost:3000/reserva/cancelar/683741191147eaa392a16653
 
-### Depende de un id
+PUT http://localhost:4000/reserva/cancelar/683741191147eaa392a16653 HTTP/1.1
+
 ### modificar_reserva
-PUT http://localhost:3000/reserva/6837168d68c25d97e8627e42
+
+PUT http://localhost:4000/reserva/6837168d68c25d97e8627e42 HTTP/1.1
 Content_Type: application/json
 
 {
@@ -63,17 +67,18 @@ Content_Type: application/json
 	"estado": "CONFIRMADA"
 }
 
-### Depende de un id
 ### confirmar_reserva
-PUT http://localhost:3000/reserva/confirmar/6837585414214f84c533d2a6
 
-### Depende de un id
+PUT http://localhost:4000/reserva/confirmar/6837585414214f84c533d2a6 HTTP/1.1
+
 ### rechazar_reserva
-PUT http://localhost:3000/reserva/rechazar/6837438b08f3ca1b23af7bc0
+
+PUT http://localhost:4000/reserva/rechazar/6837438b08f3ca1b23af7bc0 HTTP/1.1
 
 ### obtener_alojamientos
-GET http://localhost:3000/alojamientos
 
-### Depende de un id
+GET http://localhost:4000/alojamiento HTTP/1.1
+
 ### obtener_alojamiento
-GET http://localhost:3000/alojamientos/68376d695abb55bf3cbd8d97
+
+GET http://localhost:4000/alojamiento/68376d695abb55bf3cbd8d97 HTTP/1.1
