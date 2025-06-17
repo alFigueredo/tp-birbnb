@@ -1,7 +1,6 @@
 import express from "express";
 import { configureRoutes } from "../routes/routes.js";
 import { errorHandler } from "../middlewares/errorHandler.js";
-import { swaggerRoutes } from "../routes/swaggerRoutes.js";
 
 export class Server {
   #controllers = {};
@@ -31,15 +30,6 @@ export class Server {
 
   configureRoutes() {
     configureRoutes(this.#app, this.getController.bind(this));
-
-    //Endpoint de prueba
-    this.#app.get("/health", (_req, res, _next) => {
-      res.json({
-        status: "ok",
-      });
-    });
-
-    this.#app.use(swaggerRoutes());
 
     // Middleware para manejar rutas no encontradas
     this.#app.use((_req, res, _next) => {

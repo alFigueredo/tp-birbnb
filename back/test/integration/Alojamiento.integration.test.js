@@ -4,9 +4,6 @@ import express from "express";
 import { TipoUsuario } from "../../models/entities/Usuario.js";
 import { Server } from "../../server/server.js";
 import { Moneda } from "../../models/entities/Alojamiento.js";
-import { ReservaService } from "../../services/ReservaService.js";
-import { ReservaController } from "../../controllers/ReservaController.js";
-import { Reserva } from "../../models/entities/Reserva.js";
 import { AlojamientoService } from "../../services/AlojamientoService.js";
 import { AlojamientoController } from "../../controllers/AlojamientoController.js";
 
@@ -18,6 +15,7 @@ const anfi1 = {
 
 const aloja1 = {
   id: 1,
+  anfitrion: anfi1,
   nombre: "Alojamiento 1",
   precioPorNoche: 7000,
   moneda: Moneda.PESO_ARG,
@@ -52,6 +50,7 @@ const aloja1 = {
 
 const aloja2 = {
   id: 2,
+  anfitrion: anfi1,
   nombre: "Alojamiento 2",
   precioPorNoche: 7000,
   moneda: Moneda.PESO_ARG,
@@ -64,6 +63,7 @@ const aloja2 = {
 
 const aloja3 = {
   id: 3,
+  anfitrion: anfi1,
   nombre: "Alojamiento 3",
   precioPorNoche: 7000,
   moneda: Moneda.PESO_ARG,

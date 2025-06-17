@@ -1,30 +1,30 @@
 services:
   node-app:
     build:
-      context: .
+      context: ./back
       args:
         - NODE_ENV
     user: "node"
     env_file:
-      - ./.env
+      - ./back/.env
     environment:
       - NODE_ENV=development
     ports:
-      - "3000:3000"
+      - "4000:4000"
     develop:
       watch:
         - action: sync
-          path: .
+          path: ./back
           target: /home/node/app
         - action: rebuild
-          path: package.json
+          path: ./back/package.json
     command: "npm run dev"
 
   mongo:
     image: mongo
     attach: false
     env_file:
-      - ./.env
+      - ./back/.env
     volumes:
       - mongo-db-data:/data/db
       - mongo-db-config:/data/configdb
