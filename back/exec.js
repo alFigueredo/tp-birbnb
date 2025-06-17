@@ -60,7 +60,12 @@ export async function exec() {
     new RangoFechas(new Date(2025, 7, 13), new Date(2025, 7, 15)),
   ];
 
-  const fotos = [new FotoModel(new Foto("Foto 1", "foto1"))];
+  const fotos = [
+    new FotoModel(new Foto("Casa 1", "/fotos/casa1.jpg")),
+    new FotoModel(new Foto("Casa 2", "/fotos/casa2.jpg")),
+    new FotoModel(new Foto("Casa 3", "/fotos/casa3.jpg")),
+    new FotoModel(new Foto("Casa 4", "/fotos/casa4.jpg")),
+  ];
 
   const paises = [
     new PaisModel(new Pais("Pais 1")),
@@ -107,7 +112,7 @@ export async function exec() {
         direcciones[1],
         6,
         [Caracteristica.WIFI, Caracteristica.ESTACIONAMIENTO],
-        fotos[0],
+        fotos[1],
       ),
     ),
 
@@ -127,7 +132,7 @@ export async function exec() {
           Caracteristica.ESTACIONAMIENTO,
           Caracteristica.PISCINA,
         ],
-        fotos[0],
+        fotos[2],
       ),
     ),
 
@@ -143,7 +148,7 @@ export async function exec() {
         direcciones[0],
         5,
         [Caracteristica.WIFI, Caracteristica.MASCOTAS_PERMITIDAS],
-        fotos[0],
+        fotos[3],
       ),
     ),
   ];
