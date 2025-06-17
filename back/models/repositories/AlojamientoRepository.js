@@ -60,11 +60,12 @@ export class AlojamientoRepository {
 
     const alojamientos = await this.model
       .find(query)
-      .select("nombre descripcion precioPorNoche direccion")
+      .select("nombre descripcion precioPorNoche direccion fotos")
       .populate({
         path: "direccion",
-        select: "calle altura",
+        select: "calle altura",  
       })
+      .populate("fotos")
       .skip(skip)
       .limit(limit);
 

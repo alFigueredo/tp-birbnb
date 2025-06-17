@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors"; // <-- IMPORTACIÓN
 import { configureRoutes } from "../routes/routes.js";
 import { errorHandler } from "../middlewares/errorHandler.js";
 import { swaggerRoutes } from "../routes/swaggerRoutes.js";
@@ -7,10 +8,17 @@ export class Server {
   #controllers = {};
   #app;
 
-  constructor(app, port = 3000) {
+  constructor(app, port = 4000) { 
     this.#app = app;
     this.port = port;
+
+    
+    this.#app.use(cors({
+      origin: 'http://localhost:3000' //Frontend en Next
+    }));
+
     this.#app.use(express.json());
+    this.#app.use(express.static("public"));
   }
 
   get app() {
@@ -32,24 +40,19 @@ export class Server {
   configureRoutes() {
     configureRoutes(this.#app, this.getController.bind(this));
 
-    //Endpoint de prueba
-    this.#app.get("/health", (_req, res, _next) => {
-      res.json({
-        status: "ok",
-      });
+    this.#app.get("/health", (_req, res) => {
+      res.json({ status: "ok" });
     });
 
     this.#app.use(swaggerRoutes());
 
-    // Middleware para manejar rutas no encontradas
-    this.#app.use((_req, res, _next) => {
+    this.#app.use((_req, res) => {
       res.status(404).json({
         status: "fail",
         message: "La ruta solicitada no existe",
       });
     });
 
-    // Middleware global de manejo de errores
     this.#app.use(errorHandler);
   }
 

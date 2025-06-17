@@ -1,3 +1,7 @@
+import 'dotenv/config';
+import { MongoDBClient } from "./back/config/database.js";
+await MongoDBClient.connect();
+
 import {
   Alojamiento,
   Caracteristica,
@@ -65,7 +69,10 @@ export async function exec() {
   const rango4 = new RangoFechas(new Date(2025, 7, 10), new Date(2025, 7, 12));
   const rango5 = new RangoFechas(new Date(2025, 7, 13), new Date(2025, 7, 15));
 
-  const foto1 = new FotoModel(new Foto("Foto 1", "foto1"));
+  const foto1 = new FotoModel(new Foto("Casa 1", "/fotos/casa1.jpg"));
+  const foto2 = new FotoModel(new Foto("Casa 2", "/fotos/casa2.jpg"));
+  const foto3 = new FotoModel(new Foto("Casa 3", "/fotos/casa3.jpg"));
+  const foto4 = new FotoModel(new Foto("Casa 4", "/fotos/casa4.jpg"));
 
   const pais1 = new PaisModel(new Pais("Pais 1"));
   const pais2 = new PaisModel(new Pais("Pais 2"));
@@ -105,7 +112,7 @@ export async function exec() {
       direc2,
       6,
       [Caracteristica.WIFI, Caracteristica.ESTACIONAMIENTO],
-      foto1,
+      foto2,
     ),
   );
 
@@ -125,7 +132,7 @@ export async function exec() {
         Caracteristica.ESTACIONAMIENTO,
         Caracteristica.PISCINA,
       ],
-      foto1,
+      foto3,
     ),
   );
 
@@ -141,7 +148,7 @@ export async function exec() {
       direc1,
       5,
       [Caracteristica.WIFI, Caracteristica.MASCOTAS_PERMITIDAS],
-      foto1,
+      foto4,
     ),
   );
 
@@ -158,6 +165,9 @@ export async function exec() {
 
   await anfi1.save();
   await foto1.save();
+  await foto2.save();
+  await foto3.save();
+  await foto4.save();
   await pais1.save();
   await pais2.save();
   await ciudad1.save();
