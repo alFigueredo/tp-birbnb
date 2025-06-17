@@ -1,5 +1,5 @@
 services:
-  node-app:
+  node-back:
     build:
       context: ./back
       args:
