@@ -81,4 +81,4 @@ GET http://localhost:4000/alojamiento HTTP/1.1
 
 ### obtener_alojamiento
 
-GET http://localhost:4000/alojamiento/68376d695abb55bf3cbd8d97 HTTP/1.1
+GET http://localhost:4000/alojamiento/68524181b444a51d22c7a3be HTTP/1.1

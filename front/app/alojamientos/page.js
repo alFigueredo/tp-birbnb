@@ -2,13 +2,16 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Alojamientos() {
   const [alojamientos, setAlojamientos] = useState([]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/alojamiento")
+      // .get("http://localhost:4000/alojamiento")
+      .get("http://localhost:4000/alojamiento?limit=20")
       .then((res) => setAlojamientos(res.data.alojamientos || []))
       .catch((err) => console.error("Error al obtener alojamientos:", err));
   }, []);
@@ -20,24 +23,32 @@ export default function Alojamientos() {
         🏡Listado de Alojamientos🏡
       </h1>
 
+      
+
       {/* Contenedor de tarjetas */}
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto">
         {/* Cada alojamiento individual */}
         {alojamientos.map((aloj) => (
           <div
             key={aloj._id}
-            className="bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-lg transition duration-300 p-6 border border-gray-200 dark:border-gray-700"
+            className="mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-lg dark:hover:bg-gray-900 transition duration-400 p-6 border border-gray-500"
           >
             {/*MOSTRAMOS las fotos */}
             {aloj.fotos && aloj.fotos.length > 0 && (
               <div className="mb-4">
                 {aloj.fotos.map((foto, index) => (
-                  <img
-                    key={index}
-                    src={foto.path}
-                    alt={`Foto de ${aloj.nombre} - ${foto.descripcion || index + 1}`}
-                    className="w-full h-48 object-cover rounded-md mb-2"
-                  />
+                  <Link key={foto._id} href={`/alojamientos/${aloj._id}`}>
+                    <Image
+                      key={index}
+                      width={320}
+                      height={240}
+                      src={foto.path}
+                      alt={`Foto de ${aloj.nombre} - ${
+                        foto.descripcion || index + 1
+                      }`}
+                      className="h-48 object-cover rounded-md mb-2"
+                    />
+                  </Link>
                 ))}
               </div>
             )}
@@ -67,4 +78,3 @@ export default function Alojamientos() {
     </div>
   );
 }
-

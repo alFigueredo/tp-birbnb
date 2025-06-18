@@ -28,13 +28,13 @@ export async function exec() {
 
   const usuarios = [
     new UsuarioModel(
-      new Usuario("John Doe", "johndoe@gmail.com", TipoUsuario.HUESPED),
+      new Usuario("John Doe", "johndoe@gmail.com", TipoUsuario.HUESPED)
     ),
     new UsuarioModel(
-      new Usuario("Juan Doe", "juandoe@gmail.com", TipoUsuario.HUESPED),
+      new Usuario("Juan Doe", "juandoe@gmail.com", TipoUsuario.HUESPED)
     ),
     new UsuarioModel(
-      new Usuario("Juana Doe", "juanadoe@gmail.com", TipoUsuario.HUESPED),
+      new Usuario("Juana Doe", "juanadoe@gmail.com", TipoUsuario.HUESPED)
     ),
   ];
 
@@ -48,7 +48,7 @@ export async function exec() {
 
   const anfitriones = [
     new UsuarioModel(
-      new Usuario("Jane Doe", "janedoe@gmail.com", TipoUsuario.ANFITRION),
+      new Usuario("Jane Doe", "janedoe@gmail.com", TipoUsuario.ANFITRION)
     ),
   ];
 
@@ -61,10 +61,20 @@ export async function exec() {
   ];
 
   const fotos = [
-    new FotoModel(new Foto("Casa 1", "/fotos/casa1.jpg")),
-    new FotoModel(new Foto("Casa 2", "/fotos/casa2.jpg")),
-    new FotoModel(new Foto("Casa 3", "/fotos/casa3.jpg")),
-    new FotoModel(new Foto("Casa 4", "/fotos/casa4.jpg")),
+    new FotoModel(new Foto("Foto casa 1", "/fotos/casa1.jpg")),
+    new FotoModel(new Foto("Foto casa 2", "/fotos/casa2.jpg")),
+    new FotoModel(new Foto("Foto casa 3", "/fotos/casa3.jpg")),
+    new FotoModel(new Foto("Foto casa 4", "/fotos/casa4.jpg")),
+    new FotoModel(new Foto("Foto casa 5", "/fotos/casa5.jpg")),
+    new FotoModel(new Foto("Foto casa 6", "/fotos/casa6.jpg")),
+    new FotoModel(new Foto("Foto casa 7", "/fotos/casa7.jpg")),
+    new FotoModel(new Foto("Foto casa 8", "/fotos/casa8.jpg")),
+    new FotoModel(new Foto("Foto casa 9", "/fotos/casa9.jpg")),
+    new FotoModel(new Foto("Foto casa 10", "/fotos/casa10.jpg")),
+    new FotoModel(new Foto("Foto casa 11", "/fotos/casa11.jpg")),
+    new FotoModel(new Foto("Foto casa 12", "/fotos/casa12.jpg")),
+    new FotoModel(new Foto("Foto casa 13", "/fotos/casa13.jpg")),
+    new FotoModel(new Foto("Foto casa 14", "/fotos/casa14.jpg")),
   ];
 
   const paises = [
@@ -96,8 +106,8 @@ export async function exec() {
         direcciones[0],
         5,
         [Caracteristica.WIFI, Caracteristica.ESTACIONAMIENTO],
-        fotos[0],
-      ),
+        fotos[0]
+      )
     ),
 
     new AlojamientoModel(
@@ -112,8 +122,8 @@ export async function exec() {
         direcciones[1],
         6,
         [Caracteristica.WIFI, Caracteristica.ESTACIONAMIENTO],
-        fotos[1],
-      ),
+        fotos[1]
+      )
     ),
 
     new AlojamientoModel(
@@ -132,8 +142,8 @@ export async function exec() {
           Caracteristica.ESTACIONAMIENTO,
           Caracteristica.PISCINA,
         ],
-        fotos[2],
-      ),
+        fotos[2]
+      )
     ),
 
     new AlojamientoModel(
@@ -148,26 +158,176 @@ export async function exec() {
         direcciones[0],
         5,
         [Caracteristica.WIFI, Caracteristica.MASCOTAS_PERMITIDAS],
-        fotos[3],
-      ),
+        fotos[3]
+      )
+    ),
+    new AlojamientoModel(
+      new Alojamiento(
+        anfitriones[0],
+        "Miravida SOHO",
+        "Alojamiento 5",
+        7000,
+        Moneda.PESO_ARG,
+        "14:00",
+        "10:00",
+        direcciones[0],
+        5,
+        [Caracteristica.WIFI, Caracteristica.ESTACIONAMIENTO],
+        fotos[4]
+      )
+    ),
+    new AlojamientoModel(
+      new Alojamiento(
+        anfitriones[0],
+        "Departamento Rio de Janeiro",
+        "Alojamiento 6",
+        7000,
+        Moneda.PESO_ARG,
+        "14:00",
+        "10:00",
+        direcciones[0],
+        5,
+        [Caracteristica.WIFI, Caracteristica.ESTACIONAMIENTO],
+        fotos[5]
+      )
+    ),
+    new AlojamientoModel(
+      new Alojamiento(
+        anfitriones[0],
+        "Argenta Suites",
+        "Alojamiento 7",
+        7000,
+        Moneda.PESO_ARG,
+        "14:00",
+        "10:00",
+        direcciones[0],
+        5,
+        [Caracteristica.WIFI, Caracteristica.ESTACIONAMIENTO],
+        fotos[6]
+      )
+    ),
+    new AlojamientoModel(
+      new Alojamiento(
+        anfitriones[0],
+        "Ayres de Recoleta Plaza",
+        "Alojamiento 8",
+        7000,
+        Moneda.PESO_ARG,
+        "14:00",
+        "10:00",
+        direcciones[0],
+        5,
+        [Caracteristica.WIFI, Caracteristica.ESTACIONAMIENTO],
+        fotos[7]
+      )
+    ),
+    new AlojamientoModel(
+      new Alojamiento(
+        anfitriones[0],
+        "San Telmo Suites",
+        "Alojamiento 9",
+        7000,
+        Moneda.PESO_ARG,
+        "14:00",
+        "10:00",
+        direcciones[0],
+        5,
+        [Caracteristica.WIFI, Caracteristica.ESTACIONAMIENTO],
+        fotos[8]
+      )
+    ),
+    new AlojamientoModel(
+      new Alojamiento(
+        anfitriones[0],
+        "Ayres Duplex Suites",
+        "Alojamiento 10",
+        7000,
+        Moneda.PESO_ARG,
+        "14:00",
+        "10:00",
+        direcciones[0],
+        5,
+        [Caracteristica.WIFI, Caracteristica.ESTACIONAMIENTO],
+        fotos[9]
+      )
+    ),
+    new AlojamientoModel(
+      new Alojamiento(
+        anfitriones[0],
+        "Mine Hotel Boutique",
+        "Alojamiento 11",
+        7000,
+        Moneda.PESO_ARG,
+        "14:00",
+        "10:00",
+        direcciones[0],
+        5,
+        [Caracteristica.WIFI, Caracteristica.ESTACIONAMIENTO],
+        fotos[10]
+      )
+    ),
+    new AlojamientoModel(
+      new Alojamiento(
+        anfitriones[0],
+        "Casa San Jose",
+        "Alojamiento 12",
+        7000,
+        Moneda.PESO_ARG,
+        "14:00",
+        "10:00",
+        direcciones[0],
+        5,
+        [Caracteristica.WIFI, Caracteristica.ESTACIONAMIENTO],
+        fotos[11]
+      )
+    ),
+    new AlojamientoModel(
+      new Alojamiento(
+        anfitriones[0],
+        "Hilton Puerto Madero",
+        "Alojamiento 13",
+        7000,
+        Moneda.PESO_ARG,
+        "14:00",
+        "10:00",
+        direcciones[0],
+        5,
+        [Caracteristica.WIFI, Caracteristica.ESTACIONAMIENTO],
+        fotos[12]
+      )
+    ),
+    new AlojamientoModel(
+      new Alojamiento(
+        anfitriones[0],
+        "Hotel Rural Casa Grande",
+        "Alojamiento 14",
+        7000,
+        Moneda.PESO_ARG,
+        "14:00",
+        "10:00",
+        direcciones[0],
+        5,
+        [Caracteristica.WIFI, Caracteristica.ESTACIONAMIENTO],
+        fotos[13]
+      )
     ),
   ];
 
   const reservas = [
     new ReservaModel(
-      new Reserva(usuarios[0], 3, alojamientos[0], rangoFechas[0], 7000),
+      new Reserva(usuarios[0], 3, alojamientos[0], rangoFechas[0], 7000)
     ),
     new ReservaModel(
-      new Reserva(usuarios[1], 3, alojamientos[0], rangoFechas[1], 7000),
+      new Reserva(usuarios[1], 3, alojamientos[0], rangoFechas[1], 7000)
     ),
     new ReservaModel(
-      new Reserva(usuarios[2], 3, alojamientos[0], rangoFechas[2], 7000),
+      new Reserva(usuarios[2], 3, alojamientos[0], rangoFechas[2], 7000)
     ),
     new ReservaModel(
-      new Reserva(usuarios[1], 3, alojamientos[0], rangoFechas[3], 7000),
+      new Reserva(usuarios[1], 3, alojamientos[0], rangoFechas[3], 7000)
     ),
     new ReservaModel(
-      new Reserva(usuarios[2], 3, alojamientos[0], rangoFechas[4], 7000),
+      new Reserva(usuarios[2], 3, alojamientos[0], rangoFechas[4], 7000)
     ),
   ];
   reservas.map((reserva) => alojamientos[0].agregarReserva(reserva));

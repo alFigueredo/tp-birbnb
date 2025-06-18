@@ -42,10 +42,10 @@ export class AlojamientoRepository {
       if (pais) {
         const ciudades = await CiudadModel.find({ pais: pais._id });
         const ciudadIds = ciudades.map((c) => c._id);
-        query["direccion.ciudad"] = {$in: ciudadIds}
+        query["direccion.ciudad"] = { $in: ciudadIds };
       }
     }
-    
+
     //Filtro por coordenadas
     if (filters.lat && filters.long) {
       query["direccion.lat"] = filters.lat;
@@ -63,7 +63,7 @@ export class AlojamientoRepository {
       .select("nombre descripcion precioPorNoche direccion fotos")
       .populate({
         path: "direccion",
-        select: "calle altura",  
+        select: "calle altura",
       })
       .populate("fotos")
       .skip(skip)
@@ -78,7 +78,15 @@ export class AlojamientoRepository {
   }
 
   async findById(id) {
-    return this.model.findById(id).populate("reservas").populate("anfitrion"); // Buscar alojamiento por ID
+    return this.model
+      .findById(id)
+      .populate("reservas")
+      .populate("anfitrion")
+      .populate({
+        path: "direccion",
+        select: "calle altura",
+      })
+      .populate("fotos"); // Buscar alojamiento por ID
   }
 
   async save(alojamiento) {

@@ -18,11 +18,12 @@ export default function Home() {
 
   return (
     <main className="flex-1">
-      <section className="grid grid-cols-1 lg:grid-cols-3 justify-around pt-25 pb-10">
+      <section className="bg-stone-400 grid grid-cols-1 lg:grid-cols-3 gap-7 lg:px-15 pt-25 pb-10">
         {autos.map((auto) => (
           <Car auto={auto} key={auto.id} />
         ))}
       </section>
+      
     </main>
   );
 }

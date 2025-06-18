@@ -5,10 +5,10 @@ export default function Car({ auto }) {
   //const nombreAuto = `${auto.marca} ${auto.modelo}`;
   const nombreAuto = `${auto.marca}`;
   return (
-    <div className="mb-7 mx-auto max-w-4/5 lg:max-w-auto rounded-md">
+    <div className="font-bold mx-auto max-w-4/5 lg:max-w-auto rounded-xl shadow-md hover:shadow-xl transition duration-300 p-6 border border-gray-200">
       <Link href={`/carpage/${auto.id}`}>
         <Image
-          className="rounded-lg lg:w-[320px] h-[240px]"
+          className="rounded-lg h-48 object-cover mx-auto"
           width={320}
           height={240}
           src={auto.fotos[0]}
