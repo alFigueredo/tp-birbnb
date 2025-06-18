@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors"; // <-- IMPORTACIÓN
 import { configureRoutes } from "../routes/routes.js";
 import { errorHandler } from "../middlewares/errorHandler.js";
 
@@ -6,10 +7,19 @@ export class Server {
   #controllers = {};
   #app;
 
-  constructor(app, port = 3000) {
+  constructor(app, port = 4000) {
     this.#app = app;
     this.port = port;
+
+    // this.#app.use(
+    //   cors({
+    //     origin: "http://localhost:3000", //Frontend en Next
+    //   }),
+    // );
+
     this.#app.use(express.json());
+    this.#app.use(cors());
+    // this.#app.use(express.static("public"));
   }
 
   get app() {
@@ -39,7 +49,6 @@ export class Server {
       });
     });
 
-    // Middleware global de manejo de errores
     this.#app.use(errorHandler);
   }
 

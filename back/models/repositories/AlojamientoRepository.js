@@ -9,6 +9,10 @@ export class AlojamientoRepository {
   async findAll(filters = {}) {
     const query = {};
 
+    if (filters.nombre) {
+      query.nombre = { $regex: filters.nombre, $options: "i" };
+    }
+
     //Filtro por Rango de precios
     if (filters.precioGt || filters.precioLt) {
       query.precioPorNoche = {}; // creo el objeto
@@ -42,10 +46,10 @@ export class AlojamientoRepository {
       if (pais) {
         const ciudades = await CiudadModel.find({ pais: pais._id });
         const ciudadIds = ciudades.map((c) => c._id);
-        query["direccion.ciudad"] = {$in: ciudadIds}
+        query["direccion.ciudad"] = { $in: ciudadIds };
       }
     }
-    
+
     //Filtro por coordenadas
     if (filters.lat && filters.long) {
       query["direccion.lat"] = filters.lat;
@@ -60,11 +64,12 @@ export class AlojamientoRepository {
 
     const alojamientos = await this.model
       .find(query)
-      .select("nombre descripcion precioPorNoche direccion")
+      .select("nombre descripcion precioPorNoche direccion fotos")
       .populate({
         path: "direccion",
         select: "calle altura",
       })
+      .populate("fotos")
       .skip(skip)
       .limit(limit);
 
@@ -77,7 +82,15 @@ export class AlojamientoRepository {
   }
 
   async findById(id) {
-    return this.model.findById(id).populate("reservas").populate("anfitrion"); // Buscar alojamiento por ID
+    return this.model
+      .findById(id)
+      .populate("reservas")
+      .populate("anfitrion")
+      .populate({
+        path: "direccion",
+        select: "calle altura",
+      })
+      .populate("fotos"); // Buscar alojamiento por ID
   }
 
   async save(alojamiento) {

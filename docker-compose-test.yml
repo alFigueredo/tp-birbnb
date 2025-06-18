@@ -1,5 +1,5 @@
 services:
-  node-app:
+  node-back:
     build:
       context: ./back
       args:
@@ -9,8 +9,6 @@ services:
       - ./back/.env
     environment:
       - NODE_ENV=test
-    ports:
-      - "4000:4000"
     develop:
       watch:
         - action: sync
@@ -19,16 +17,3 @@ services:
         - action: rebuild
           path: ./back/package.json
     command: "npm run test"
-
-  mongo:
-    image: mongo
-    attach: false
-    env_file:
-      - ./back/.env
-    volumes:
-      - mongo-db-data:/data/db
-      - mongo-db-config:/data/configdb
-
-volumes:
-  mongo-db-data:
-  mongo-db-config:
