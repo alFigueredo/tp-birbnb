@@ -19,7 +19,7 @@ export default function Header() {
     { name: "Home", href: "/" },
     { name: "Alojamientos", href: "/alojamientos" },
     { name: "Reservas", href: "/reservas" },
-    { name: "Notificaciones", href: "/notificaciones" },
+    // { name: "Notificaciones", href: "/notificaciones" },
   ];
 
   function getLink(link) {
@@ -38,7 +38,12 @@ export default function Header() {
         <ul className="flex gap-3 mr-auto p-0">
           <li className="flex items-center">
             <Link href="/">
-              <Image src="/birbnb.svg" alt="birbnb logo" width={50} height={50} />
+              <Image
+                src="/birbnb.svg"
+                alt="birbnb logo"
+                width={50}
+                height={50}
+              />
             </Link>
           </li>
           {...links.map((link) => getLink(link))}

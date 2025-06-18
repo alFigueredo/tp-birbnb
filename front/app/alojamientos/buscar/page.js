@@ -100,17 +100,6 @@ export default function Alojamientos() {
           onChange={(e) => setFiltros({ ...filtros, pais: e.target.value })}
         />
 
-        {/* <select
-          value={tipo}
-          onChange={(e) => setTipo(e.target.value)}
-          className="w-full border px-3 py-2 rounded"
-        >
-          <option value="">Tipo de alojamiento</option>
-          <option value="cabaña">Cabaña</option>
-          <option value="hotel">Hotel</option>
-          <option value="hostel">Hostel</option>
-        </select> */}
-
         {/* <div className="flex items-center gap-2">
           <input
             type="checkbox"
@@ -129,9 +118,7 @@ export default function Alojamientos() {
           id="precioMinimo"
           type="number"
           value={filtros.precioGt || 0}
-          onChange={(e) =>
-            setFiltros({ ...filtros, precioGt: e.target.value })
-          }
+          onChange={(e) => setFiltros({ ...filtros, precioGt: e.target.value })}
           className="w-full border px-3 py-2 rounded"
         />
         <label
@@ -144,9 +131,7 @@ export default function Alojamientos() {
           id="precioMaximo"
           type="number"
           value={filtros.precioLt || 0}
-          onChange={(e) =>
-            setFiltros({ ...filtros, precioLt: e.target.value })
-          }
+          onChange={(e) => setFiltros({ ...filtros, precioLt: e.target.value })}
           className="w-full border px-3 py-2 rounded"
         />
         <label
@@ -164,6 +149,17 @@ export default function Alojamientos() {
           }
           className="w-full border px-3 py-2 rounded"
         />
+
+        {/* <select */}
+        {/*   value={tipo} */}
+        {/*   onChange={(e) => setTipo(e.target.value)} */}
+        {/*   className="w-full border px-3 py-2 rounded" */}
+        {/* > */}
+        {/*   <option value="">Tipo de alojamiento</option> */}
+        {/*   <option value="cabaña">Cabaña</option> */}
+        {/*   <option value="hotel">Hotel</option> */}
+        {/*   <option value="hostel">Hostel</option> */}
+        {/* </select> */}
 
         {/* <button
           onClick={aplicarFiltros}

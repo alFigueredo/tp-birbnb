@@ -29,7 +29,8 @@ export class AlojamientoRepository {
 
     //Filtro por caracteristicas especiales
     if (filters.caractPedidas) {
-      query.caracteristicas = { $all: filters.caractPedidas }; //Los que tengan TODAS esas caracteristicas
+      const caractPedidas = filters.caractPedidas?.split(",") || [];
+      query.caracteristicas = { $all: caractPedidas }; //Los que tengan TODAS esas caracteristicas
     }
 
     // let direccionIds = [];
