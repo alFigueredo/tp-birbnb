@@ -2,7 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function Car({ auto }) {
-  const nombreAuto = `${auto.marca} ${auto.modelo}`;
+  //const nombreAuto = `${auto.marca} ${auto.modelo}`;
+  const nombreAuto = `${auto.marca}`;
   return (
     <div className="mb-7 mx-auto max-w-4/5 lg:max-w-auto rounded-md">
       <Link href={`/carpage/${auto.id}`}>

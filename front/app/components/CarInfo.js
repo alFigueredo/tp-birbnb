@@ -8,7 +8,8 @@ export default function CarInfo({ id }) {
   }
 
   const auto = cargarAuto(id);
-  const nombreAuto = `${auto.marca} ${auto.modelo}`;
+  //const nombreAuto = `${auto.marca} ${auto.modelo}`;
+  const nombreAuto = `${auto.marca}`;
 
   return (
     <div className="block lg:flex justify-center items-center py-10 mx-auto max-w-4/5 lg:max-w-auto rounded-md">
