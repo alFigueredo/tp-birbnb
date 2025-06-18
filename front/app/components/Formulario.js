@@ -3,7 +3,7 @@
 
 import React, { useState } from "react";
 
-export default function ComprarButton() {
+export default function Formulario() {
   const [showForm, setShowForm] = useState(false);
 
   const toggleForm = () => setShowForm(!showForm);

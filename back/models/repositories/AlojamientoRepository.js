@@ -9,6 +9,10 @@ export class AlojamientoRepository {
   async findAll(filters = {}) {
     const query = {};
 
+    if (filters.nombre) {
+      query.nombre = { $regex: filters.nombre, $options: "i" };
+    }
+
     //Filtro por Rango de precios
     if (filters.precioGt || filters.precioLt) {
       query.precioPorNoche = {}; // creo el objeto
