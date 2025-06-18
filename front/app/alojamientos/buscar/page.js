@@ -5,13 +5,15 @@ import axios from "axios";
 import AlojamientoCard from "@/app/components/AlojamientoCard";
 import { useRouter, useSearchParams } from "next/navigation";
 
+// Dividir más en componentes
+
 export default function Alojamientos() {
   const [alojamientos, setAlojamientos] = useState([]);
   const searchParams = useSearchParams();
   const [filtros, setFiltros] = useState({
     nombre: searchParams.get("nombre"),
   });
-  const router = useRouter();
+  // const router = useRouter();
 
   function limpiarFiltros(obj) {
     return Object.fromEntries(Object.entries(obj).filter(([_, val]) => val));
