@@ -1,6 +1,6 @@
 "use client";
 
-import ComprarButton from "@/app/components/ComprarButton";
+import Formulario from "@/app/components/Formulario";
 import Image from "next/image";
 import axios from "axios";
 import { useState, useEffect } from "react";
@@ -11,7 +11,7 @@ export default function AlojamientoInfo({ id }) {
   async function cargarAlojamiento(alojaid) {
     try {
       const res = await axios.get(
-        `http://localhost:4000/alojamiento/${alojaid}`
+        `http://localhost:4000/alojamiento/${alojaid}`,
       );
       setAloja(res.data);
     } catch (err) {
@@ -44,7 +44,7 @@ export default function AlojamientoInfo({ id }) {
         <p className="mb-2">{`Precio por noche: $${aloja.precioPorNoche}`}</p>
         <p className="mb-2">{`Cantidad de huéspedes máxima: ${aloja.cantHuespedesMax}`}</p>
         <p className="mb-2">{`Dirección: ${aloja.direccion.calle} ${aloja.direccion.altura}`}</p>
-        <ComprarButton />
+        <Formulario />
       </div>
     </div>
   );
