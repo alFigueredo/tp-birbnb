@@ -13,7 +13,7 @@ export default function Buscar() {
   const [filtros, setFiltros] = useState({
     nombre: searchParams.get("nombre"),
   });
-  const router = useRouter();
+  // const router = useRouter();
 
   function limpiarFiltros(obj) {
     return Object.fromEntries(Object.entries(obj).filter(([_, val]) => val));
