@@ -3,9 +3,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import AlojamientoCard from "@/app/components/AlojamientoCard";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
-export default function Alojamientos() {
+// Dividir más en componentes
+
+export default function Buscar() {
   const [alojamientos, setAlojamientos] = useState([]);
   const searchParams = useSearchParams();
   const [filtros, setFiltros] = useState({
