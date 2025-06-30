@@ -12,6 +12,7 @@ export default function Buscar() {
   const searchParams = useSearchParams();
   const [filtros, setFiltros] = useState({
     nombre: searchParams.get("nombre"),
+    caractPedidas: [],
   });
   // const router = useRouter();
 
@@ -37,6 +38,7 @@ export default function Buscar() {
   useEffect(() => {
     const filtrosLimpios = limpiarFiltros(filtros);
     const queryString = new URLSearchParams(filtrosLimpios).toString();
+    console.debug(queryString);
     const req = queryString
       ? `http://localhost:4000/alojamiento?${queryString}&limit=20`
       : "http://localhost:4000/alojamiento?limit=20";
@@ -101,15 +103,6 @@ export default function Buscar() {
           value={filtros.pais || ""}
           onChange={(e) => setFiltros({ ...filtros, pais: e.target.value })}
         />
-
-        {/* <div className="flex items-center gap-2">
-          <input
-            type="checkbox"
-            checked={wifi}
-            onChange={(e) => setWifi(e.target.checked)}
-          />
-          <label>WiFi</label>
-        </div> */}
         <label
           htmlFor="precioMinimo"
           className="block text-sm text-gray-700 mb-1"
@@ -151,17 +144,102 @@ export default function Buscar() {
           }
           className="w-full border px-3 py-2 rounded"
         />
+        <label htmlFor="lat" className="block text-sm text-gray-700 mb-1">
+          Latitud
+        </label>
+        <input
+          id="lat"
+          type="text"
+          value={filtros.lat || ""}
+          onChange={(e) => setFiltros({ ...filtros, lat: e.target.value })}
+          className="w-full border px-3 py-2 rounded"
+        />
+        <label htmlFor="long" className="block text-sm text-gray-700 mb-1">
+          Longitud
+        </label>
+        <input
+          id="long"
+          type="text"
+          value={filtros.long || ""}
+          onChange={(e) => setFiltros({ ...filtros, long: e.target.value })}
+          className="w-full border px-3 py-2 rounded"
+        />
 
-        {/* <select */}
-        {/*   value={tipo} */}
-        {/*   onChange={(e) => setTipo(e.target.value)} */}
-        {/*   className="w-full border px-3 py-2 rounded" */}
-        {/* > */}
-        {/*   <option value="">Tipo de alojamiento</option> */}
-        {/*   <option value="cabaña">Cabaña</option> */}
-        {/*   <option value="hotel">Hotel</option> */}
-        {/*   <option value="hostel">Hostel</option> */}
-        {/* </select> */}
+        <label className="block text-sm text-gray-700 mb-1">
+          Características
+        </label>
+        <label key="WIFI" className="flex text-sm items-center gap-2">
+          <input
+            type="checkbox"
+            checked={filtros.caractPedidas.includes("WIFI") || false}
+            value="WIFI"
+            onChange={(e) =>
+              setFiltros({
+                ...filtros,
+                caractPedidas: filtros.caractPedidas.includes(e.target.value)
+                  ? filtros.caractPedidas.filter((v) => v !== e.target.value)
+                  : [...filtros.caractPedidas, e.target.value],
+              })
+            }
+          />
+          Wi-Fi
+        </label>
+        <label key="PISCINA" className="flex text-sm items-center gap-2">
+          <input
+            type="checkbox"
+            checked={filtros.caractPedidas.includes("PISCINA") || false}
+            value="PISCINA"
+            onChange={(e) =>
+              setFiltros({
+                ...filtros,
+                caractPedidas: filtros.caractPedidas.includes(e.target.value)
+                  ? filtros.caractPedidas.filter((v) => v !== e.target.value)
+                  : [...filtros.caractPedidas, e.target.value],
+              })
+            }
+          />
+          Piscina
+        </label>
+        <label
+          key="ESTACIONAMIENTO"
+          className="flex text-sm items-center gap-2"
+        >
+          <input
+            type="checkbox"
+            checked={filtros.caractPedidas.includes("ESTACIONAMIENTO") || false}
+            value="ESTACIONAMIENTO"
+            onChange={(e) =>
+              setFiltros({
+                ...filtros,
+                caractPedidas: filtros.caractPedidas.includes(e.target.value)
+                  ? filtros.caractPedidas.filter((v) => v !== e.target.value)
+                  : [...filtros.caractPedidas, e.target.value],
+              })
+            }
+          />
+          Estacionamiento
+        </label>
+        <label
+          key="MASCOTAS_PERMITIDAS"
+          className="flex text-sm items-center gap-2"
+        >
+          <input
+            type="checkbox"
+            checked={
+              filtros.caractPedidas.includes("MASCOTAS_PERMITIDAS") || false
+            }
+            value="MASCOTAS_PERMITIDAS"
+            onChange={(e) =>
+              setFiltros({
+                ...filtros,
+                caractPedidas: filtros.caractPedidas.includes(e.target.value)
+                  ? filtros.caractPedidas.filter((v) => v !== e.target.value)
+                  : [...filtros.caractPedidas, e.target.value],
+              })
+            }
+          />
+          Mascotas permitidas
+        </label>
 
         {/* <button
           onClick={aplicarFiltros}
