@@ -20,10 +20,6 @@ export default function AlojamientoInfo({ id }) {
   }
 
   useEffect(() => {
-    // axios
-    //   .get(`http://localhost:4000/alojamiento/${id}`)
-    //   .then((res) => setAloja(res.data))
-    //   .catch((err) => console.error(err));
     cargarAlojamiento(id);
   }, [id]);
 
