@@ -48,23 +48,23 @@ export default function Header() {
           </li>
           {...links.map((link) => getLink(link))}
         </ul>
-        <input
-          className="bg-white text-gray-700 rounded-sm border-3 border-white focus:outline-3 focus:outline-black hidden lg:inline"
-          type="text"
-          placeholder="Buscar alojamientos..."
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") buscar();
-          }}
-        />
-        <button
-          className="px-1.5 py-1.5 ml-1 bg-stone-400 hover:bg-stone-600 rounded-sm border-1 border-gray-600 hidden lg:inline"
-          name="search"
-          onClick={buscar}
-        >
-          <Image src="/search.svg" alt="Search button" width={21} height={14} />
-        </button>
+        {/* <input */}
+        {/*   className="bg-white text-gray-700 rounded-sm border-3 border-white focus:outline-3 focus:outline-black hidden lg:inline" */}
+        {/*   type="text" */}
+        {/*   placeholder="Buscar alojamientos..." */}
+        {/*   value={query} */}
+        {/*   onChange={(e) => setQuery(e.target.value)} */}
+        {/*   onKeyDown={(e) => { */}
+        {/*     if (e.key === "Enter") buscar(); */}
+        {/*   }} */}
+        {/* /> */}
+        {/* <button */}
+        {/*   className="px-1.5 py-1.5 ml-1 bg-stone-400 hover:bg-stone-600 rounded-sm border-1 border-gray-600 hidden lg:inline" */}
+        {/*   name="search" */}
+        {/*   onClick={buscar} */}
+        {/* > */}
+        {/*   <Image src="/search.svg" alt="Search button" width={21} height={14} /> */}
+        {/* </button> */}
       </nav>
     </header>
   );

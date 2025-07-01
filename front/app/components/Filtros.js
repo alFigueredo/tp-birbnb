@@ -10,18 +10,9 @@ export default function Filtros({ onFilter }) {
     caractPedidas: [],
   });
 
-  function limpiarFiltros(obj) {
-    return Object.fromEntries(Object.entries(obj).filter(([_, val]) => val));
-  }
-
   useEffect(() => {
     const delay = setTimeout(() => {
-      const filtrosLimpios = limpiarFiltros(filtros);
-      const queryString = new URLSearchParams(filtrosLimpios).toString();
-      const req = queryString
-        ? `http://localhost:4000/alojamiento?${queryString}&limit=20`
-        : "http://localhost:4000/alojamiento?limit=20";
-      onFilter(req);
+      onFilter(filtros);
     }, 100);
     return () => clearTimeout(delay);
   }, [filtros, onFilter]);
@@ -31,7 +22,7 @@ export default function Filtros({ onFilter }) {
       <h1 className="text-4xl font-extrabold text-center text-black mb-10">
         🏡Filtros🏡
       </h1>
-      <div className="p-4 mb-7 w-md mx-auto bg-white shadow rounded-md space-y-3">
+      <div className="p-4 mb-7 mx-auto bg-white shadow rounded-md space-y-3">
         <TextInput
           id="nombre"
           label="Nombre del alojamiento"
@@ -71,7 +62,7 @@ export default function Filtros({ onFilter }) {
           filtros={filtros}
           setFiltros={setFiltros}
         />
-        <div className="bg-gray-50 border p-4 rounded space-y-2">
+        <div className="bg-gray-50 border border-gray-400 p-4 rounded space-y-2">
           <TextInput
             id="lat"
             label="Latitud"

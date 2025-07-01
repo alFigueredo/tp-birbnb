@@ -29,7 +29,9 @@ export default function RootLayout({ children }) {
         className={`${robotoSans.variable} ${robotoMono.variable} antialiased min-h-screen flex flex-col`}
       >
         <Header />
-        <Suspense>{children}</Suspense>
+        {/* <Suspense> */}
+        {children}
+        {/* </Suspense> */}
         <Footer />
       </body>
     </html>

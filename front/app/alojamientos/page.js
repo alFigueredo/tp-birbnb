@@ -3,31 +3,54 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import AlojamientoCard from "@/app/components/AlojamientoCard";
-import Filtros from "@/app/components/Filtros";
+import BarraLateral from "@/app/components/BarraLateral";
 
 export default function Alojamientos() {
   const [alojamientos, setAlojamientos] = useState([]);
+  const [pagina, setPagina] = useState({});
 
-  function buscarAlojamientos(req) {
+  function limpiarFiltros(obj) {
+    return Object.fromEntries(
+      Object.entries(obj).filter(
+        ([key, val]) => val && val.length !== 0 && key !== "cantPaginas",
+      ),
+    );
+  }
+
+  function buscarAlojamientos(filtros) {
+    const filtrosLimpios = limpiarFiltros({ ...filtros, ...pagina });
+    const queryString = new URLSearchParams(filtrosLimpios).toString();
+    const req = queryString
+      ? `http://localhost:4000/alojamiento?${queryString}`
+      : `http://localhost:4000/alojamiento`;
+    console.debug(req);
     axios
       .get(req)
-      .then((res) => setAlojamientos(res.data.alojamientos || []))
+      .then((res) => {
+        setAlojamientos(res.data.alojamientos || []);
+        setPagina({
+          page: res.data.page || 1,
+          limit: res.data.limit || 12,
+          total: res.data.total || 0,
+          cantPaginas: parseInt(res.data.total / res.data.limit) + 1 || 1,
+        });
+      })
       .catch((err) => console.error("Error al obtener alojamientos:", err));
   }
 
   // mover a un servicio aparte
-  useEffect(() => {
-    // const req = nombre
-    const req = "http://localhost:4000/alojamiento?limit=20";
-    buscarAlojamientos(req);
-  }, []);
+  // useEffect(() => {
+  //   // const req = nombre
+  //   buscarAlojamientos();
+  // }, []);
 
   return (
     // <div className="min-h-screen bg-gray-100 dark:bg-gray-900 pt-21 pb-10 px-4">
     <section className="min-h-screen bg-neutral-300 pt-21 pb-10 px-4">
       {/* Título principal */}
       {/* <h1 className="text-4xl font-extrabold text-center text-blue-600 dark:text-blue-400 mb-10"> */}
-      <Filtros onFilter={buscarAlojamientos} />
+      {/* <Filtros onFilter={buscarAlojamientos} /> */}
+      <BarraLateral onFilter={buscarAlojamientos} />
       <h1 className="text-4xl font-bold text-center text-black mb-10">
         🏡Listado de Alojamientos🏡
       </h1>
@@ -39,6 +62,27 @@ export default function Alojamientos() {
           <AlojamientoCard aloj={aloj} key={aloj._id} />
         ))}
       </div>
+      {/* Paginador */}
+      {pagina.cantPaginas > 1 && (
+        <div className="flex justify-center mt-6 space-x-2">
+          {[...Array(pagina.cantPaginas)].map((_, i) => {
+            const page = i + 1;
+            return (
+              <button
+                key={page}
+                onClick={() => setPagina({ ...pagina, page })}
+                className={`px-3 py-1 border rounded ${
+                  pagina.page === page
+                    ? "bg-gray-600 text-white"
+                    : "bg-white hover:bg-gray-200"
+                }`}
+              >
+                {page}
+              </button>
+            );
+          })}
+        </div>
+      )}
     </section>
   );
 }
