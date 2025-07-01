@@ -1,6 +1,5 @@
 "use client";
 
-
 import React, { useState } from "react";
 
 export default function Formulario() {
@@ -30,19 +29,13 @@ export default function Formulario() {
               type="number"
               placeholder="Cantidad de huespedes"
               className="border p-2 rounded"
-              min = "0"
+              min="0"
             />
             <label className="text-sm font-bold mt-2">Fecha de entrada</label>
-            <input
-              type="date"
-              className="border p-2 rounded"
-            />
+            <input type="date" className="border p-2 rounded" />
 
             <label className="text-sm font-bold">Fecha de salida</label>
-            <input
-              type="date"
-              className="border p-2 rounded"
-            />
+            <input type="date" className="border p-2 rounded" />
             <button
               type="submit"
               className="mt-2 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"

@@ -1,0 +1,45 @@
+services:
+  node-back:
+    build:
+      context: ./back
+      args:
+        - NODE_ENV
+    user: "node"
+    env_file:
+      - ./back/.env
+    environment:
+      - NODE_ENV=production
+    ports:
+      - "4000:4000"
+    command: "npm run start"
+    depends_on:
+      - mongo
+
+  node-front:
+    build:
+      context: ./front
+      args:
+        - NODE_ENV
+    user: "node"
+    env_file:
+      - ./front/.env
+    environment:
+      - NODE_ENV=production
+    ports:
+      - "3000:3000"
+    command: bash -c "npm run build && npm run start"
+    depends_on:
+      - node-back
+
+  mongo:
+    image: mongo
+    attach: false
+    env_file:
+      - ./back/.env
+    volumes:
+      - mongo-db-data:/data/db
+      - mongo-db-config:/data/configdb
+
+volumes:
+  mongo-db-data:
+  mongo-db-config:

@@ -36,18 +36,37 @@ export class AlojamientoRepository {
     // let direccionIds = [];
     //Filtro por ciudad
     if (filters.ciudad) {
-      const ciudad = await CiudadModel.findOne({ nombre: filters.ciudad });
+      const ciudad = await CiudadModel.findOne({
+        nombre: {
+          $regex: filters.ciudad,
+          $options: "i",
+        },
+      });
       if (ciudad) {
         query["direccion.ciudad"] = ciudad._id;
+      } else {
+        return {
+          alojamientos: [],
+        };
       }
     }
+
     //Filtro por pais
     if (filters.pais) {
-      const pais = await PaisModel.findOne({ nombre: filters.pais });
+      const pais = await PaisModel.findOne({
+        nombre: {
+          $regex: filters.pais,
+          $options: "i",
+        },
+      });
       if (pais) {
         const ciudades = await CiudadModel.find({ pais: pais._id });
         const ciudadIds = ciudades.map((c) => c._id);
         query["direccion.ciudad"] = { $in: ciudadIds };
+      } else {
+        return {
+          alojamientos: [],
+        };
       }
     }
 
@@ -60,7 +79,7 @@ export class AlojamientoRepository {
     //PAGINACION
     const total = await this.model.countDocuments(query);
     const page = parseInt(filters.page) || 1;
-    const limit = parseInt(filters.limit) || 10;
+    const limit = parseInt(filters.limit) || 12;
     const skip = (page - 1) * limit; //los alojamientos que tengo que saltear
 
     const alojamientos = await this.model

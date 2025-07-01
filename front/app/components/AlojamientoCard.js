@@ -27,9 +27,7 @@ export default function AlojamientoCard({ aloj }) {
 
       {/* Nombre del alojamiento */}
       {/* <h2 className="text-2xl font-semibold text-purple-700 dark:text-purple-300 mb-2"> */}
-      <h2 className="text-2xl font-semibold text-black mb-2">
-        {aloj.nombre}
-      </h2>
+      <h2 className="text-2xl font-semibold text-black mb-2">{aloj.nombre}</h2>
 
       {/* Descripción */}
       {/* <p className="text-gray-700 dark:text-gray-300 mb-3"> */}

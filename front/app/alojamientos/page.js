@@ -1,33 +1,53 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import AlojamientoCard from "@/app/components/AlojamientoCard";
-// import { useSearchParams } from "next/navigation";
+import SkeletonCard from "@/app/components/SkeletonCard";
+import BarraLateral from "@/app/components/BarraLateral";
 
 export default function Alojamientos() {
-  // const searchParams = useSearchParams();
-  // const nombre = searchParams.get("nombre");
   const [alojamientos, setAlojamientos] = useState([]);
+  const [pagina, setPagina] = useState({});
+  const [loading, setLoading] = useState(true);
 
-  // mover a un servicio aparte
-  useEffect(() => {
-    // const req = nombre
-    // ? `http://localhost:4000/alojamiento?nombre=${encodeURIComponent(nombre)}&limit=20`
-    const req = "http://localhost:4000/alojamiento?limit=20";
+  function limpiarFiltros(obj) {
+    return Object.fromEntries(
+      Object.entries(obj).filter(
+        ([key, val]) => val && val.length !== 0 && key !== "cantPaginas",
+      ),
+    );
+  }
+
+  function buscarAlojamientos(filtros) {
+    const filtrosLimpios = limpiarFiltros({ ...filtros, ...pagina });
+    const queryString = new URLSearchParams(filtrosLimpios).toString();
+    const req = queryString
+      ? `http://localhost:4000/alojamiento?${queryString}`
+      : `http://localhost:4000/alojamiento`;
+    console.debug(req);
     axios
-      // .get("http://localhost:4000/alojamiento")
       .get(req)
-      .then((res) => setAlojamientos(res.data.alojamientos || []))
-      .catch((err) => console.error("Error al obtener alojamientos:", err));
-  }, []);
+      .then((res) => {
+        setAlojamientos(res.data.alojamientos || []);
+        setPagina({
+          page: res.data.page || 1,
+          limit: res.data.limit || 12,
+          total: res.data.total || 0,
+          cantPaginas: parseInt(res.data.total / res.data.limit) + 1 || 1,
+        });
+      })
+      .catch((err) => console.error("Error al obtener alojamientos:", err))
+      .finally(() => setLoading(false));
+  }
 
   return (
     // <div className="min-h-screen bg-gray-100 dark:bg-gray-900 pt-21 pb-10 px-4">
     <section className="min-h-screen bg-neutral-300 pt-21 pb-10 px-4">
       {/* Título principal */}
       {/* <h1 className="text-4xl font-extrabold text-center text-blue-600 dark:text-blue-400 mb-10"> */}
-
+      {/* <Filtros onFilter={buscarAlojamientos} /> */}
+      <BarraLateral onFilter={buscarAlojamientos} />
       <h1 className="text-4xl font-bold text-center text-black mb-10">
         🏡Listado de Alojamientos🏡
       </h1>
@@ -35,10 +55,33 @@ export default function Alojamientos() {
       {/* Contenedor de tarjetas */}
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto">
         {/* Cada alojamiento individual */}
-        {alojamientos.map((aloj) => (
-          <AlojamientoCard aloj={aloj} key={aloj._id} />
-        ))}
+        {loading
+          ? Array.from({ length: 12 }).map((_, i) => <SkeletonCard key={i} />)
+          : alojamientos.map((aloj) => (
+              <AlojamientoCard key={aloj._id} aloj={aloj} />
+            ))}
       </div>
+      {/* Paginador */}
+      {pagina.cantPaginas > 1 && (
+        <div className="flex justify-center mt-6 space-x-2">
+          {[...Array(pagina.cantPaginas)].map((_, i) => {
+            const page = i + 1;
+            return (
+              <button
+                key={page}
+                onClick={() => setPagina({ ...pagina, page })}
+                className={`px-3 py-1 border rounded ${
+                  pagina.page === page
+                    ? "bg-gray-600 text-white"
+                    : "bg-white hover:bg-gray-200"
+                }`}
+              >
+                {page}
+              </button>
+            );
+          })}
+        </div>
+      )}
     </section>
   );
 }
