@@ -1,29 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
+import FotoCarrusel from "./FotoCarrusel";
 
 export default function AlojamientoCard({ aloj }) {
   return (
     // <div className="mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-lg dark:hover:bg-gray-900 transition duration-400 p-6 border border-gray-500">
-    <div className="mx-auto bg-gray-100 rounded-xl shadow-md hover:shadow-xl transition duration-400 p-6 border border-gray-500">
-      {/*MOSTRAMOS las fotos */}
-      {aloj.fotos && aloj.fotos.length > 0 && (
-        <div className="mb-4">
-          {aloj.fotos.map((foto, index) => (
-            <Link key={foto._id} href={`/alojamientos/${aloj._id}`}>
-              <Image
-                key={index}
-                width={320}
-                height={240}
-                src={foto.path}
-                alt={`Foto de ${aloj.nombre} - ${
-                  foto.descripcion || index + 1
-                }`}
-                className="h-48 object-cover rounded-md mb-2"
-              />
-            </Link>
-          ))}
+    <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition duration-300 border border-gray-300 p-4 w-full max-w-sm mx-auto">
+      <Link href={`/alojamientos/${aloj._id}`}>
+        <div className="relative w-full h-48 mb-3">
+          <FotoCarrusel fotos={aloj.fotos} />
         </div>
-      )}
+      </Link>
 
       {/* Nombre del alojamiento */}
       {/* <h2 className="text-2xl font-semibold text-purple-700 dark:text-purple-300 mb-2"> */}

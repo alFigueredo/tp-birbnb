@@ -75,6 +75,8 @@ export async function exec() {
     new FotoModel(new Foto("Foto casa 12", "/fotos/casa12.jpg")),
     new FotoModel(new Foto("Foto casa 13", "/fotos/casa13.jpg")),
     new FotoModel(new Foto("Foto casa 14", "/fotos/casa14.jpg")),
+    new FotoModel(new Foto("Foto casa 15", "/fotos/casa15.jpg")),
+    new FotoModel(new Foto("Foto casa 16", "/fotos/casa16.jpg")),
   ];
 
   const paises = [
@@ -122,7 +124,7 @@ export async function exec() {
         direcciones[1],
         6,
         [Caracteristica.WIFI, Caracteristica.ESTACIONAMIENTO],
-        fotos[1]
+        [fotos[1], fotos[14],fotos[15]]
       )
     ),
 
