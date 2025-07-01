@@ -1,13 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import AlojamientoCard from "@/app/components/AlojamientoCard";
+import SkeletonCard from "@/app/components/SkeletonCard";
 import BarraLateral from "@/app/components/BarraLateral";
 
 export default function Alojamientos() {
   const [alojamientos, setAlojamientos] = useState([]);
   const [pagina, setPagina] = useState({});
+  const [loading, setLoading] = useState(true);
 
   function limpiarFiltros(obj) {
     return Object.fromEntries(
@@ -35,7 +37,8 @@ export default function Alojamientos() {
           cantPaginas: parseInt(res.data.total / res.data.limit) + 1 || 1,
         });
       })
-      .catch((err) => console.error("Error al obtener alojamientos:", err));
+      .catch((err) => console.error("Error al obtener alojamientos:", err))
+      .finally(() => setLoading(false));
   }
 
   // mover a un servicio aparte
@@ -58,9 +61,11 @@ export default function Alojamientos() {
       {/* Contenedor de tarjetas */}
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto">
         {/* Cada alojamiento individual */}
-        {alojamientos.map((aloj) => (
-          <AlojamientoCard aloj={aloj} key={aloj._id} />
-        ))}
+        {loading
+          ? Array.from({ length: 12 }).map((_, i) => <SkeletonCard key={i} />)
+          : alojamientos.map((aloj) => (
+              <AlojamientoCard key={aloj._id} aloj={aloj} />
+            ))}
       </div>
       {/* Paginador */}
       {pagina.cantPaginas > 1 && (

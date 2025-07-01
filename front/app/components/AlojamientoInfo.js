@@ -4,6 +4,7 @@ import Formulario from "@/app/components/Formulario";
 import Image from "next/image";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import SkeletonInfo from "@/app/components/SkeletonInfo";
 
 export default function AlojamientoInfo({ id }) {
   const [aloja, setAloja] = useState(null);
@@ -23,7 +24,7 @@ export default function AlojamientoInfo({ id }) {
     cargarAlojamiento(id);
   }, [id]);
 
-  if (!aloja) return <p>Cargando...</p>;
+  if (!aloja) return <SkeletonInfo />;
 
   return (
     <div className="bg-stone-400 block lg:flex justify-center items-center py-10 mx-auto max-w-4/5 lg:max-w-auto rounded-md">
