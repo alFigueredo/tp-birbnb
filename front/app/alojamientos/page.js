@@ -41,12 +41,6 @@ export default function Alojamientos() {
       .finally(() => setLoading(false));
   }
 
-  // mover a un servicio aparte
-  // useEffect(() => {
-  //   // const req = nombre
-  //   buscarAlojamientos();
-  // }, []);
-
   return (
     // <div className="min-h-screen bg-gray-100 dark:bg-gray-900 pt-21 pb-10 px-4">
     <section className="min-h-screen bg-neutral-300 pt-21 pb-10 px-4">
