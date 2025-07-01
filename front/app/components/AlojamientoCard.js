@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import FotoCarrusel from "./FotoCarrusel";
+import AlojamientoDatos from "./AlojamientoDatos";
 
 export default function AlojamientoCard({ aloj }) {
   return (
@@ -11,26 +12,7 @@ export default function AlojamientoCard({ aloj }) {
           <FotoCarrusel fotos={aloj.fotos} />
         </div>
       </Link>
-
-      {/* Nombre del alojamiento */}
-      {/* <h2 className="text-2xl font-semibold text-purple-700 dark:text-purple-300 mb-2"> */}
-      <h2 className="text-2xl font-semibold text-black mb-2">{aloj.nombre}</h2>
-
-      {/* Descripción */}
-      {/* <p className="text-gray-700 dark:text-gray-300 mb-3"> */}
-      <p className="text-gray-700 mb-3">{aloj.descripcion}</p>
-
-      {/* Precio */}
-      {/* <p className="text-green-600 dark:text-green-400 font-bold text-lg mb-2"> */}
-      <p className="text-green-600 font-bold text-lg mb-2">
-        ${aloj.precioPorNoche.toLocaleString()} por noche
-      </p>
-
-      {/* Dirección */}
-      {/* <p className="text-sm text-gray-600 dark:text-gray-400 italic"> */}
-      <p className="text-sm text-gray-600 italic">
-        📍 {aloj.direccion.calle} {aloj.direccion.altura}
-      </p>
+       <AlojamientoDatos aloj={aloj} />
     </div>
   );
 }

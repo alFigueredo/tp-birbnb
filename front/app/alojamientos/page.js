@@ -43,13 +43,14 @@ export default function Alojamientos() {
 
   return (
     // <div className="min-h-screen bg-gray-100 dark:bg-gray-900 pt-21 pb-10 px-4">
-    <section className="min-h-screen bg-neutral-300 pt-21 pb-10 px-4">
+    <section className="min-h-screen bg-stone-100 pt-21 pb-10 px-4">
       {/* Título principal */}
       {/* <h1 className="text-4xl font-extrabold text-center text-blue-600 dark:text-blue-400 mb-10"> */}
       {/* <Filtros onFilter={buscarAlojamientos} /> */}
       <BarraLateral onFilter={buscarAlojamientos} />
-      <h1 className="text-4xl font-bold text-center text-black mb-10">
-        🏡Listado de Alojamientos🏡
+
+     <h1 className="text-4xl font-bold text-center text-gray-800 mb-10 tracking-normal drop-shadow-sm hover:text-blue-800 transition-colors duration-300">
+      🏡Listado de Alojamientos🏡
       </h1>
 
       {/* Contenedor de tarjetas */}
@@ -70,9 +71,9 @@ export default function Alojamientos() {
               <button
                 key={page}
                 onClick={() => setPagina({ ...pagina, page })}
-                className={`px-3 py-1 border rounded ${
+                className={`px-3 py-1 border rounded transition ${
                   pagina.page === page
-                    ? "bg-gray-600 text-white"
+                    ? "bg-blue-700 text-white"
                     : "bg-white hover:bg-gray-200"
                 }`}
               >

@@ -181,7 +181,7 @@ export async function exec() {
     new AlojamientoModel(
       new Alojamiento(
         anfitriones[0],
-        "Departamento Rio de Janeiro",
+        "Infinity Copacabana hotel",
         "Alojamiento 6",
         7000,
         Moneda.PESO_ARG,
