@@ -44,7 +44,6 @@ export default function Alojamientos() {
 
   return (
     <section className="min-h-screen bg-stone-100 pt-21 pb-10 px-4">
-
       <BarraLateral onFilter={buscarAlojamientos} />
       <h1 className="text-4xl font-bold text-center text-gray-800 mb-10 tracking-normal drop-shadow-sm hover:text-blue-800 transition-colors duration-300">
         🏡Listado de Alojamientos🏡
@@ -58,7 +57,7 @@ export default function Alojamientos() {
               <AlojamientoCard key={aloj._id} aloj={aloj} />
             ))}
       </div>
-      
+
       {/* Paginador */}
       {pagina.cantPaginas > 1 && (
         <div className="flex justify-center mt-6 space-x-2">

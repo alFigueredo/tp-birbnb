@@ -1,7 +1,6 @@
 "use client";
 
 import Formulario from "@/app/components/Formulario";
-import Image from "next/image";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import SkeletonInfo from "@/app/components/SkeletonInfo";
@@ -30,16 +29,16 @@ export default function AlojamientoInfo({ id }) {
 
   return (
     <div className="bg-white shadow-md rounded-xl p-6 max-w-5xl mx-auto flex flex-col lg:flex-row items-center gap-8">
-     <div className="relative w-96 h-64 mx-auto lg:mx-0">
+      <div className="relative w-96 h-64 mx-auto lg:mx-0">
         <FotoCarrusel fotos={aloja.fotos} />
       </div>
-      
-       <div className="w-full lg:w-1/2">
-    <AlojamientoDatos aloj={aloja} />
-    <div className="mt-4">
-      <Formulario />
+
+      <div className="w-full lg:w-1/2">
+        <AlojamientoDatos aloj={aloja} />
+        <div className="mt-4">
+          <Formulario aloja={aloja} />
+        </div>
+      </div>
     </div>
-  </div>
-</div>
   );
 }
