@@ -128,7 +128,7 @@ export class ReservaService {
       })
     ).alojamientos;
 
-    console.debug(alojamientos);
+    // console.debug(alojamientos);
 
     const listaReservas = alojamientos.flatMap((aloj) => aloj.reservas);
 
