@@ -10,7 +10,6 @@ export default function ReservasList() {
   // const [searchId, setSearchId] = useState("");
   // const [reservasFiltradas, setReservasFiltradas] = useState([]);
   // const [busquedaRealizada, setBusquedaRealizada] = useState(false);
-
   /*useEffect(() => {
     axios
       .get("http://localhost:4000/reserva")
@@ -63,11 +62,11 @@ export default function ReservasList() {
       .catch((err) => console.error(err));
   }, [usuarioActual]);
 
-  const buscarReserva = () => {
-    const encontradas = reservas.filter((r) => r._id === searchId);
-    setReservasFiltradas(encontradas);
-    setBusquedaRealizada(true);
-  };
+  // const buscarReserva = () => {
+  //   const encontradas = reservas.filter((r) => r._id === searchId);
+  //   setReservasFiltradas(encontradas);
+  //   setBusquedaRealizada(true);
+  // };
 
   return (
     <div className="min-h-screen bg-neutral-200 pt-21 pb-10 px-4">
