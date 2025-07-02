@@ -13,7 +13,7 @@ export default function Notificaciones({ userId }) {
   }
 
   function cargarNotificaciones() {
-    fetch(`http://localhost:4000/notificacion/${userId}`)
+    fetch(`http://localhost:4000/usuario/${userId}/notificacion`)
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data)) {

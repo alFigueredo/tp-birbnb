@@ -23,6 +23,11 @@ export class NotificacionService {
     return notificaciones;
   }
 
+  async findAllUsuarios() {
+    const usuarios = await this.usuarioRepository.findAll();
+    return usuarios;
+  }
+
   async findByUsuario(idUsuario, type) {
     const usuario = await this.usuarioRepository.findById(idUsuario);
     if (!usuario) throw new NotFoundError(`Usuario ${idUsuario} no encontrado`);

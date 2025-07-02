@@ -10,6 +10,10 @@ GET http://localhost:4000/api-docs HTTP/1.1
 
 GET http://localhost:4000/notificacion HTTP/1.1
 
+### obtener_usuarios
+
+GET http://localhost:4000/usuario HTTP/1.1
+
 ### notif_sin_leer
 
 GET http://localhost:4000/notificacion/68370c535198cf164a309d79/sinleer HTTP/1.1

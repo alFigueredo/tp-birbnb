@@ -1,8 +1,8 @@
 import { Roboto, Roboto_Mono } from "next/font/google";
 import "./globals.css";
-import Footer from "./components/Footer";
-import Header from "./components/Header";
-import { Suspense } from "react";
+import Footer from "@/app/components/Footer";
+import Header from "@/app/components/Header";
+import { UserProvider } from "@/app/context/UserContext";
 
 const robotoSans = Roboto({
   variable: "--font-roboto-sans",
@@ -28,9 +28,11 @@ export default function RootLayout({ children }) {
       <body
         className={`${robotoSans.variable} ${robotoMono.variable} antialiased min-h-screen flex flex-col`}
       >
-        <Header />
-        {children}
-        <Footer />
+        <UserProvider>
+          <Header />
+          {children}
+          <Footer />
+        </UserProvider>
       </body>
     </html>
   );

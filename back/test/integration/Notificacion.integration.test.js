@@ -41,6 +41,7 @@ const notificacionRepository = {
 };
 
 const usuarioRepository = {
+  findAll: jest.fn().mockResolvedValue([usu1]),
   findById: jest.fn().mockResolvedValue(usu1),
 };
 
@@ -61,6 +62,15 @@ describe("GET /notificacion", () => {
     expect(response.status).toBe(200);
     expect(response.type).toBe("application/json");
     expect(response.body.length).toBe(3);
+    expect(response.error).toBeFalsy();
+  });
+
+  test("Debería retornar todas los usuarios", async () => {
+    const response = await request(app).get("/usuario");
+
+    expect(response.status).toBe(200);
+    expect(response.type).toBe("application/json");
+    expect(response.body.length).toBe(1);
     expect(response.error).toBeFalsy();
   });
 

@@ -7,7 +7,10 @@ export class ReservaRepository {
   }
 
   async findAll(query = {}) {
-    return this.model.find(query).populate("huespedReservador");
+    return this.model
+      .find(query)
+      .populate("huespedReservador")
+      .populate("alojamiento");
   }
 
   async findById(id) {
