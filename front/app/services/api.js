@@ -56,6 +56,14 @@ export const leerNotificacion = async (notiId) => {
   return res;
 };
 
+export const putReserva = async (reserva) => {
+  const res = await axios.put(
+    `http://localhost:4000/reserva/${reserva._id}`,
+    reserva,
+  );
+  return res;
+};
+
 export const cancelarReserva = async (reservaId) => {
   const res = await axios.put(
     `http://localhost:4000/reserva/${reservaId}/cancelar`,

@@ -1,5 +1,10 @@
 import { useUsuario } from "@/app/context/UserContext";
-import { cancelarReserva, confirmarReserva, rechazarReserva } from "@/app/services/api";
+import {
+  cancelarReserva,
+  confirmarReserva,
+  rechazarReserva,
+} from "@/app/services/api";
+import FormularioEditarReserva from "@/app/components/Reservas/FormularioEditarReserva";
 
 export default function ReservasCard({ reserva, obtenerReservas }) {
   const { usuarioActual } = useUsuario();
@@ -34,6 +39,9 @@ export default function ReservasCard({ reserva, obtenerReservas }) {
         Alojamiento: {reserva.alojamiento.nombre}
       </p>
       <p className="text-lg text-gray-800">Estado: {reserva.estado}</p>
+      <p className="text-md text-gray-700">
+        Cantidad de huéspedes: {reserva.cantHuespedes}
+      </p>
       <p className="text-sm text-gray-600">
         Desde:{" "}
         {new Date(reserva.rangoFechas.fechaInicio).toLocaleDateString("es-AR")}
@@ -46,16 +54,11 @@ export default function ReservasCard({ reserva, obtenerReservas }) {
         Alta: {new Date(reserva.fechaAlta).toLocaleString("es-AR")}
       </p>
       <div className="flex justify-end gap-2 mt-4">
-        {usuarioActual.tipo === "HUESPED" &&
-          (reserva.estado === "PENDIENTE" ||
-            reserva.estado === "CONFIRMADA") && (
-            <button
-              className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-1.5 rounded"
-              onClick={() => console.log("Editar reserva", reserva._id)}
-            >
-              Editar
-            </button>
-          )}
+        {/* {usuarioActual.tipo === "HUESPED" && */}
+        {/*   (reserva.estado === "PENDIENTE" || */}
+        {/*     reserva.estado === "CONFIRMADA") && ( */}
+        {/*     <FormularioEditarReserva reserva={reserva} /> */}
+        {/*   )} */}
         {usuarioActual.tipo === "HUESPED" &&
           (reserva.estado === "PENDIENTE" ||
             reserva.estado === "CONFIRMADA") && (

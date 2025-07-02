@@ -26,8 +26,8 @@ export default function AlojamientoInfo({ id }) {
   if (!aloja) return <SkeletonInfo />;
 
   return (
-    <div className="bg-white shadow-md rounded-xl p-6 max-w-5xl mx-auto flex flex-col lg:flex-row items-center gap-8">
-      <div className="relative w-96 h-64 mx-auto lg:mx-0">
+    <div className="bg-white shadow-md rounded-xl p-6 w-fit md:max-w-5xl mx-auto flex flex-col lg:flex-row items-center gap-8">
+      <div className="relative w-80 md:w-96 h-48 md:h-64 mx-auto lg:mx-0">
         <FotoCarrusel fotos={aloja.fotos} />
       </div>
 
