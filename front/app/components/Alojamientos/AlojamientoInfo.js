@@ -1,20 +1,18 @@
 "use client";
 
 import Formulario from "@/app/components/Formulario";
-import axios from "axios";
 import { useState, useEffect } from "react";
-import SkeletonInfo from "@/app/components/skeletons/SkeletonInfo";
-import FotoCarrusel from "./FotoCarrusel";
-import AlojamientoDatos from "./AlojamientoDatos";
+import SkeletonInfo from "@/app/components/Alojamientos/SkeletonInfo";
+import FotoCarrusel from "@/app/components/Alojamientos/FotoCarrusel";
+import AlojamientoDatos from "@/app/components/Alojamientos/AlojamientoDatos";
+import { getAlojamiento } from "@/app/services/api";
 
 export default function AlojamientoInfo({ id }) {
   const [aloja, setAloja] = useState(null);
 
   async function cargarAlojamiento(alojaid) {
     try {
-      const res = await axios.get(
-        `http://localhost:4000/alojamiento/${alojaid}`,
-      );
+      const res = await getAlojamiento(alojaid);
       setAloja(res.data);
     } catch (err) {
       console.error("Error al cargar el alojamiento:", err);

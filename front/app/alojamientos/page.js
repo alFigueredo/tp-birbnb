@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import axios from "axios";
 import AlojamientoCard from "@/app/components/Alojamientos/AlojamientoCard";
-import SkeletonCard from "@/app/components/skeletons/SkeletonCard";
+import SkeletonCard from "@/app/components/Alojamientos/SkeletonCard";
 import BarraLateral from "@/app/components/BarraLateral";
+import { getAlojamientos } from "../services/api";
 
 export default function Alojamientos() {
   const [alojamientos, setAlojamientos] = useState([]);
@@ -22,13 +22,7 @@ export default function Alojamientos() {
   // Cambiar la api a un lugar aparte
   function buscarAlojamientos(filtros) {
     const filtrosLimpios = limpiarFiltros({ ...filtros, ...pagina });
-    const queryString = new URLSearchParams(filtrosLimpios).toString();
-    const req = queryString
-      ? `http://localhost:4000/alojamiento?${queryString}`
-      : `http://localhost:4000/alojamiento`;
-    // console.debug(req);
-    axios
-      .get(req)
+    getAlojamientos(filtrosLimpios)
       .then((res) => {
         setAlojamientos(res.data.alojamientos || []);
         setPagina({

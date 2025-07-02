@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, useEffect } from "react";
-import axios from "axios";
+import { getUsuarios } from "@/app/services/api";
 
 const UserContext = createContext();
 
@@ -10,11 +10,10 @@ export function UserProvider({ children }) {
   const [usuarioActual, setUsuarioActual] = useState(null);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:4000/usuario")
+    getUsuarios()
       .then((res) => {
         setUsuarios(res.data);
-        setUsuarioActual(res.data[0]); // por defecto, el primero
+        setUsuarioActual(res.data.length > 0 ? res.data[0] : []); // por defecto, el primero
       })
       .catch((err) => console.error("Error al cargar usuarios:", err));
     // .finally(() => setLoading(false));
