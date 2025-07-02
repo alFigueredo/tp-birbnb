@@ -16,6 +16,20 @@ export default function ReservasCard({ reserva }) {
       <p className="text-sm text-gray-600 mt-2">
         Alta: {new Date(reserva.fechaAlta).toLocaleString("es-AR")}
       </p>
+      <div className="flex justify-end gap-2 mt-4">
+        <button
+          className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-1.5 rounded"
+          onClick={() => console.log("Editar reserva", reserva._id)}
+        >
+          Editar
+        </button>
+        <button
+          className="bg-red-600 hover:bg-red-700 text-white text-sm font-medium px-4 py-1.5 rounded"
+          onClick={() => console.log("Cancelar reserva", reserva._id)}
+        >
+          Cancelar
+        </button>
+      </div>
     </div>
   );
 }
