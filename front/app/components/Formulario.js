@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import axios from "axios";
 import { useUsuario } from "@/app/context/UserContext";
+import { postReserva } from "@/app/services/api";
 
 export default function Formulario({ aloja }) {
   const [showForm, setShowForm] = useState(false);
@@ -10,6 +10,11 @@ export default function Formulario({ aloja }) {
   const { usuarioActual } = useUsuario();
   const [detallesReserva, setDetallesReserva] = useState({});
   const [mensaje, setMensaje] = useState("");
+
+  function parseDateAsLocal(dateStr) {
+    const [year, month, day] = dateStr.split("-");
+    return new Date(+year, +month - 1, +day); // new Date(year, monthIndex, day)
+  }
 
   async function reservar(e) {
     e.preventDefault();
@@ -20,17 +25,19 @@ export default function Formulario({ aloja }) {
       return;
     }
 
+    const reserva = {
+      huespedReservador: usuarioActual._id,
+      cantHuespedes: detallesReserva.cantHuespedes,
+      alojamiento: aloja._id,
+      rangoFechas: {
+        fechaInicio: parseDateAsLocal(detallesReserva.fechaInicio),
+        fechaFin: parseDateAsLocal(detallesReserva.fechaFin),
+      },
+      precioPorNoche: aloja.precioPorNoche,
+    };
+
     try {
-      await axios.post("http://localhost:4000/reserva", {
-        huespedReservador: usuarioActual._id,
-        cantHuespedes: detallesReserva.cantHuespedes,
-        alojamiento: aloja._id,
-        rangoFechas: {
-          fechaInicio: new Date(detallesReserva.fechaInicio),
-          fechaFin: new Date(detallesReserva.fechaFin),
-        },
-        precioPorNoche: aloja.precioPorNoche,
-      });
+      await postReserva(reserva);
 
       setMensaje("✅ ¡Reserva creada con éxito!");
       setDetallesReserva({

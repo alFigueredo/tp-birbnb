@@ -7,7 +7,7 @@ export const links = [
   { name: "Reservas", href: "/reservas" },
 ];
 
-export default function NavLinks() {
+export default function NavLinks({ setOpen }) {
   return (
     <>
       {links.map((link) => (
@@ -15,6 +15,7 @@ export default function NavLinks() {
           <Link
             className="text-black font-medium hover:text-neutral-100 transition-colors duration-200"
             href={link.href}
+            onClick={() => setOpen(false)}
           >
             {link.name}
           </Link>
