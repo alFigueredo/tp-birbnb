@@ -31,10 +31,10 @@ export async function exec() {
       new Usuario("John Doe", "johndoe@gmail.com", TipoUsuario.HUESPED)
     ),
     new UsuarioModel(
-      new Usuario("Juan Doe", "juandoe@gmail.com", TipoUsuario.HUESPED)
+      new Usuario("Marta Aguero", "maguero@gmail.com", TipoUsuario.HUESPED)
     ),
     new UsuarioModel(
-      new Usuario("Juana Doe", "juanadoe@gmail.com", TipoUsuario.HUESPED)
+      new Usuario("Carlos Perez", "cperez@gmail.com", TipoUsuario.HUESPED)
     ),
   ];
 

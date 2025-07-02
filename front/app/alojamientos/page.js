@@ -42,26 +42,23 @@ export default function Alojamientos() {
   }
 
   return (
-    // <div className="min-h-screen bg-gray-100 dark:bg-gray-900 pt-21 pb-10 px-4">
     <section className="min-h-screen bg-stone-100 pt-21 pb-10 px-4">
-      {/* Título principal */}
-      {/* <h1 className="text-4xl font-extrabold text-center text-blue-600 dark:text-blue-400 mb-10"> */}
-      {/* <Filtros onFilter={buscarAlojamientos} /> */}
+
       <BarraLateral onFilter={buscarAlojamientos} />
 
-     <h1 className="text-4xl font-bold text-center text-gray-800 mb-10 tracking-normal drop-shadow-sm hover:text-blue-800 transition-colors duration-300">
+     <h1 className="text-4xl font-bold text-center text-gray-800 mb-10 tracking-normal drop-shadow-sm ">
       🏡Listado de Alojamientos🏡
       </h1>
 
       {/* Contenedor de tarjetas */}
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto">
-        {/* Cada alojamiento individual */}
         {loading
           ? Array.from({ length: 12 }).map((_, i) => <SkeletonCard key={i} />)
           : alojamientos.map((aloj) => (
               <AlojamientoCard key={aloj._id} aloj={aloj} />
             ))}
       </div>
+      
       {/* Paginador */}
       {pagina.cantPaginas > 1 && (
         <div className="flex justify-center mt-6 space-x-2">
