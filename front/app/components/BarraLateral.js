@@ -10,7 +10,7 @@ export default function BarraLateral({ onFilter }) {
     <>
       <button
         onClick={() => setSidebarOpen(true)}
-        className="fixed top-24 left-4 z-50 bg-stone-700 text-white px-3 py-2 rounded shadow hover:bg-stone-500"
+        className="fixed top-18 lg:top-21 left-4 z-10 bg-stone-700 text-white px-3 py-2 rounded shadow hover:bg-stone-500"
       >
         Filtrar
       </button>

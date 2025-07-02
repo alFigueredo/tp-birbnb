@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import NotificacionesLista from "@/app/components/Notificaciones/NotificacionesLista";
+import { getNotificaciones, leerNotificacion } from "@/app/services/api";
 
 export default function Notificaciones({ userId }) {
   const [mostrarNotis, setMostrarNotis] = useState(false);
@@ -15,20 +15,19 @@ export default function Notificaciones({ userId }) {
     if (!mostrarNotis) cargarNotificaciones();
   }
 
-  function cargarNotificaciones() {
-    axios
-      .get(`http://localhost:4000/usuario/${userId}/notificacion`)
-      .then(({ data }) => {
-        if (Array.isArray(data)) {
-          setNotificaciones(data);
-        } else if (Array.isArray(data.notificaciones)) {
-          setNotificaciones(data.notificaciones);
-        } else {
-          setNotificaciones([]);
-        }
-      })
-      .catch((err) => console.error("Error al cargar notificaciones", err));
+  function sortCriteria(a, b) {
+    if (a.fechaAlta < b.fechaAlta) return 1;
+    if (a.fechaAlta > b.fechaAlta) return -1;
+    return 0;
   }
+
+  const cargarNotificaciones = useCallback(() => {
+    getNotificaciones(userId)
+      .then(({ data }) =>
+        setNotificaciones(data.length > 0 ? data.sort(sortCriteria) : []),
+      )
+      .catch((err) => console.error("Error al cargar notificaciones", err));
+  }, [userId]);
 
   // useEffect(() => {
   //   setExpandida(null);
@@ -40,14 +39,13 @@ export default function Notificaciones({ userId }) {
 
     setExpandida(null);
 
-    const intervalo = setInterval(() => cargarNotificaciones(), 1000);
+    const intervalo = setInterval(() => cargarNotificaciones(), 300);
 
     return () => clearInterval(intervalo);
-  }, [userId]);
+  }, [userId, cargarNotificaciones]);
 
   function marcarComoLeida(idNoti) {
-    axios
-      .put(`http://localhost:4000/notificacion/${idNoti}/leer`)
+    leerNotificacion(idNoti)
       .then(() => {
         setNotificaciones((prev) =>
           prev.map((n) =>
@@ -63,7 +61,7 @@ export default function Notificaciones({ userId }) {
   const sinLeerCount = notificaciones.filter((n) => !n.leida).length;
 
   return (
-    <div className="relative px-1">
+    <div className="relative px-1 mx-2">
       <button onClick={toggleCampanita} className="relative">
         <Image
           src="/noti.svg"

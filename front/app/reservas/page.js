@@ -1,21 +1,29 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { useUsuario } from "@/app/context/UserContext";
-import ReservasCard from "../components/Reservas/ReservasCard";
+import ReservasCard from "@/app/components/Reservas/ReservasCard";
+import SkeletonCard from "@/app/components/Reservas/SkeletonCard";
+import { getReservas } from "@/app/services/api";
 
 export default function ReservasList() {
   const { usuarioActual } = useUsuario();
   const [reservas, setReservas] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  function sortCriteria(a, b) {
+    if (a.fechaAlta < b.fechaAlta) return 1;
+    if (a.fechaAlta > b.fechaAlta) return -1;
+    return 0;
+  }
 
   useEffect(() => {
     if (!usuarioActual) return;
 
-    axios
-      .get(`http://localhost:4000/usuario/${usuarioActual._id}/reserva`)
-      .then((res) => setReservas(res.data))
-      .catch((err) => console.error(err));
+    getReservas(usuarioActual._id)
+      .then((res) => setReservas(res.data.sort(sortCriteria)))
+      .catch((err) => console.error(err))
+      .finally(() => setLoading(false));
   }, [usuarioActual]);
 
   return (
@@ -24,7 +32,7 @@ export default function ReservasList() {
         📅 Reservas 📅
       </h1>
 
-      {reservas.length === 0 && (
+      {!loading && reservas.length === 0 && (
         <p className="text-center text-gray-600 mb-8">
           Este ID no posee reservas❌.
         </p>
@@ -32,9 +40,11 @@ export default function ReservasList() {
 
       {/* RESERVAS DEL USUARIO */}
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto">
-        {reservas.map((reserva, index) => (
-          <ReservasCard key={index} reserva={reserva} />
-        ))}
+        {loading
+          ? Array.from({ length: 12 }).map((_, i) => <SkeletonCard key={i} />)
+          : reservas.map((reserva, index) => (
+              <ReservasCard key={index} reserva={reserva} />
+            ))}
       </div>
     </div>
   );
