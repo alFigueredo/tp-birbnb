@@ -19,13 +19,14 @@ export default function Alojamientos() {
     );
   }
 
+  // Cambiar la api a un lugar aparte
   function buscarAlojamientos(filtros) {
     const filtrosLimpios = limpiarFiltros({ ...filtros, ...pagina });
     const queryString = new URLSearchParams(filtrosLimpios).toString();
     const req = queryString
       ? `http://localhost:4000/alojamiento?${queryString}`
       : `http://localhost:4000/alojamiento`;
-    console.debug(req);
+    // console.debug(req);
     axios
       .get(req)
       .then((res) => {
@@ -48,7 +49,7 @@ export default function Alojamientos() {
       {/* <h1 className="text-4xl font-extrabold text-center text-blue-600 dark:text-blue-400 mb-10"> */}
       {/* <Filtros onFilter={buscarAlojamientos} /> */}
       <BarraLateral onFilter={buscarAlojamientos} />
-      <h1 className="text-4xl font-bold text-center text-black mb-10">
+      <h1 className="text-4xl font-bold text-center text-gray-800 mb-10 tracking-normal drop-shadow-sm hover:text-blue-800 transition-colors duration-300">
         🏡Listado de Alojamientos🏡
       </h1>
 

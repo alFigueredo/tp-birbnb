@@ -5,6 +5,10 @@ export function registerNotificacionRoutes(app, getController) {
     getController(NotificacionController).findAll(req, res, next),
   );
 
+  app.get("/usuario", (req, res, next) =>
+    getController(NotificacionController).findAllUsuarios(req, res, next),
+  );
+
   app.get("/usuario/:idUsuario/notificacion", (req, res, next) =>
     getController(NotificacionController).findByUsuario(req, res, next),
   );

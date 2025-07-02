@@ -14,6 +14,15 @@ export class NotificacionController {
     }
   }
 
+  async findAllUsuarios(_req, res, next) {
+    try {
+      const usuarios = await this.notificacionService.findAllUsuarios();
+      res.status(200).json(usuarios);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async findByUsuario(req, res, next) {
     try {
       const notificaciones = await this.notificacionService.findByUsuario(
