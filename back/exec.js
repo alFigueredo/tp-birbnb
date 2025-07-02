@@ -39,10 +39,10 @@ export async function exec() {
   ];
 
   const notificaciones = [
-    new NotificacionModel(new Notificacion("Mensaje 1", usuarios[0])),
-    new NotificacionModel(new Notificacion("Mensaje 2", usuarios[1])),
+    new NotificacionModel(new Notificacion("¡Gracias por reservar con nosotros!", usuarios[0])),
+    new NotificacionModel(new Notificacion("¡Oferta especial! 20% de descuento en todos los productos hasta la medianoche.", usuarios[1])),
     new NotificacionModel(new Notificacion("Mensaje 3", usuarios[2])),
-    new NotificacionModel(new Notificacion("Mensaje 4", usuarios[1])),
+    new NotificacionModel(new Notificacion("¡Esperamos que hayas disfrutado de tu estancia! ¿Podrías dejarnos una evaluación sobre tu experiencia en  Tu opinión es importante para nosotros", usuarios[1])),
     new NotificacionModel(new Notificacion("Mensaje 5", usuarios[2])),
   ];
 
