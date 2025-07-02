@@ -13,6 +13,8 @@ export class AlojamientoRepository {
       query.nombre = { $regex: filters.nombre, $options: "i" };
     }
 
+    if (filters.anfitrion) query.anfitrion = filters.anfitrion;
+
     //Filtro por Rango de precios
     if (filters.precioGt || filters.precioLt) {
       query.precioPorNoche = {}; // creo el objeto
@@ -84,12 +86,15 @@ export class AlojamientoRepository {
 
     const alojamientos = await this.model
       .find(query)
-      .select("nombre descripcion precioPorNoche direccion fotos cantHuespedesMax")
+      .select(
+        "nombre descripcion precioPorNoche direccion fotos cantHuespedesMax",
+      )
       .populate({
         path: "direccion",
         select: "calle altura",
       })
       .populate("fotos")
+      .populate("reservas")
       .skip(skip)
       .limit(limit);
 

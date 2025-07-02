@@ -33,6 +33,13 @@ export const getReservas = async (usuarioId) => {
   return res;
 };
 
+export const getReservasAnfitrion = async (usuarioId) => {
+  const res = await axios.get(
+    `http://localhost:4000/anfitrion/${usuarioId}/reserva`,
+  );
+  return res;
+};
+
 export const getAlojamientos = async (filtros) => {
   const queryString = new URLSearchParams(filtros).toString();
   const req = queryString
@@ -45,6 +52,27 @@ export const getAlojamientos = async (filtros) => {
 export const leerNotificacion = async (notiId) => {
   const res = await axios.put(
     `http://localhost:4000/notificacion/${notiId}/leer`,
+  );
+  return res;
+};
+
+export const cancelarReserva = async (reservaId) => {
+  const res = await axios.put(
+    `http://localhost:4000/reserva/${reservaId}/cancelar`,
+  );
+  return res;
+};
+
+export const confirmarReserva = async (reservaId) => {
+  const res = await axios.put(
+    `http://localhost:4000/reserva/${reservaId}/confirmar`,
+  );
+  return res;
+};
+
+export const rechazarReserva = async (reservaId) => {
+  const res = await axios.put(
+    `http://localhost:4000/reserva/${reservaId}/rechazar`,
   );
   return res;
 };

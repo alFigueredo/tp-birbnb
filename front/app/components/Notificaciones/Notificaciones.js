@@ -29,11 +29,6 @@ export default function Notificaciones({ userId }) {
       .catch((err) => console.error("Error al cargar notificaciones", err));
   }, [userId]);
 
-  // useEffect(() => {
-  //   setExpandida(null);
-  //   if (userId) cargarNotificaciones();
-  // }, [userId]);
-
   useEffect(() => {
     if (!userId) return;
 

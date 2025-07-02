@@ -364,6 +364,41 @@
         }
       }
     },
+    "/anfitrion/{idUsuario}/reserva": {
+      "get": {
+        "summary": "Historial de reservas de un anfitrion",
+        "description": "Devuelve todas las reservas realizadas por un anfitrion.",
+        "parameters": [
+          {
+            "name": "idUsuario",
+            "in": "path",
+            "description": "ID del usuario",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de reservas del usuario",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Reserva"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuario no encontrado"
+          }
+        }
+      }
+    },
     "/reserva/{idReserva}": {
       "put": {
         "summary": "Modificar una reserva",
@@ -586,3 +621,4 @@
     }
   }
 }
+

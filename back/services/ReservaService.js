@@ -116,6 +116,37 @@ export class ReservaService {
     return listaReservas;
   }
 
+  async reservasAnfitrion(idUsuario) {
+    const usuario = await this.usuarioRepository.findById(idUsuario);
+    if (!usuario) {
+      throw new NotFoundError(`Usuario con el id ${usuario} no existe`);
+    }
+
+    const alojamientos = (
+      await this.alojamientoRepository.findAll({
+        anfitrion: usuario._id,
+      })
+    ).alojamientos;
+
+    console.debug(alojamientos);
+
+    const listaReservas = alojamientos.flatMap((aloj) => aloj.reservas);
+
+    return listaReservas;
+  }
+
+  //historial de reservas de un usuario
+  async historialReservas(idUsuario) {
+    const usuario = await this.usuarioRepository.findById(idUsuario);
+    if (!usuario) {
+      throw new NotFoundError(`Usuario con el id ${usuario} no existe`);
+    }
+    const listaReservas = await this.reservaRepository.findAll({
+      huespedReservador: idUsuario,
+    });
+    return listaReservas;
+  }
+
   //modificacion de reserva
   async modificacionReserva(idReserva, nuevaReserva) {
     const reserva = await this.reservaRepository.findById(idReserva);

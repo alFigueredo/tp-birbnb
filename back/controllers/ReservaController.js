@@ -45,6 +45,16 @@ export class ReservaController {
       next(error);
     }
   }
+  async reservasAnfitrion(req, res, next) {
+    try {
+      const listaReservas = await this.reservaService.reservasAnfitrion(
+        req.params.idUsuario,
+      );
+      res.status(200).json(listaReservas);
+    } catch (error) {
+      next(error);
+    }
+  }
   async modificacionReserva(req, res, next) {
     try {
       const reserva = await this.reservaService.modificacionReserva(

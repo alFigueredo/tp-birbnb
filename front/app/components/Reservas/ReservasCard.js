@@ -1,4 +1,33 @@
-export default function ReservasCard({ reserva }) {
+import { useUsuario } from "@/app/context/UserContext";
+import { cancelarReserva, confirmarReserva, rechazarReserva } from "@/app/services/api";
+
+export default function ReservasCard({ reserva, obtenerReservas }) {
+  const { usuarioActual } = useUsuario();
+
+  function cancelar(reservaId) {
+    cancelarReserva(reservaId)
+      .then(() => {
+        obtenerReservas();
+      })
+      .catch((err) => console.error("Error al cancelar la reserva", err));
+  }
+
+  function confirmar(reservaId) {
+    confirmarReserva(reservaId)
+      .then(() => {
+        obtenerReservas();
+      })
+      .catch((err) => console.error("Error al confirmar la reserva", err));
+  }
+
+  function rechazar(reservaId) {
+    rechazarReserva(reservaId)
+      .then(() => {
+        obtenerReservas();
+      })
+      .catch((err) => console.error("Error al rechazar la reserva", err));
+  }
+
   return (
     <div className="bg-white rounded-xl shadow-md p-6 border border-gray-200">
       <p className="text-lg text-gray-800">
@@ -17,18 +46,44 @@ export default function ReservasCard({ reserva }) {
         Alta: {new Date(reserva.fechaAlta).toLocaleString("es-AR")}
       </p>
       <div className="flex justify-end gap-2 mt-4">
-        <button
-          className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-1.5 rounded"
-          onClick={() => console.log("Editar reserva", reserva._id)}
-        >
-          Editar
-        </button>
-        <button
-          className="bg-red-600 hover:bg-red-700 text-white text-sm font-medium px-4 py-1.5 rounded"
-          onClick={() => console.log("Cancelar reserva", reserva._id)}
-        >
-          Cancelar
-        </button>
+        {usuarioActual.tipo === "HUESPED" &&
+          (reserva.estado === "PENDIENTE" ||
+            reserva.estado === "CONFIRMADA") && (
+            <button
+              className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-1.5 rounded"
+              onClick={() => console.log("Editar reserva", reserva._id)}
+            >
+              Editar
+            </button>
+          )}
+        {usuarioActual.tipo === "HUESPED" &&
+          (reserva.estado === "PENDIENTE" ||
+            reserva.estado === "CONFIRMADA") && (
+            <button
+              className="bg-red-600 hover:bg-red-700 text-white text-sm font-medium px-4 py-1.5 rounded"
+              onClick={() => cancelar(reserva._id)}
+            >
+              Cancelar
+            </button>
+          )}
+        {usuarioActual.tipo === "ANFITRION" &&
+          reserva.estado === "PENDIENTE" && (
+            <button
+              className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-1.5 rounded"
+              onClick={() => confirmar(reserva._id)}
+            >
+              Confirmar
+            </button>
+          )}
+        {usuarioActual.tipo === "ANFITRION" &&
+          reserva.estado === "PENDIENTE" && (
+            <button
+              className="bg-red-600 hover:bg-red-700 text-white text-sm font-medium px-4 py-1.5 rounded"
+              onClick={() => rechazar(reserva._id)}
+            >
+              Rechazar
+            </button>
+          )}
       </div>
     </div>
   );

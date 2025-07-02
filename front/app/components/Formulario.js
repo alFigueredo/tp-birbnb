@@ -61,10 +61,16 @@ export default function Formulario({ aloja }) {
       </button>
 
       {showForm && (
-        <div className="absolute top-14 left-0 bg-white p-5 rounded-xl shadow-xl border w-80 z-10">
+        <div className="absolute lg:top-1/2 lg:-translate-y-1/2 lg:left-55 bg-white p-5 rounded-xl shadow-xl border w-80 z-10">
           <h2 className="text-xl font-bold mb-4 text-gray-800">
             🥳Reserva tu estadía🥳
           </h2>
+          <button
+            onClick={() => setShowForm(false)}
+            className="absolute top-3 right-3 text-gray-600 hover:text-black"
+          >
+            ✕
+          </button>
           <form onSubmit={reservar} className="flex flex-col gap-3">
             <input
               type="number"

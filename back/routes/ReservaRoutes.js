@@ -17,6 +17,10 @@ export function registerReservaRoutes(app, getController) {
     getController(ReservaController).historialReservas(req, res, next),
   ); //antes:reserva/:idUsuario
 
+  app.get("/anfitrion/:idUsuario/reserva", (req, res, next) =>
+    getController(ReservaController).reservasAnfitrion(req, res, next),
+  ); //antes:reserva/:idUsuario
+
   app.put("/reserva/:idReserva", (req, res, next) =>
     getController(ReservaController).modificacionReserva(req, res, next),
   );

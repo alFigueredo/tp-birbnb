@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useUsuario } from "@/app/context/UserContext";
 import ReservasCard from "@/app/components/Reservas/ReservasCard";
 import SkeletonCard from "@/app/components/Reservas/SkeletonCard";
-import { getReservas } from "@/app/services/api";
+import { getReservas, getReservasAnfitrion } from "@/app/services/api";
 
 export default function ReservasList() {
   const { usuarioActual } = useUsuario();
@@ -17,14 +17,23 @@ export default function ReservasList() {
     return 0;
   }
 
+  const obtenerReservas = useCallback(() => {
+    if (usuarioActual.tipo === "HUESPED")
+      getReservas(usuarioActual._id)
+        .then((res) => setReservas(res.data.sort(sortCriteria)))
+        .catch((err) => console.error(err))
+        .finally(() => setLoading(false));
+    else
+      getReservasAnfitrion(usuarioActual._id)
+        .then((res) => setReservas(res.data.sort(sortCriteria)))
+        .catch((err) => console.error(err))
+        .finally(() => setLoading(false));
+  }, [usuarioActual]);
+
   useEffect(() => {
     if (!usuarioActual) return;
-
-    getReservas(usuarioActual._id)
-      .then((res) => setReservas(res.data.sort(sortCriteria)))
-      .catch((err) => console.error(err))
-      .finally(() => setLoading(false));
-  }, [usuarioActual]);
+    obtenerReservas(usuarioActual);
+  }, [usuarioActual, obtenerReservas]);
 
   return (
     <div className="min-h-screen bg-neutral-200 pt-21 pb-10 px-4">
@@ -43,7 +52,11 @@ export default function ReservasList() {
         {loading
           ? Array.from({ length: 12 }).map((_, i) => <SkeletonCard key={i} />)
           : reservas.map((reserva, index) => (
-              <ReservasCard key={index} reserva={reserva} />
+              <ReservasCard
+                key={index}
+                reserva={reserva}
+                obtenerReservas={obtenerReservas}
+              />
             ))}
       </div>
     </div>
