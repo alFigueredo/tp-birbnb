@@ -91,7 +91,7 @@ export default function Notificaciones({ userId }) {
                   className={`border-b py-2 px-3 text-sm rounded transition-all duration-200 cursor-pointer ${
                     n.leida
                       ? "text-gray-500 bg-white"
-                      : "bg-amber-100  text-black font-semibold "
+                      : "bg-yellow-50 text-black font-semibold "
                   }`}
                 >
                   {!n.leida && <span className="mr-1">📩</span>}

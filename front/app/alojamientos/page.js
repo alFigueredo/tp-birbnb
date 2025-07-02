@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import axios from "axios";
-import AlojamientoCard from "@/app/components/AlojamientoCard";
+import AlojamientoCard from "@/app/components/Alojamientos/AlojamientoCard";
 import SkeletonCard from "@/app/components/SkeletonCard";
 import BarraLateral from "@/app/components/BarraLateral";
 

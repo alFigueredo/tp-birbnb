@@ -1,4 +1,4 @@
-import AlojamientoInfo from "@/app/components/AlojamientoInfo";
+import AlojamientoInfo from "@/app/components/Alojamientos/AlojamientoInfo";
 
 export default async function AlojamientoPage({ params }) {
   const { alojamientoid } = await params;

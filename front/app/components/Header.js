@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import Notificaciones from "./Notificaciones";
+import Notificaciones from "./Notificaciones/Notificaciones";
 import NavLinks from "./Links";
 
 import { useRouter } from "next/navigation";
