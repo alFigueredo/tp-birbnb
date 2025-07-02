@@ -140,7 +140,6 @@ export class ReservaService {
       );
     }
 
-    // Mejorable
     if (!alojamiento.estasDisponibleEn(rangoFechas)) {
       throw new ConflictError(
         `El alojamiento ${alojamiento.nombre} no esta disponible en las fechas seleccionadas`,
