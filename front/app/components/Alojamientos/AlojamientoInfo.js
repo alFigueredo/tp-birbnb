@@ -3,7 +3,7 @@
 import Formulario from "@/app/components/Formulario";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import SkeletonInfo from "@/app/components/SkeletonInfo";
+import SkeletonInfo from "@/app/components/skeletons/SkeletonInfo";
 import FotoCarrusel from "./FotoCarrusel";
 import AlojamientoDatos from "./AlojamientoDatos";
 
