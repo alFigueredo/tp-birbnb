@@ -3,7 +3,7 @@
 import { useState } from "react";
 import axios from "axios";
 import AlojamientoCard from "@/app/components/Alojamientos/AlojamientoCard";
-import SkeletonCard from "@/app/components/SkeletonCard";
+import SkeletonCard from "@/app/components/skeletons/SkeletonCard";
 import BarraLateral from "@/app/components/BarraLateral";
 
 export default function Alojamientos() {
