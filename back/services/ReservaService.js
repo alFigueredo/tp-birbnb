@@ -197,14 +197,15 @@ export class ReservaService {
     );
     await this.reservaRepository.save(cambioEstado.reserva);
     await this.notificacionRepository.create(cambioEstado.reserva);
-    await this.notificacionRepository.create(
-      cambioEstado.reserva,
-      `Horario Check-in: ${cambioEstado.reserva.alojamiento.horarioCheckIn}`,
-    );
-    await this.notificacionRepository.create(
-      cambioEstado.reserva,
-      `Horario Check-out: ${cambioEstado.reserva.alojamiento.horarioCheckOut}`,
-    );
+
+    // await this.notificacionRepository.create(
+    //   cambioEstado.reserva,
+    //   `Horario Check-in: ${cambioEstado.reserva.alojamiento.horarioCheckIn}`,
+    // );
+    // await this.notificacionRepository.create(
+    //   cambioEstado.reserva,
+    //   `Horario Check-out: ${cambioEstado.reserva.alojamiento.horarioCheckOut}`,
+    // );
 
     return reserva;
   }

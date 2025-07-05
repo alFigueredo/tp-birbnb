@@ -329,7 +329,7 @@
         }
       }
     },
-    "/usuario/{idUsuario}/reserva": {
+    "/huesped/{idUsuario}/reserva": {
       "get": {
         "summary": "Historial de reservas de un huesped",
         "description": "Devuelve todas las reservas realizadas por un huesped.",
@@ -359,7 +359,7 @@
             }
           },
           "404": {
-            "description": "Usuario no encontrado"
+            "description": "Huesped no encontrado"
           }
         }
       }
@@ -394,7 +394,7 @@
             }
           },
           "404": {
-            "description": "Usuario no encontrado"
+            "description": "Anfitrion no encontrado"
           }
         }
       }
