@@ -122,28 +122,13 @@ export class ReservaService {
       throw new NotFoundError(`Usuario con el id ${usuario} no existe`);
     }
 
-    const alojamientos = (
-      await this.alojamientoRepository.findAll({
-        anfitrion: usuario._id,
-      })
-    ).alojamientos;
+    const alojamientos = await this.alojamientoRepository.findByAnfitrion(
+      usuario._id,
+    );
 
-    // console.debug(alojamientos);
+    const listaReservas =
+      await this.reservaRepository.findByAlojamientos(alojamientos);
 
-    const listaReservas = alojamientos.flatMap((aloj) => aloj.reservas);
-
-    return listaReservas;
-  }
-
-  //historial de reservas de un usuario
-  async historialReservas(idUsuario) {
-    const usuario = await this.usuarioRepository.findById(idUsuario);
-    if (!usuario) {
-      throw new NotFoundError(`Usuario con el id ${usuario} no existe`);
-    }
-    const listaReservas = await this.reservaRepository.findAll({
-      huespedReservador: idUsuario,
-    });
     return listaReservas;
   }
 

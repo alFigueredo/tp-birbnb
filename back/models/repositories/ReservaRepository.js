@@ -10,12 +10,25 @@ export class ReservaRepository {
     return this.model
       .find(query)
       .populate("huespedReservador")
-      .populate("alojamiento");
+      .populate({
+        path: "alojamiento",
+        populate: {
+          path: "anfitrion",
+          model: "Usuario",
+        },
+      });
   }
 
   async findById(id) {
     return this.model
       .findById(id)
+      .populate("huespedReservador")
+      .populate("alojamiento");
+  }
+
+  async findByAlojamientos(alojamientos) {
+    return this.model
+      .find({ alojamiento: alojamientos })
       .populate("huespedReservador")
       .populate("alojamiento");
   }

@@ -67,7 +67,7 @@ export default function Formulario({ aloja }) {
           </h2>
           <button
             onClick={() => setShowForm(false)}
-            className="absolute top-3 right-3 text-gray-600 hover:text-black"
+            className="absolute top-3 right-3 p-1 text-gray-600 hover:text-black"
           >
             ✕
           </button>

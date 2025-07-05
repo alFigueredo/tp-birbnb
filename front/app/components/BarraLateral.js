@@ -22,7 +22,7 @@ export default function BarraLateral({ onFilter }) {
       >
         <button
           onClick={() => setSidebarOpen(false)}
-          className="absolute top-3 right-3 text-gray-600 hover:text-black"
+          className="absolute top-3 right-3 p-1 text-gray-600 hover:text-black"
         >
           ✕
         </button>

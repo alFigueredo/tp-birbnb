@@ -38,6 +38,11 @@ export default function ReservasCard({ reserva, obtenerReservas }) {
       <p className="text-lg text-gray-800">
         Alojamiento: {reserva.alojamiento.nombre}
       </p>
+      <p className="text-lg text-gray-800">
+        {usuarioActual.tipo === "HUESPED"
+          ? `Anfitrión: ${reserva.alojamiento.anfitrion.nombre}`
+          : `Huésped: ${reserva.huespedReservador.nombre}`}
+      </p>
       <p className="text-lg text-gray-800">Estado: {reserva.estado}</p>
       <p className="text-md text-gray-700">
         Cantidad de huéspedes: {reserva.cantHuespedes}

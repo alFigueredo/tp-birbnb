@@ -13,8 +13,6 @@ export class AlojamientoRepository {
       query.nombre = { $regex: filters.nombre, $options: "i" };
     }
 
-    if (filters.anfitrion) query.anfitrion = filters.anfitrion;
-
     //Filtro por Rango de precios
     if (filters.precioGt || filters.precioLt) {
       query.precioPorNoche = {}; // creo el objeto
@@ -95,6 +93,7 @@ export class AlojamientoRepository {
       })
       .populate("fotos")
       .populate("reservas")
+      .populate("anfitrion")
       .skip(skip)
       .limit(limit);
 
@@ -109,6 +108,18 @@ export class AlojamientoRepository {
   async findById(id) {
     return this.model
       .findById(id)
+      .populate("reservas")
+      .populate("anfitrion")
+      .populate({
+        path: "direccion",
+        select: "calle altura",
+      })
+      .populate("fotos"); // Buscar alojamiento por ID
+  }
+
+  async findByAnfitrion(id) {
+    return this.model
+      .find({ anfitrion: id })
       .populate("reservas")
       .populate("anfitrion")
       .populate({

@@ -13,7 +13,7 @@ export default function Filtros({ onFilter }) {
   useEffect(() => {
     const delay = setTimeout(() => {
       onFilter(filtros);
-    }, 100);
+    }, 300);
     return () => clearTimeout(delay);
   }, [filtros, onFilter]);
 
