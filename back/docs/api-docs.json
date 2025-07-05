@@ -331,8 +331,8 @@
     },
     "/usuario/{idUsuario}/reserva": {
       "get": {
-        "summary": "Historial de reservas de un usuario",
-        "description": "Devuelve todas las reservas realizadas por un usuario.",
+        "summary": "Historial de reservas de un huesped",
+        "description": "Devuelve todas las reservas realizadas por un huesped.",
         "parameters": [
           {
             "name": "idUsuario",
@@ -346,7 +346,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Lista de reservas del usuario",
+            "description": "Lista de reservas del huesped",
             "content": {
               "application/json": {
                 "schema": {
@@ -381,7 +381,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Lista de reservas del usuario",
+            "description": "Lista de reservas del anfitrion",
             "content": {
               "application/json": {
                 "schema": {
@@ -621,4 +621,3 @@
     }
   }
 }
-
