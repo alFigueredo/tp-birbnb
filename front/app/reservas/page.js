@@ -32,6 +32,7 @@ export default function ReservasList() {
 
   useEffect(() => {
     if (!usuarioActual) return;
+    setLoading(true);
     obtenerReservas(usuarioActual);
   }, [usuarioActual, obtenerReservas]);
 
