@@ -13,7 +13,7 @@ export function registerReservaRoutes(app, getController) {
     getController(ReservaController).cancelacionReserva(req, res, next),
   );
 
-  app.get("/usuario/:idUsuario/reserva", (req, res, next) =>
+  app.get("/huesped/:idUsuario/reserva", (req, res, next) =>
     getController(ReservaController).historialReservas(req, res, next),
   ); //antes:reserva/:idUsuario
 

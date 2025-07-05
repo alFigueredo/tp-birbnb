@@ -27,7 +27,7 @@ export const getNotificaciones = async (userId) => {
 };
 
 export const getReservas = async (usuarioId) => {
-  const res = await axios.get(`${API_BASE_URL}/usuario/${usuarioId}/reserva`);
+  const res = await axios.get(`${API_BASE_URL}/huesped/${usuarioId}/reserva`);
   return res;
 };
 

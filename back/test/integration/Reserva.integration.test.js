@@ -185,9 +185,9 @@ describe("GET /reserva", () => {
   });
 });
 
-describe("GET /usuario/{:idUsuario}/reserva", () => {
+describe("GET /huesped/{:idUsuario}/reserva", () => {
   test("Debería retornar reservas", async () => {
-    const response = await request(app).get("/usuario/1/reserva");
+    const response = await request(app).get("/huesped/1/reserva");
 
     expect(response.status).toBe(200);
     expect(response.type).toBe("application/json");
@@ -198,7 +198,7 @@ describe("GET /usuario/{:idUsuario}/reserva", () => {
   test("Debería retornar un 404", async () => {
     usuarioRepository.findById.mockResolvedValue(null);
 
-    const response = await request(app).get("/usuario/1/reserva");
+    const response = await request(app).get("/huesped/1/reserva");
 
     expect(response.status).toBe(404);
     expect(response.error).toBeTruthy();
