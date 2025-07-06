@@ -1,14 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import AlojamientoCard from "@/app/components/Alojamientos/AlojamientoCard";
 import SkeletonCard from "@/app/components/Alojamientos/SkeletonCard";
 import BarraLateral from "@/app/components/BarraLateral";
 import { getAlojamientos } from "../services/api";
+import Paginador from "../components/Alojamientos/Paginador";
 
 export default function Alojamientos() {
   const [alojamientos, setAlojamientos] = useState([]);
-  const [pagina, setPagina] = useState({});
+  const [pagina, setPagina] = useState({ page: 1 });
+  const [filtros, setFiltros] = useState({
+    caractPedidas: [],
+  });
+
   const [loading, setLoading] = useState(true);
 
   function limpiarFiltros(obj) {
@@ -19,26 +24,35 @@ export default function Alojamientos() {
     );
   }
 
-  // Cambiar la api a un lugar aparte
-  function buscarAlojamientos(filtros) {
-    const filtrosLimpios = limpiarFiltros({ ...filtros, ...pagina });
+  const buscarAlojamientos = useCallback(() => {
+    const filtrosLimpios = limpiarFiltros({
+      ...filtros,
+      page: pagina.page,
+    });
+    setLoading(true);
     getAlojamientos(filtrosLimpios)
       .then((res) => {
         setAlojamientos(res.data.alojamientos || []);
-        setPagina({
-          page: res.data.page || 1,
+        const cantPaginas = parseInt(res.data.total / res.data.limit) + 1 || 1;
+        const nueva = {
+          page: Math.min(res.data.page, cantPaginas) || 1,
           limit: res.data.limit || 12,
           total: res.data.total || 0,
-          cantPaginas: parseInt(res.data.total / res.data.limit) + 1 || 1,
-        });
+          cantPaginas,
+        };
+        setPagina(nueva);
       })
       .catch((err) => console.error("Error al obtener alojamientos:", err))
       .finally(() => setLoading(false));
-  }
+  }, [filtros, pagina.page]);
+
+  useEffect(() => {
+    buscarAlojamientos(filtros, pagina.page);
+  }, [filtros, pagina.page, buscarAlojamientos]);
 
   return (
     <section className="min-h-screen bg-stone-100 pt-21 pb-10 px-4">
-      <BarraLateral onFilter={buscarAlojamientos} />
+      <BarraLateral filtros={filtros} setFiltros={setFiltros} />
       <h1 className="text-4xl font-bold text-center text-gray-800 mb-10 tracking-normal drop-shadow-sm hover:text-blue-800 transition-colors duration-300">
         🏡Listado de Alojamientos🏡
       </h1>
@@ -54,24 +68,7 @@ export default function Alojamientos() {
 
       {/* Paginador */}
       {pagina.cantPaginas > 1 && (
-        <div className="flex justify-center mt-6 space-x-2">
-          {[...Array(pagina.cantPaginas)].map((_, i) => {
-            const page = i + 1;
-            return (
-              <button
-                key={page}
-                onClick={() => setPagina({ ...pagina, page })}
-                className={`px-3 py-1 border rounded transition ${
-                  pagina.page === page
-                    ? "bg-blue-700 text-white"
-                    : "bg-white hover:bg-gray-200"
-                }`}
-              >
-                {page}
-              </button>
-            );
-          })}
-        </div>
+        <Paginador pagina={pagina} setPagina={setPagina} />
       )}
     </section>
   );
