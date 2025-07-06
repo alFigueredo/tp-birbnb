@@ -1,9 +1,10 @@
+import { useState } from "react";
+
 export default function NotificacionesLista({
   notificaciones,
-  expandida,
-  setExpandida,
   marcarComoLeida,
 }) {
+  const [expandida, setExpandida] = useState(null); //para que se expanda
   return (
     <div className="absolute right-0 mt-2 w-72 bg-white text-black border shadow rounded-md p-2 max-h-64 overflow-auto z-50">
       <h4 className="text-center font-bold mb-2">Notificaciones</h4>

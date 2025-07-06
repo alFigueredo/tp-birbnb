@@ -8,7 +8,6 @@ import { getNotificaciones, leerNotificacion } from "@/app/services/api";
 export default function Notificaciones({ userId }) {
   const [mostrarNotis, setMostrarNotis] = useState(false);
   const [notificaciones, setNotificaciones] = useState([]);
-  const [expandida, setExpandida] = useState(null); //para que se expanda
 
   function toggleCampanita() {
     setMostrarNotis((prev) => !prev);
@@ -31,13 +30,14 @@ export default function Notificaciones({ userId }) {
 
   useEffect(() => {
     if (!userId) return;
-
-    setExpandida(null);
-
-    const intervalo = setInterval(() => cargarNotificaciones(), 300);
-
-    return () => clearInterval(intervalo);
+    cargarNotificaciones();
   }, [userId, cargarNotificaciones]);
+
+  useEffect(() => {
+    if (!userId) return;
+    const intervalo = setInterval(() => cargarNotificaciones(), 1000);
+    return () => clearInterval(intervalo);
+  });
 
   function marcarComoLeida(idNoti) {
     leerNotificacion(idNoti)
@@ -75,8 +75,6 @@ export default function Notificaciones({ userId }) {
       {mostrarNotis && (
         <NotificacionesLista
           notificaciones={notificaciones}
-          expandida={expandida}
-          setExpandida={setExpandida}
           marcarComoLeida={marcarComoLeida}
         />
       )}

@@ -13,7 +13,6 @@ export default function Alojamientos() {
   const [filtros, setFiltros] = useState({
     caractPedidas: [],
   });
-
   const [loading, setLoading] = useState(true);
 
   function limpiarFiltros(obj) {
