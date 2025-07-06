@@ -5,17 +5,15 @@ import TextInput from "@/app/components/inputs/TextInput";
 import NumberInput from "@/app/components/inputs/NumberInput";
 import CheckboxInput from "@/app/components/inputs/CheckboxInput";
 
-export default function Filtros({ onFilter }) {
-  const [filtros, setFiltros] = useState({
-    caractPedidas: [],
-  });
+export default function Filtros({ filtros, setFiltros }) {
+  const [filter, setFilter] = useState(filtros);
 
   useEffect(() => {
     const delay = setTimeout(() => {
-      onFilter(filtros);
+      setFiltros(filter);
     }, 300);
     return () => clearTimeout(delay);
-  }, [filtros, onFilter]);
+  }, [filter, setFiltros]);
 
   return (
     <div>
@@ -26,54 +24,54 @@ export default function Filtros({ onFilter }) {
         <TextInput
           id="nombre"
           label="Nombre del alojamiento"
-          filtros={filtros}
-          setFiltros={setFiltros}
+          filtros={filter}
+          setFiltros={setFilter}
         />
         <TextInput
           id="ciudad"
           label="Ciudad"
-          filtros={filtros}
-          setFiltros={setFiltros}
+          filtros={filter}
+          setFiltros={setFilter}
         />
         <TextInput
           id="pais"
           label="Pais"
-          filtros={filtros}
-          setFiltros={setFiltros}
+          filtros={filter}
+          setFiltros={setFilter}
         />
         <NumberInput
           id="precioGt"
           label="Precio mínimo"
           step="1000"
-          filtros={filtros}
-          setFiltros={setFiltros}
+          filtros={filter}
+          setFiltros={setFilter}
         />
         <NumberInput
           id="precioLt"
           label="Precio máximo"
           step="1000"
-          filtros={filtros}
-          setFiltros={setFiltros}
+          filtros={filter}
+          setFiltros={setFilter}
         />
         <NumberInput
           id="cantHuespedes"
           label="Cantidad de huéspedes"
           step="1"
-          filtros={filtros}
-          setFiltros={setFiltros}
+          filtros={filter}
+          setFiltros={setFilter}
         />
         <div className="bg-gray-50 border border-gray-400 p-4 rounded space-y-2">
           <TextInput
             id="lat"
             label="Latitud"
-            filtros={filtros}
-            setFiltros={setFiltros}
+            filtros={filter}
+            setFiltros={setFilter}
           />
           <TextInput
             id="long"
             label="Longitud"
-            filtros={filtros}
-            setFiltros={setFiltros}
+            filtros={filter}
+            setFiltros={setFilter}
           />
           {(filtros.lat && !filtros.long) || (!filtros.lat && filtros.long) ? (
             <p className="text-sm text-red-600">
@@ -84,8 +82,8 @@ export default function Filtros({ onFilter }) {
         <CheckboxInput
           id="caractPedidas"
           title="Características"
-          filtros={filtros}
-          setFiltros={setFiltros}
+          filtros={filter}
+          setFiltros={setFilter}
           values={[
             { id: "WIFI", label: "Wi-Fi" },
             { id: "PISCINA", label: "Piscina" },

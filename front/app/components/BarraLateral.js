@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Filtros from "@/app/components/Filtros";
 
-export default function BarraLateral({ onFilter }) {
+export default function BarraLateral({ filtros, setFiltros }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -28,7 +28,7 @@ export default function BarraLateral({ onFilter }) {
         </button>
 
         <div className="p-4 mt-10 overflow-y-auto h-full">
-          <Filtros onFilter={onFilter} />
+          <Filtros filtros={filtros} setFiltros={setFiltros} />
         </div>
       </div>
     </>
