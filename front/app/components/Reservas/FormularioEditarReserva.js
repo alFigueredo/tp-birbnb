@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useUsuario } from "@/app/context/UserContext";
 import { putReserva } from "@/app/services/api";
 
-export default function FormularioEditarReserva({ reserva }) {
+export default function FormularioEditarReserva({ reserva, obtenerReservas }) {
   const [showForm, setShowForm] = useState(false);
   const toggleForm = () => setShowForm(!showForm);
   const { usuarioActual } = useUsuario();
@@ -27,24 +27,22 @@ export default function FormularioEditarReserva({ reserva }) {
 
     const reservaEditada = {
       _id: reserva._id,
-      huespedReservador: usuarioActual._id,
       cantHuespedes: detallesReserva.cantHuespedes || reserva.cantHuespedes,
-      alojamiento: reserva.alojamiento,
       rangoFechas: {
         fechaInicio: detallesReserva.fechaInicio
           ? parseDateAsLocal(detallesReserva.fechaInicio)
-          : reserva.fechaInicio,
+          : reserva.rangoFechas.fechaInicio,
         fechaFin: detallesReserva.fechaFin
           ? parseDateAsLocal(detallesReserva.fechaFin)
-          : reserva.fechaFin,
+          : reserva.rangoFechas.fechaFin,
       },
-      precioPorNoche: reserva.precioPorNoche,
     };
 
     try {
       await putReserva(reservaEditada);
 
       setMensaje("✅ ¡Reserva editada con éxito!");
+      obtenerReservas();
       setDetallesReserva({
         ...detallesReserva,
         fechaInicio: "",

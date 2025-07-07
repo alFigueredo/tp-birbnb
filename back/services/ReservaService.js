@@ -143,36 +143,41 @@ export class ReservaService {
       reserva.alojamiento,
     );
 
-    const rangoFechas = new RangoFechas(
-      new Date(nuevaReserva.rangoFechas.fechaInicio),
-      new Date(nuevaReserva.rangoFechas.fechaFin),
-    );
-
-    // console.debug(rangoFechas.fechaInicio, rangoFechas.fechaFin);
-
     if (!alojamiento) {
       throw new NotFoundError(
         `El alojamiento ${reserva.alojamiento} no existe`,
       );
     }
 
-    if (!alojamiento.estasDisponibleEn(rangoFechas)) {
+    const rangoFechas = new RangoFechas(
+      new Date(nuevaReserva.rangoFechas.fechaInicio),
+      new Date(nuevaReserva.rangoFechas.fechaFin),
+    );
+    if (!alojamiento.estasDisponibleEn(rangoFechas, idReserva)) {
       throw new ConflictError(
         `El alojamiento ${alojamiento.nombre} no esta disponible en las fechas seleccionadas`,
       );
     }
+    //se modifican las fechas de la reserva
+    reserva.modificarFechas(nuevaReserva.rangoFechas);
 
     if (!alojamiento.puedenAlojarse(nuevaReserva.cantHuespedes)) {
       throw new ConflictError(`Cantidad de huéspedes no permitida`);
     }
-
     //se modifican la cantidad de huespedes
     reserva.modificarCantidadHuespedes(nuevaReserva.cantHuespedes);
 
-    //se modifican las fechas de la reserva
-    reserva.modificarFechas(nuevaReserva.rangoFechas);
+    const cambioEstado = new CambioEstadoReserva(
+      "PENDIENTE",
+      reserva,
+      "",
+      reserva.huespedReservador,
+    );
+    const reservaActualizada = await this.reservaRepository.save(
+      cambioEstado.reserva,
+    );
+    await this.notificacionRepository.create(cambioEstado.reserva);
 
-    const reservaActualizada = await this.reservaRepository.save(reserva);
     return reservaActualizada;
   }
 
@@ -215,9 +220,6 @@ export class ReservaService {
     const reserva = await this.reservaRepository.findById(idReserva);
     if (!reserva) {
       throw new NotFoundError(`La reserva no existe`);
-    }
-    if (reserva.rangoFechas.fechaInicio < Date.now()) {
-      throw new ConflictError(`Fecha limite de rechazo superada`);
     }
     if (reserva.estado == "RECHAZADA") {
       throw new ConflictError(`Esta reserva ya fue rechazada`);

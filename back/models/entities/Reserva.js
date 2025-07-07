@@ -1,6 +1,5 @@
 import { ValidationError } from "../../errors/appError.js";
 import { Estados } from "./CambioEstadoReserva.js";
-import { Usuario } from "./Usuario.js";
 
 export class Reserva {
   constructor(
@@ -38,8 +37,8 @@ export class Reserva {
     return usuarioANotificar;
   }
 
-  modificarCantidadHuespedes(numeroHuespedes) {
-    this.numeroHuespedes = numeroHuespedes;
+  modificarCantidadHuespedes(cantHuespedes) {
+    this.cantHuespedes = cantHuespedes;
   }
 
   modificarFechas(rangoFechas) {

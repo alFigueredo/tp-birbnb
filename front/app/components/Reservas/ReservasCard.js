@@ -59,11 +59,14 @@ export default function ReservasCard({ reserva, obtenerReservas }) {
         Alta: {new Date(reserva.fechaAlta).toLocaleString("es-AR")}
       </p>
       <div className="flex justify-end gap-2 mt-4">
-        {/* {usuarioActual.tipo === "HUESPED" && */}
-        {/*   (reserva.estado === "PENDIENTE" || */}
-        {/*     reserva.estado === "CONFIRMADA") && ( */}
-        {/*     <FormularioEditarReserva reserva={reserva} /> */}
-        {/*   )} */}
+        {usuarioActual.tipo === "HUESPED" &&
+          (reserva.estado === "PENDIENTE" ||
+            reserva.estado === "CONFIRMADA") && (
+            <FormularioEditarReserva
+              reserva={reserva}
+              obtenerReservas={obtenerReservas}
+            />
+          )}
         {usuarioActual.tipo === "HUESPED" &&
           (reserva.estado === "PENDIENTE" ||
             reserva.estado === "CONFIRMADA") && (

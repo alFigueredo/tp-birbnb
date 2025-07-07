@@ -26,11 +26,13 @@ export class Alojamiento {
     this.fotos = fotos;
   }
 
-  estasDisponibleEn(rangoDeFechas) {
+  estasDisponibleEn(rangoDeFechas, reservaId = "") {
     return !this.reservas.some(
       (reserva) =>
         reserva.rangoFechas.entreFechas(rangoDeFechas) &&
-        reserva.estado !== "CANCELADA",
+        !reserva._id.equals(reservaId) &&
+        reserva.estado !== "CANCELADA" &&
+        reserva.estado !== "RECHAZADA",
     );
   }
   tuPrecioEstaDentroDe(valorMinimo, valorMaximo) {
