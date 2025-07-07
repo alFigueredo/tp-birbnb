@@ -11,7 +11,7 @@ export default function Filtros({ filtros, setFiltros }) {
   useEffect(() => {
     const delay = setTimeout(() => {
       setFiltros(filter);
-    }, 300);
+    }, 700);
     return () => clearTimeout(delay);
   }, [filter, setFiltros]);
 
