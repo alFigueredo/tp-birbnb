@@ -64,7 +64,12 @@ export default function FormularioEditarReserva({ reserva, obtenerReservas }) {
       </button>
 
       {showForm && (
-        <div className="absolute top-1/4 -translate-y-3/4 lg:top-1/2 lg:-translate-y-1/2 left-1/2 -translate-x-1/2 bg-white p-5 rounded-xl shadow-xl border w-80 z-10">
+        <div
+          className="absolute top-1/4 -translate-y-3/4 lg:top-1/2 lg:-translate-y-1/2 left-1/2 -translate-x-1/2 bg-white p-5 rounded-xl shadow-xl border w-80 z-10"
+          onKeyDown={(e) => {
+            if (e.key === "Escape") setShowForm(false);
+          }}
+        >
           <h2 className="text-xl font-bold mb-4 text-gray-800">
             🥳Editá tu reserva🥳
           </h2>
