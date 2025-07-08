@@ -37,9 +37,21 @@ const entre2 = new RangoFechas(new Date(2025, 5, 6), new Date(2025, 5, 9));
 const entre3 = new RangoFechas(new Date(2025, 5, 4), new Date(2025, 5, 6));
 const entre4 = new RangoFechas(new Date(2025, 5, 1), new Date(2025, 5, 3));
 
+class GenId {
+  constructor(_id) {
+    this._id = _id;
+  }
+
+  equals(_id) {
+    return this._id === _id;
+  }
+}
+
 const reser1 = new Reserva(usu1, 4, aloja1, entre1, 7000);
+reser1._id = new GenId("1");
 aloja1.agregarReserva(reser1);
 const reser2 = new Reserva(usu1, 4, aloja1, entre2, 7000);
+reser2._id = new GenId("2");
 aloja1.agregarReserva(reser2);
 
 describe("Test estasDisponibleEn", () => {

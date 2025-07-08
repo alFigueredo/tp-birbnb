@@ -1,5 +1,5 @@
 services:
-  node-back:
+  node-back-test:
     build:
       context: ./back
       args:
