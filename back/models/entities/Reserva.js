@@ -23,6 +23,7 @@ export class Reserva {
       throw new ValidationError(
         `El estado especificado no existe: ${nuevoEstado}`,
       );
+    if (nuevoEstado === "PENDIENTE") this.fechaAlta = Date.now();
     this.estado = nuevoEstado;
   }
 

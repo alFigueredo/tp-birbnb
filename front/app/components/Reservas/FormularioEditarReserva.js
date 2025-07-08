@@ -10,6 +10,7 @@ export default function FormularioEditarReserva({ reserva, obtenerReservas }) {
   const { usuarioActual } = useUsuario();
   const [detallesReserva, setDetallesReserva] = useState({});
   const [mensaje, setMensaje] = useState("");
+  const [loadingReserva, setLoadingReserva] = useState(false);
 
   function parseDateAsLocal(dateStr) {
     const [year, month, day] = dateStr.split("-");
@@ -19,6 +20,7 @@ export default function FormularioEditarReserva({ reserva, obtenerReservas }) {
   async function reservar(e) {
     e.preventDefault();
     setMensaje("");
+    setLoadingReserva(true);
 
     if (!usuarioActual) {
       setMensaje("Debés seleccionar un usuario.");
@@ -50,7 +52,9 @@ export default function FormularioEditarReserva({ reserva, obtenerReservas }) {
       });
     } catch (err) {
       console.error("Error al editar la reserva:", err);
-      setMensaje("❌ Ocurrió un error al editar la reserva.");
+      setMensaje("❌ " + err.response.data.message);
+    } finally {
+      setLoadingReserva(false);
     }
   }
 
@@ -124,11 +128,13 @@ export default function FormularioEditarReserva({ reserva, obtenerReservas }) {
             />
             <button
               type="submit"
-              className="mt-2 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg font-medium transition duration-300"
+              className={`mt-2 text-white py-2 px-4 rounded-lg font-medium transition duration-300 ${loadingReserva ? "bg-gray-800 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700 transition duration-300"}`}
+              disabled={loadingReserva}
             >
-              Enviar
+              {loadingReserva ? "Enviando..." : "Enviar"}
             </button>
             {mensaje && <p className="text-sm mt-2">{mensaje}</p>}
+            {loadingReserva && <span className="ml-2 animate-spin">⏳</span>}
           </form>
         </div>
       )}

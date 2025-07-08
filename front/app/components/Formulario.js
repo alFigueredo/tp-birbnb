@@ -10,6 +10,7 @@ export default function Formulario({ aloja }) {
   const { usuarioActual } = useUsuario();
   const [detallesReserva, setDetallesReserva] = useState({});
   const [mensaje, setMensaje] = useState("");
+  const [loadingReserva, setLoadingReserva] = useState(false);
 
   function parseDateAsLocal(dateStr) {
     const [year, month, day] = dateStr.split("-");
@@ -19,6 +20,7 @@ export default function Formulario({ aloja }) {
   async function reservar(e) {
     e.preventDefault();
     setMensaje("");
+    setLoadingReserva(true);
 
     if (!usuarioActual) {
       setMensaje("Debés seleccionar un usuario.");
@@ -47,7 +49,9 @@ export default function Formulario({ aloja }) {
       });
     } catch (err) {
       console.error("Error al crear la reserva:", err);
-      setMensaje("❌ Ocurrió un error al reservar.");
+      setMensaje("❌ " + err.response.data.message);
+    } finally {
+      setLoadingReserva(false);
     }
   }
 
@@ -63,7 +67,7 @@ export default function Formulario({ aloja }) {
 
       {showForm && (
         <div
-          className="absolute top-1/4 -translate-y-3/4 lg:top-1/2 lg:-translate-y-1/2 lg:left-55 bg-white p-5 rounded-xl shadow-xl border w-80 z-10"
+          className="absolute top-1/4 -translate-y-3/4 lg:top-1/2 lg:-translate-y-1/2 lg:left-45 bg-white p-5 rounded-xl shadow-xl border w-80 z-10"
           onKeyDown={(e) => {
             if (e.key === "Escape") setShowForm(false);
           }}
@@ -125,11 +129,13 @@ export default function Formulario({ aloja }) {
             />
             <button
               type="submit"
-              className="mt-2 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg font-medium transition duration-300"
+              className={`mt-2 text-white py-2 px-4 rounded-lg font-medium transition duration-300 ${loadingReserva ? "bg-gray-800 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700 transition duration-300"}`}
+              disabled={loadingReserva}
             >
-              Enviar
+              {loadingReserva ? "Enviando..." : "Enviar"}
             </button>
             {mensaje && <p className="text-sm mt-2">{mensaje}</p>}
+            {loadingReserva && <span className="ml-2 animate-spin">⏳</span>}
           </form>
         </div>
       )}
