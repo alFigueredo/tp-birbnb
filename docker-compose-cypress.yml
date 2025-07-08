@@ -1,0 +1,34 @@
+services:
+  node-front-test:
+    build:
+      context: ./front
+      args:
+        - NODE_ENV
+    user: "node"
+    env_file:
+      - ./front/.env
+    environment:
+      - NODE_ENV=production
+    command: bash -c "npm run build && npm run start"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 5s
+      timeout: 2s
+      retries: 10
+
+  cypress:
+    build:
+      context: ./front
+      dockerfile: Dockerfile.cypress
+      args:
+        - NODE_ENV
+    user: "node"
+    env_file:
+      - ./front/.env
+    environment:
+      - NODE_ENV=test
+      - NEXT_PUBLIC_APP_URL=http://node-front-test:3000
+    command: "npm run test"
+    depends_on:
+      node-front-test:
+        condition: service_healthy

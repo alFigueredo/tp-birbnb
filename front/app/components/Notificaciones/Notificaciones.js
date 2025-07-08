@@ -35,7 +35,7 @@ export default function Notificaciones({ userId }) {
 
   useEffect(() => {
     if (!userId) return;
-    const intervalo = setInterval(() => cargarNotificaciones(), 3000);
+    const intervalo = setInterval(() => cargarNotificaciones(), 7000);
     return () => clearInterval(intervalo);
   });
 

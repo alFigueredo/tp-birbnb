@@ -10,7 +10,7 @@ export default function SetUsuario({
       </label>
       <select
         id="usuario"
-        className="text-black px-2 py-1 rounded"
+        className={`${usuarioActual ? "text-black" : "text-gray-500"} px-2 py-1 rounded`}
         value={usuarioActual?._id || ""}
         onChange={(e) => {
           const user = usuarios.find((u) => u._id === e.target.value);

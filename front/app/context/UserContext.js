@@ -6,7 +6,9 @@ import { getUsuarios } from "@/app/services/api";
 const UserContext = createContext();
 
 export function UserProvider({ children }) {
-  const [usuarios, setUsuarios] = useState([]);
+  const [usuarios, setUsuarios] = useState([
+    { _id: "0", nombre: "Cargando usuarios..." },
+  ]);
   const [usuarioActual, setUsuarioActual] = useState(null);
 
   useEffect(() => {
@@ -16,7 +18,6 @@ export function UserProvider({ children }) {
         setUsuarioActual(res.data.length > 0 ? res.data[0] : []); // por defecto, el primero
       })
       .catch((err) => console.error("Error al cargar usuarios:", err));
-    // .finally(() => setLoading(false));
   }, []);
 
   return (

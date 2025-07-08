@@ -9,11 +9,4 @@ services:
       - ./back/.env
     environment:
       - NODE_ENV=test
-    develop:
-      watch:
-        - action: sync
-          path: ./back
-          target: /home/node/app
-        - action: rebuild
-          path: ./back/package.json
     command: "npm run test"
