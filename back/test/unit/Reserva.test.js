@@ -48,6 +48,8 @@ const usu1 = new Usuario("John Doe", "johndoe@gmail.con", TipoUsuario.HUESPED);
 const entre1 = new RangoFechas(new Date(2025, 5, 3), new Date(2025, 5, 5));
 const entre2 = new RangoFechas(new Date(2025, 5, 6), new Date(2025, 5, 9));
 const entre3 = new RangoFechas(new Date(2025, 5, 4), new Date(2025, 5, 6));
+const entre4 = new RangoFechas(new Date(2025, 5, 3), new Date(2025, 5, 6));
+const entre5 = new RangoFechas(new Date(2025, 5, 2), new Date(2025, 5, 5));
 
 const reser1 = new Reserva(usu1, 4, aloja1, entre1, 7000);
 const reser2 = new Reserva(usu1, 4, carac1, entre1, 7000);
@@ -108,5 +110,18 @@ describe("Test cantidadDias", () => {
   test("Cantidad de días en un rango de fechas", () => {
     expect(entre1.cantidadDias()).toBe(2);
     expect(entre2.cantidadDias()).toBe(3);
+  });
+});
+
+describe("Test equals", () => {
+  test("Ambas fechas son iguales", () => {
+    expect(entre1.equals(entre1)).toBeTruthy();
+  });
+  test("Ninguna fecha es igual", () => {
+    expect(entre1.equals(entre2)).toBeFalsy();
+  });
+  test("Una de las fechas es igual", () => {
+    expect(entre1.equals(entre4)).toBeFalsy();
+    expect(entre1.equals(entre5)).toBeFalsy();
   });
 });

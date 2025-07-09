@@ -20,7 +20,7 @@ export class FactoryNotificacion {
     const usuario = reserva.obtenerUsuario();
 
     let mensaje = `Huesped: ${reserva.huespedReservador.nombre}
-    Fecha: ${reserva.rangoFechas.fechaInicio.toLocaleDateString()}
+    Fecha: ${reserva.rangoFechas.fechaInicio.toLocaleDateString("es-AR")}
     Cantidad de días: ${reserva.rangoFechas.cantidadDias()}
     Alojamiento: ${reserva.alojamiento.nombre}
     Estado de la reserva: ${reserva.estado}`;

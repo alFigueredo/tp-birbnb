@@ -73,4 +73,11 @@ export class RangoFechas {
     this.fechaInicio = rangoFechas.fechaInicio;
     this.fechaFin = rangoFechas.fechaFin;
   }
+
+  equals(rangoFechas) {
+    return (
+      this.fechaInicio.getTime() === rangoFechas.fechaInicio.getTime() &&
+      this.fechaFin.getTime() === rangoFechas.fechaFin.getTime()
+    );
+  }
 }

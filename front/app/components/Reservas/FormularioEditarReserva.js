@@ -128,13 +128,15 @@ export default function FormularioEditarReserva({ reserva, obtenerReservas }) {
             />
             <button
               type="submit"
-              className={`mt-2 text-white py-2 px-4 rounded-lg font-medium transition duration-300 ${loadingReserva ? "bg-gray-800 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700 transition duration-300"}`}
+              className={`mt-2 text-white py-2 px-4 rounded-lg font-medium ${loadingReserva ? "bg-gray-800 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700 transition duration-300"}`}
               disabled={loadingReserva}
             >
               {loadingReserva ? "Enviando..." : "Enviar"}
             </button>
             {mensaje && <p className="text-sm mt-2">{mensaje}</p>}
-            {loadingReserva && <span className="ml-2 animate-spin">⏳</span>}
+            {loadingReserva && (
+              <span className="ml-2 animate-spin h-5 w-5">⏳</span>
+            )}
           </form>
         </div>
       )}

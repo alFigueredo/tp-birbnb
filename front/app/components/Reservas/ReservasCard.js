@@ -5,32 +5,48 @@ import {
   rechazarReserva,
 } from "@/app/services/api";
 import FormularioEditarReserva from "@/app/components/Reservas/FormularioEditarReserva";
+import { useState } from "react";
 
 export default function ReservasCard({ reserva, obtenerReservas }) {
   const { usuarioActual } = useUsuario();
+  const [loading, setLoading] = useState({
+    cancelar: false,
+    confirmar: false,
+    rechazar: false,
+  });
+
+  function formatDate(fecha) {
+    return fecha.split("T")[0].split("-").reverse().join("/");
+  }
 
   function cancelar(reservaId) {
+    setLoading({ ...loading, cancelar: true });
     cancelarReserva(reservaId)
       .then(() => {
         obtenerReservas();
       })
-      .catch((err) => console.error("Error al cancelar la reserva", err));
+      .catch((err) => console.error("Error al cancelar la reserva", err))
+      .finally(() => setLoading({ ...loading, cancelar: true }));
   }
 
   function confirmar(reservaId) {
+    setLoading({ ...loading, confirmar: true });
     confirmarReserva(reservaId)
       .then(() => {
         obtenerReservas();
       })
-      .catch((err) => console.error("Error al confirmar la reserva", err));
+      .catch((err) => console.error("Error al confirmar la reserva", err))
+      .finally(() => setLoading({ ...loading, confirmar: true }));
   }
 
   function rechazar(reservaId) {
+    setLoading({ ...loading, rechazar: true });
     rechazarReserva(reservaId)
       .then(() => {
         obtenerReservas();
       })
-      .catch((err) => console.error("Error al rechazar la reserva", err));
+      .catch((err) => console.error("Error al rechazar la reserva", err))
+      .finally(() => setLoading({ ...loading, rechazar: true }));
   }
 
   return (
@@ -48,12 +64,10 @@ export default function ReservasCard({ reserva, obtenerReservas }) {
         Cantidad de huéspedes: {reserva.cantHuespedes}
       </p>
       <p className="text-sm text-gray-600">
-        Desde:{" "}
-        {new Date(reserva.rangoFechas.fechaInicio).toLocaleDateString("es-AR")}
+        Desde: {formatDate(reserva.rangoFechas.fechaInicio)}
       </p>
       <p className="text-sm text-gray-600">
-        Hasta:{" "}
-        {new Date(reserva.rangoFechas.fechaFin).toLocaleDateString("es-AR")}
+        Hasta: {formatDate(reserva.rangoFechas.fechaFin)}
       </p>
       <p className="text-sm text-gray-600 mt-2">
         Alta: {new Date(reserva.fechaAlta).toLocaleString("es-AR")}
@@ -71,28 +85,31 @@ export default function ReservasCard({ reserva, obtenerReservas }) {
           (reserva.estado === "PENDIENTE" ||
             reserva.estado === "CONFIRMADA") && (
             <button
-              className="bg-red-600 hover:bg-red-700 text-white text-sm font-medium px-4 py-1.5 rounded"
+              className={`text-white text-sm font-medium px-4 py-1.5 rounded ${loading.cancelar ? "bg-gray-800 cursor-not-allowed" : "bg-red-600 hover:bg-red-700 transition duration-300"}`}
               onClick={() => cancelar(reserva._id)}
+              disabled={loading.cancelar}
             >
-              Cancelar
+              {loading.cancelar ? "Cancelando..." : "Cancelar"}
             </button>
           )}
         {usuarioActual.tipo === "ANFITRION" &&
           reserva.estado === "PENDIENTE" && (
             <button
-              className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-1.5 rounded"
+              className={`text-white text-sm font-medium px-4 py-1.5 rounded ${loading.confirmar ? "bg-gray-800 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700 transition duration-300"}`}
               onClick={() => confirmar(reserva._id)}
+              disabled={loading.confirmar}
             >
-              Confirmar
+              {loading.confirmar ? "Confirmando..." : "Confirmar"}
             </button>
           )}
         {usuarioActual.tipo === "ANFITRION" &&
           reserva.estado === "PENDIENTE" && (
             <button
-              className="bg-red-600 hover:bg-red-700 text-white text-sm font-medium px-4 py-1.5 rounded"
+              className={`text-white text-sm font-medium px-4 py-1.5 rounded ${loading.rechazar ? "bg-gray-800 cursor-not-allowed" : "bg-red-600 hover:bg-red-700 transition duration-300"}`}
               onClick={() => rechazar(reserva._id)}
+              disabled={loading.rechazar}
             >
-              Rechazar
+              {loading.rechazar ? "Rechazando..." : "Rechazar"}
             </button>
           )}
       </div>

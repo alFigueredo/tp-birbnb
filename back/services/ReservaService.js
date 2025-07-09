@@ -43,9 +43,13 @@ export class ReservaService {
     }
 
     const rangoFechas = new RangoFechas(
-      new Date(reserva.rangoFechas.fechaInicio),
-      new Date(reserva.rangoFechas.fechaFin),
+      new Date(reserva.rangoFechas.fechaInicio.split("T")[0]),
+      new Date(reserva.rangoFechas.fechaFin.split("T")[0]),
     );
+
+    if (rangoFechas.fechaInicio < Date.now()) {
+      throw new ConflictError(`La fecha de inicio del alojamiento ya pasó`);
+    }
 
     //solo se crea la reserva si el alojamiento esta disponible en las fechas seleccionadas
     if (!alojamiento.estasDisponibleEn(rangoFechas)) {
@@ -150,16 +154,27 @@ export class ReservaService {
     }
 
     const rangoFechas = new RangoFechas(
-      new Date(nuevaReserva.rangoFechas.fechaInicio),
-      new Date(nuevaReserva.rangoFechas.fechaFin),
+      new Date(nuevaReserva.rangoFechas.fechaInicio.split("T")[0]),
+      new Date(nuevaReserva.rangoFechas.fechaFin.split("T")[0]),
     );
+
+    if (
+      rangoFechas.equals(reserva.rangoFechas) &&
+      nuevaReserva.cantHuespedes == reserva.cantHuespedes
+    )
+      throw new ConflictError(`Ningún dato ha sido modificado`);
+
+    if (rangoFechas.fechaInicio < Date.now()) {
+      throw new ConflictError(`La fecha de inicio del alojamiento ya pasó`);
+    }
+
     if (!alojamiento.estasDisponibleEn(rangoFechas, idReserva)) {
       throw new ConflictError(
         `El alojamiento ${alojamiento.nombre} no esta disponible en las fechas seleccionadas`,
       );
     }
     //se modifican las fechas de la reserva
-    reserva.modificarFechas(nuevaReserva.rangoFechas);
+    reserva.modificarFechas(rangoFechas);
 
     if (!alojamiento.puedenAlojarse(nuevaReserva.cantHuespedes)) {
       throw new ConflictError(`Cantidad de huéspedes no permitida`);
