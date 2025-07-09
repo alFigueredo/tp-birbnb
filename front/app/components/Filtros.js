@@ -20,7 +20,7 @@ export default function Filtros({ filtros, setFiltros }) {
       <h1 className="text-4xl font-extrabold text-center text-black mb-10">
         🌟Filtros🌟
       </h1>
-      <div className="p-4 mb-7 mx-auto bg-white shadow rounded-md space-y-3">
+      <div className="p-4 mb-3 mx-auto bg-white shadow rounded-md space-y-3">
         <TextInput
           id="nombre"
           label="Nombre del alojamiento"

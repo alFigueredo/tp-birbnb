@@ -51,30 +51,39 @@ export default function Alojamientos() {
   }, [filtros, pagina.page, buscarAlojamientos]);
 
   return (
-    <section className="min-h-screen bg-stone-100 pt-21 pb-10 px-4">
-      <div className="relative min-h-250"> 
-      <div className={`${sidebarOpen ? "md:ml-80" : "ml-0"} transition-all duration-300 px-4`}> 
-      <h1 className="text-4xl font-bold text-center text-gray-800 mb-10 tracking-normal drop-shadow-sm hover:text-blue-800 transition-colors duration-300">
-        🏡Listado de Alojamientos🏡
-      </h1>
+    <section className="min-h-screen bg-stone-100 pt-21 pb-10">
+      <div className="relative min-h-260 md:min-h-240">
+        <div
+          className={`${sidebarOpen ? "md:ml-84" : "ml-0"} transition-all duration-300 px-8`}
+        >
+          <h1 className="text-4xl font-bold text-center text-gray-800 mb-10 tracking-normal drop-shadow-sm hover:text-blue-800 transition-colors duration-300">
+            🏡Listado de Alojamientos🏡
+          </h1>
 
-      <BarraLateral filtros={filtros} setFiltros={setFiltros} sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}/>
-      
-      {/* Contenedor de tarjetas */}
-      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto">
-        {loading
-          ? Array.from({ length: 12 }).map((_, i) => <SkeletonCard key={i} />)
-          : alojamientos.map((aloj) => (
-              <AlojamientoCard key={aloj._id} aloj={aloj} />
-            ))}
+          <BarraLateral
+            filtros={filtros}
+            setFiltros={setFiltros}
+            sidebarOpen={sidebarOpen}
+            setSidebarOpen={setSidebarOpen}
+          />
+
+          {/* Contenedor de tarjetas */}
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto">
+            {loading
+              ? Array.from({ length: 12 }).map((_, i) => (
+                  <SkeletonCard key={i} />
+                ))
+              : alojamientos.map((aloj) => (
+                  <AlojamientoCard key={aloj._id} aloj={aloj} />
+                ))}
+          </div>
+
+          {/* Paginador */}
+          {pagina.cantPaginas > 1 && (
+            <Paginador pagina={pagina} setPagina={setPagina} />
+          )}
+        </div>
       </div>
-
-      {/* Paginador */}
-      {pagina.cantPaginas > 1 && (
-        <Paginador pagina={pagina} setPagina={setPagina} />
-      )}
-    </div>
-    </div>
     </section>
   );
 }

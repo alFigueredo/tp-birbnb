@@ -28,27 +28,39 @@ export async function exec() {
 
   const usuarios = [
     new UsuarioModel(
-      new Usuario("John Doe", "johndoe@gmail.com", TipoUsuario.HUESPED)
+      new Usuario("John Doe", "johndoe@gmail.com", TipoUsuario.HUESPED),
     ),
     new UsuarioModel(
-      new Usuario("Marta Aguero", "maguero@gmail.com", TipoUsuario.HUESPED)
+      new Usuario("Marta Aguero", "maguero@gmail.com", TipoUsuario.HUESPED),
     ),
     new UsuarioModel(
-      new Usuario("Carlos Perez", "cperez@gmail.com", TipoUsuario.HUESPED)
+      new Usuario("Carlos Perez", "cperez@gmail.com", TipoUsuario.HUESPED),
     ),
   ];
 
   const notificaciones = [
-    new NotificacionModel(new Notificacion("¡Gracias por reservar con nosotros!", usuarios[0])),
-    new NotificacionModel(new Notificacion("¡Oferta especial! 20% de descuento en todos los productos hasta la medianoche.", usuarios[1])),
+    new NotificacionModel(
+      new Notificacion("¡Gracias por reservar con nosotros!", usuarios[0]),
+    ),
+    new NotificacionModel(
+      new Notificacion(
+        "¡Oferta especial! 20% de descuento en todos los productos hasta la medianoche.",
+        usuarios[1],
+      ),
+    ),
     new NotificacionModel(new Notificacion("Mensaje 3", usuarios[2])),
-    new NotificacionModel(new Notificacion("¡Esperamos que hayas disfrutado de tu estancia! ¿Podrías dejarnos una evaluación sobre tu experiencia en  Tu opinión es importante para nosotros", usuarios[1])),
+    new NotificacionModel(
+      new Notificacion(
+        "¡Esperamos que hayas disfrutado de tu estancia! ¿Podrías dejarnos una evaluación sobre tu experiencia en  Tu opinión es importante para nosotros",
+        usuarios[1],
+      ),
+    ),
     new NotificacionModel(new Notificacion("Mensaje 5", usuarios[2])),
   ];
 
   const anfitriones = [
     new UsuarioModel(
-      new Usuario("Jane Doe", "janedoe@gmail.com", TipoUsuario.ANFITRION)
+      new Usuario("Jane Doe", "janedoe@gmail.com", TipoUsuario.ANFITRION),
     ),
   ];
 
@@ -108,8 +120,8 @@ export async function exec() {
         direcciones[0],
         5,
         [Caracteristica.WIFI, Caracteristica.ESTACIONAMIENTO],
-        fotos[0]
-      )
+        fotos[0],
+      ),
     ),
 
     new AlojamientoModel(
@@ -124,8 +136,8 @@ export async function exec() {
         direcciones[1],
         6,
         [Caracteristica.WIFI, Caracteristica.ESTACIONAMIENTO],
-        [fotos[1], fotos[14],fotos[15]]
-      )
+        [fotos[1], fotos[14], fotos[15]],
+      ),
     ),
 
     new AlojamientoModel(
@@ -144,8 +156,8 @@ export async function exec() {
           Caracteristica.ESTACIONAMIENTO,
           Caracteristica.PISCINA,
         ],
-        fotos[2]
-      )
+        fotos[2],
+      ),
     ),
 
     new AlojamientoModel(
@@ -160,8 +172,8 @@ export async function exec() {
         direcciones[0],
         5,
         [Caracteristica.WIFI, Caracteristica.MASCOTAS_PERMITIDAS],
-        fotos[3]
-      )
+        fotos[3],
+      ),
     ),
     new AlojamientoModel(
       new Alojamiento(
@@ -175,8 +187,8 @@ export async function exec() {
         direcciones[0],
         5,
         [Caracteristica.WIFI, Caracteristica.ESTACIONAMIENTO],
-        fotos[4]
-      )
+        fotos[4],
+      ),
     ),
     new AlojamientoModel(
       new Alojamiento(
@@ -190,8 +202,8 @@ export async function exec() {
         direcciones[0],
         5,
         [Caracteristica.WIFI, Caracteristica.ESTACIONAMIENTO],
-        fotos[5]
-      )
+        fotos[5],
+      ),
     ),
     new AlojamientoModel(
       new Alojamiento(
@@ -205,8 +217,8 @@ export async function exec() {
         direcciones[0],
         5,
         [Caracteristica.WIFI, Caracteristica.ESTACIONAMIENTO],
-        fotos[6]
-      )
+        fotos[6],
+      ),
     ),
     new AlojamientoModel(
       new Alojamiento(
@@ -220,8 +232,8 @@ export async function exec() {
         direcciones[0],
         5,
         [Caracteristica.WIFI, Caracteristica.ESTACIONAMIENTO],
-        fotos[7]
-      )
+        fotos[7],
+      ),
     ),
     new AlojamientoModel(
       new Alojamiento(
@@ -235,8 +247,8 @@ export async function exec() {
         direcciones[0],
         5,
         [Caracteristica.WIFI, Caracteristica.ESTACIONAMIENTO],
-        fotos[8]
-      )
+        fotos[8],
+      ),
     ),
     new AlojamientoModel(
       new Alojamiento(
@@ -250,8 +262,8 @@ export async function exec() {
         direcciones[0],
         5,
         [Caracteristica.WIFI, Caracteristica.ESTACIONAMIENTO],
-        fotos[9]
-      )
+        fotos[9],
+      ),
     ),
     new AlojamientoModel(
       new Alojamiento(
@@ -265,8 +277,8 @@ export async function exec() {
         direcciones[0],
         5,
         [Caracteristica.WIFI, Caracteristica.ESTACIONAMIENTO],
-        fotos[10]
-      )
+        fotos[10],
+      ),
     ),
     new AlojamientoModel(
       new Alojamiento(
@@ -280,8 +292,8 @@ export async function exec() {
         direcciones[0],
         5,
         [Caracteristica.WIFI, Caracteristica.ESTACIONAMIENTO],
-        fotos[11]
-      )
+        fotos[11],
+      ),
     ),
     new AlojamientoModel(
       new Alojamiento(
@@ -295,41 +307,41 @@ export async function exec() {
         direcciones[0],
         5,
         [Caracteristica.WIFI, Caracteristica.ESTACIONAMIENTO],
-        fotos[12]
-      )
+        fotos[12],
+      ),
     ),
-    new AlojamientoModel(
-      new Alojamiento(
-        anfitriones[0],
-        "Hotel Rural Casa Grande",
-        "Alojamiento 14",
-        7000,
-        Moneda.PESO_ARG,
-        "14:00",
-        "10:00",
-        direcciones[0],
-        5,
-        [Caracteristica.WIFI, Caracteristica.ESTACIONAMIENTO],
-        fotos[13]
-      )
-    ),
+    // new AlojamientoModel(
+    //   new Alojamiento(
+    //     anfitriones[0],
+    //     "Hotel Rural Casa Grande",
+    //     "Alojamiento 14",
+    //     7000,
+    //     Moneda.PESO_ARG,
+    //     "14:00",
+    //     "10:00",
+    //     direcciones[0],
+    //     5,
+    //     [Caracteristica.WIFI, Caracteristica.ESTACIONAMIENTO],
+    //     fotos[13]
+    //   )
+    // ),
   ];
 
   const reservas = [
     new ReservaModel(
-      new Reserva(usuarios[0], 3, alojamientos[0], rangoFechas[0], 7000)
+      new Reserva(usuarios[0], 3, alojamientos[0], rangoFechas[0], 7000),
     ),
     new ReservaModel(
-      new Reserva(usuarios[1], 3, alojamientos[0], rangoFechas[1], 7000)
+      new Reserva(usuarios[1], 3, alojamientos[0], rangoFechas[1], 7000),
     ),
     new ReservaModel(
-      new Reserva(usuarios[2], 3, alojamientos[0], rangoFechas[2], 7000)
+      new Reserva(usuarios[2], 3, alojamientos[0], rangoFechas[2], 7000),
     ),
     new ReservaModel(
-      new Reserva(usuarios[1], 3, alojamientos[0], rangoFechas[3], 7000)
+      new Reserva(usuarios[1], 3, alojamientos[0], rangoFechas[3], 7000),
     ),
     new ReservaModel(
-      new Reserva(usuarios[2], 3, alojamientos[0], rangoFechas[4], 7000)
+      new Reserva(usuarios[2], 3, alojamientos[0], rangoFechas[4], 7000),
     ),
   ];
   reservas.map((reserva) => alojamientos[0].agregarReserva(reserva));
