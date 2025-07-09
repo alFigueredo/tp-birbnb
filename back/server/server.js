@@ -11,15 +11,15 @@ export class Server {
     this.#app = app;
     this.port = port;
 
-    // this.#app.use(
-    //   cors({
-    //     origin: "http://localhost:3000", //Frontend en Next
-    //   }),
+    //this.#app.use(
+    //cors({
+    // origin: "http://localhost:3000", //Frontend en Next
+    // }),
     // );
 
     this.#app.use(express.json());
     this.#app.use(cors());
-    // this.#app.use(express.static("public"));
+    //this.#app.use(express.static("public"));
   }
 
   get app() {

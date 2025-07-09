@@ -8,7 +8,7 @@ import { ReservaController } from "./controllers/ReservaController.js";
 import { exec } from "./exec.js";
 
 const app = express();
-const port = process.env.SERVER_PORT || 3000;
+const port = process.env.SERVER_PORT || 4000;
 const server = new Server(app, port);
 
 MongoDBClient.connect();

@@ -25,7 +25,7 @@ export default function CheckboxInput({
       <label id={id} className="block text-sm text-gray-700 mb-1">
         {title}
       </label>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-7">
         {values.map((value) => (
           <Checkbox
             key={value.id}
