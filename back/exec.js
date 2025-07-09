@@ -310,21 +310,21 @@ export async function exec() {
         fotos[12],
       ),
     ),
-    // new AlojamientoModel(
-    //   new Alojamiento(
-    //     anfitriones[0],
-    //     "Hotel Rural Casa Grande",
-    //     "Alojamiento 14",
-    //     7000,
-    //     Moneda.PESO_ARG,
-    //     "14:00",
-    //     "10:00",
-    //     direcciones[0],
-    //     5,
-    //     [Caracteristica.WIFI, Caracteristica.ESTACIONAMIENTO],
-    //     fotos[13]
-    //   )
-    // ),
+    new AlojamientoModel(
+      new Alojamiento(
+        anfitriones[0],
+        "Hotel Rural Casa Grande",
+        "Alojamiento 14",
+        7000,
+        Moneda.PESO_ARG,
+        "14:00",
+        "10:00",
+        direcciones[0],
+        5,
+        [Caracteristica.WIFI, Caracteristica.ESTACIONAMIENTO],
+        fotos[13],
+      ),
+    ),
   ];
 
   const reservas = [
