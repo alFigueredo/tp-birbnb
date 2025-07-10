@@ -1,5 +1,4 @@
 export default function Paginador({ pagina, setPagina }) {
-  console.debug(pagina.cantPaginas);
   function cambiarPagina(nueva) {
     if (nueva >= 1 && nueva <= pagina.cantPaginas && nueva !== pagina.page)
       setPagina({ ...pagina, page: nueva });
