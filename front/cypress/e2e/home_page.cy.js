@@ -1,15 +1,31 @@
-describe("Navigation", () => {
-  it("should navigate to the alojamientos page", () => {
-    // Start from the index page
+describe("Navegación", () => {
+  it("Debería navegar a la página de alojamientos usando el botón 'Explorar alojamientos'", () => {
     cy.visit("/");
 
-    // Find a link with an href attribute containing "alojamientos" and click it
-    cy.get('header a[href*="alojamientos"]').click();
+    cy.get('[data-cy="get-alojas"]').click();
 
-    // The new url should include "/alojamientos"
     cy.url().should("include", "/alojamientos");
 
-    // The new page should contain an h1 with "Alojamientos"
-    cy.get("h1").contains("Alojamientos");
+    cy.get("main h1").should("contain.text", "Alojamientos");
+  });
+
+  it("Debería navegar a la página de alojamientos desde el Header", () => {
+    cy.visit("/");
+
+    cy.get('header a[href*="alojamientos"]').click();
+
+    cy.url().should("include", "/alojamientos");
+
+    cy.get("main h1").should("contain.text", "Alojamientos");
+  });
+
+  it("Debería navegar a la página de reservas desde el Header", () => {
+    cy.visit("/");
+
+    cy.get('header a[href*="reservas"]').click();
+
+    cy.url().should("include", "/reservas");
+
+    cy.get("main h1").should("contain.text", "Reservas");
   });
 });

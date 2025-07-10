@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function AlojamientoDatos({ aloj }) {
   return (
-    <div className="space-y-3 text-left">
+    <div data-cy="aloja-info" className="space-y-3 text-left">
       <h2 className="text-3xl font-bold text-blue-800 hover:text-blue-950">
         <Link href={`/alojamientos/${aloj._id}`}>{aloj.nombre}</Link>
       </h2>

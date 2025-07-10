@@ -82,8 +82,15 @@ export default function Formulario({ aloja }) {
             ✕
           </button>
           <form onSubmit={reservar} className="flex flex-col gap-3">
+            <label
+              htmlFor="cantHuespedes"
+              className="text-sm font-medium text-gray-600 mb-1"
+            >
+              Cantidad de huéspedes
+            </label>
             <input
               type="number"
+              id="cantHuespedes"
               placeholder="Cantidad de huéspedes"
               value={detallesReserva.cantHuespedes || ""}
               onChange={(e) =>
@@ -96,11 +103,15 @@ export default function Formulario({ aloja }) {
               min="1"
               required
             />
-            <label className="text-sm font-medium text-gray-600 mb-1">
+            <label
+              htmlFor="fechaInicio"
+              className="text-sm font-medium text-gray-600 mb-1"
+            >
               Fecha de entrada
             </label>
             <input
               type="date"
+              id="fechaInicio"
               value={detallesReserva.fechaInicio || ""}
               onChange={(e) =>
                 setDetallesReserva({
@@ -112,11 +123,15 @@ export default function Formulario({ aloja }) {
               required
             />
 
-            <label className="text-sm font-medium text-gray-600 mb-1">
+            <label
+              htmlFor="fechaFin"
+              className="text-sm font-medium text-gray-600 mb-1"
+            >
               Fecha de salida
             </label>
             <input
               type="date"
+              id="fechaFin"
               value={detallesReserva.fechaFin || ""}
               onChange={(e) =>
                 setDetallesReserva({
@@ -134,7 +149,11 @@ export default function Formulario({ aloja }) {
             >
               {loadingReserva ? "Enviando..." : "Enviar"}
             </button>
-            {mensaje && <p className="text-sm mt-2">{mensaje}</p>}
+            {mensaje && (
+              <p data-cy="mensaje-reserva" className="text-sm mt-2">
+                {mensaje}
+              </p>
+            )}
             {loadingReserva && (
               <span className="ml-2 animate-spin h-5 w-5">⏳</span>
             )}

@@ -63,6 +63,7 @@ export default function FormularioEditarReserva({ reserva, obtenerReservas }) {
       <button
         onClick={toggleForm}
         className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-1.5 rounded"
+        data-cy="editar-reserva-button"
       >
         Editar
       </button>
@@ -84,8 +85,15 @@ export default function FormularioEditarReserva({ reserva, obtenerReservas }) {
             ✕
           </button>
           <form onSubmit={reservar} className="flex flex-col gap-3">
+            <label
+              htmlFor="cantHuespedes"
+              className="text-sm font-medium text-gray-600 mb-1"
+            >
+              Cantidad de huéspedes
+            </label>
             <input
               type="number"
+              id="cantHuespedes"
               placeholder="Cantidad de huéspedes"
               value={detallesReserva.cantHuespedes || ""}
               onChange={(e) =>
@@ -97,11 +105,15 @@ export default function FormularioEditarReserva({ reserva, obtenerReservas }) {
               className="border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"
               min="1"
             />
-            <label className="text-sm font-medium text-gray-600 mb-1">
+            <label
+              htmlFor="fechaInicio"
+              className="text-sm font-medium text-gray-600 mb-1"
+            >
               Fecha de entrada
             </label>
             <input
               type="date"
+              id="fechaInicio"
               value={detallesReserva.fechaInicio || ""}
               onChange={(e) =>
                 setDetallesReserva({
@@ -112,11 +124,15 @@ export default function FormularioEditarReserva({ reserva, obtenerReservas }) {
               className="border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"
             />
 
-            <label className="text-sm font-medium text-gray-600 mb-1">
+            <label
+              htmlFor="fechaFin"
+              className="text-sm font-medium text-gray-600 mb-1"
+            >
               Fecha de salida
             </label>
             <input
               type="date"
+              id="fechaFin"
               value={detallesReserva.fechaFin || ""}
               onChange={(e) =>
                 setDetallesReserva({
@@ -133,7 +149,11 @@ export default function FormularioEditarReserva({ reserva, obtenerReservas }) {
             >
               {loadingReserva ? "Enviando..." : "Enviar"}
             </button>
-            {mensaje && <p className="text-sm mt-2">{mensaje}</p>}
+            {mensaje && (
+              <p className="text-sm mt-2" data-cy="mensaje-editar-reserva">
+                {mensaje}
+              </p>
+            )}
             {loadingReserva && (
               <span className="ml-2 animate-spin h-5 w-5">⏳</span>
             )}

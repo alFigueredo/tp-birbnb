@@ -37,7 +37,7 @@ export default function ReservasList() {
   }, [usuarioActual, obtenerReservas]);
 
   return (
-    <div className="min-h-screen bg-neutral-200 pt-21 pb-10 px-4">
+    <main className="min-h-screen bg-neutral-200 pt-21 pb-10 px-4">
       <h1 className="text-4xl font-bold text-center text-black mb-10">
         📅 Reservas 📅
       </h1>
@@ -49,7 +49,10 @@ export default function ReservasList() {
       )}
 
       {/* RESERVAS DEL USUARIO */}
-      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto">
+      <div
+        className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto"
+        data-cy="reservas-cards-container"
+      >
         {loading
           ? Array.from({ length: 12 }).map((_, i) => <SkeletonCard key={i} />)
           : reservas.map((reserva, index) => (
@@ -60,6 +63,6 @@ export default function ReservasList() {
               />
             ))}
       </div>
-    </div>
+    </main>
   );
 }

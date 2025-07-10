@@ -1,4 +1,3 @@
-
 import Image from "next/image";
 import Link from "next/link";
 
@@ -26,12 +25,16 @@ export default function Home() {
       </h1>
 
       <p className="text-lg max-w-xl text-gray-700">
-        Si estás buscando un alojamiento ideal, <strong>¡LO ENCONTRASTE!</strong> 💜  
-        Explorá nuestras opciones y encontrá el hospedaje perfecto para vos ✨
+        Si estás buscando un alojamiento ideal,{" "}
+        <strong>¡LO ENCONTRASTE!</strong> 💜 Explorá nuestras opciones y
+        encontrá el hospedaje perfecto para vos ✨
       </p>
 
-       <Link href="/alojamientos">
-        <button className="mt-6 px-6 py-2 bg-blue-700 hover:bg-blue-800 text-white rounded-lg font-semibold shadow">
+      <Link href="/alojamientos">
+        <button
+          className="mt-6 px-6 py-2 bg-blue-700 hover:bg-blue-800 text-white rounded-lg font-semibold shadow"
+          data-cy="get-alojas"
+        >
           Explorar alojamientos
         </button>
       </Link>

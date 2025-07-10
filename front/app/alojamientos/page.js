@@ -51,7 +51,7 @@ export default function Alojamientos() {
   }, [filtros, pagina.page, buscarAlojamientos]);
 
   return (
-    <section className="min-h-screen bg-stone-100 pt-21 pb-10">
+    <main className="min-h-screen bg-stone-100 pt-21 pb-10">
       <div className="relative min-h-260 md:min-h-240">
         <div
           className={`${sidebarOpen ? "md:ml-84" : "ml-0"} transition-all duration-300 px-8`}
@@ -68,7 +68,10 @@ export default function Alojamientos() {
           />
 
           {/* Contenedor de tarjetas */}
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto">
+          <div
+            className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto"
+            data-cy="aloja-cards-container"
+          >
             {loading
               ? Array.from({ length: 12 }).map((_, i) => (
                   <SkeletonCard key={i} />
@@ -84,6 +87,6 @@ export default function Alojamientos() {
           )}
         </div>
       </div>
-    </section>
+    </main>
   );
 }
