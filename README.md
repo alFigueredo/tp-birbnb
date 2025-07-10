@@ -80,7 +80,7 @@
 ├── docs/                # Documentación general y utilidades
 │
 ├── docker-compose-dev.yml  # Archivo de orquestación Docker para desarrollo
-├── docker-compose-prod.yml  # Archivo de orquestación Docker para produccion
+├── docker-compose.yml  # Archivo de orquestación Docker para produccion
 ├── docker-compose-test.yml  # Archivo de orquestación Docker para tests unitarios y de integración en el backend
 ├── docker-compose-cypress.yml  # Archivo de orquestación Docker para tests E2E
 └── README.md            # Documentación principal
@@ -112,7 +112,7 @@ Opcionales:
 - **npm run start**: Iniciar frontend anteriormente compilado con next.js para producción.
 - **npm run lint**: ESLint revisa el código en busca de errores y/o warnings.
 - **npm run test**: Cypress ejecuta los tests sin desplegar la interfaz gráfica. Se requiere la aplicación entera funcionando para su uso.
-- **npm run test:open**: Cypress ejecuta los tests a través de la interfaz gráfica.
+- **npm run test:open**: Cypress ejecuta los tests a través de la interfaz gráfica. Se requiere la aplicación entera funcionando para su uso.
 
 #### Variables de entorno del frontend
 
@@ -124,7 +124,7 @@ Las variables de entorno se encuentran listadas en el sample.env correspondiente
 ## Docker
 
 Se cuentan con 4 archivos docker-compose*.yml para desplegar la aplicación en distintos contenedores:
-- **docker-compose-dev.yml**: despliega dos instancias de Node (uno para el backend y uno para el frontend), ambos para desarrollo, y una instancia de Mongo.
-- **docker-compose-prod.yml**: despliega dos instancias de Node (uno para el backend y uno para el frontend), ambos para producción, y una instancia de Mongo.
+- **docker-compose-dev.yml**: despliega dos instancias de Node (uno para el backend y uno para el frontend), ambos para desarrollo, y una instancia de Mongo (con dos volúmenes).
+- **docker-compose.yml**: despliega dos instancias de Node (uno para el backend y uno para el frontend), ambos para producción, y una instancia de Mongo (con dos volúmenes).
 - **docker-compose-test.yml**: despliega una instancia de Node (referida al backend). Al mockear la interacción con la base de datos, no requiere de una instancia de Mongo.
-- **docker-compose-cypress.yml**: despliega dos instancias de Node (uno para el backend y uno para el frontend, ambos para producción), una instancia de mongo y una instancia de Cypress que ejecuta tests E2E. Al no mockear ninguna parte de la aplicación, se requiere el despliegue de la aplicación entera.
+- **docker-compose-cypress.yml**: despliega dos instancias de Node (uno para el backend y uno para el frontend, ambos para producción), una instancia de mongo (con dos volúmenes creados aparte) y una instancia de Cypress que ejecuta tests E2E. Al no mockear ninguna parte de la aplicación, se requiere el despliegue de la aplicación entera.

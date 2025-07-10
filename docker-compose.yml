@@ -8,17 +8,10 @@ services:
     env_file:
       - ./back/.env
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=production
     ports:
       - "4000:4000"
-    develop:
-      watch:
-        - action: sync
-          path: ./back
-          target: /home/node/app
-        - action: rebuild
-          path: ./back/package.json
-    command: "npm run dev"
+    command: "npm run start"
     depends_on:
       - mongo
 
@@ -31,17 +24,10 @@ services:
     env_file:
       - ./front/.env
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=production
     ports:
       - "3000:3000"
-    develop:
-      watch:
-        - action: sync
-          path: ./front
-          target: /home/node/app
-        - action: rebuild
-          path: ./front/package.json
-    command: "npm run dev"
+    command: bash -c "npm run build && npm run start"
     depends_on:
       - node-back
 
