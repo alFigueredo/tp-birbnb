@@ -9,6 +9,7 @@ services:
       - ./front/.env
     environment:
       - NODE_ENV=production
+      - NEXT_PUBLIC_SERVER_URL=http://node-back-test:4000
     command: bash -c "npm run build && npm run start"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3000"]
@@ -32,3 +33,31 @@ services:
     depends_on:
       node-front-test:
         condition: service_healthy
+
+  node-back-test:
+    build:
+      context: ./back
+      args:
+        - NODE_ENV
+    user: "node"
+    env_file:
+      - ./back/.env
+    environment:
+      - NODE_ENV=production
+      - MONGO_URL=mongodb://username:password@mongo-test:27017/
+    command: "npm run start"
+    depends_on:
+      - mongo-test
+
+  mongo-test:
+    image: mongo
+    attach: false
+    env_file:
+      - ./back/.env
+    volumes:
+      - mongo-db-test-data:/data/db
+      - mongo-db-test-config:/data/configdb
+
+volumes:
+  mongo-db-test-data:
+  mongo-db-test-config:
