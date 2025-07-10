@@ -1,11 +1,7 @@
 import axios from "axios";
 
-const server_hostname = process.env.NEXT_PUBLIC_SERVER_HOSTNAME || "localhost";
-const server_port = process.env.NEXT_PUBLIC_SERVER_PORT || 4000;
-
 const API_BASE_URL =
-  process.env.NEXT_PUBLIC_SERVER_URL ||
-  `http://${server_hostname}:${server_port}`;
+  process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:4000";
 
 export const getUsuarios = async () => {
   const res = await axios.get(`${API_BASE_URL}/usuario`);

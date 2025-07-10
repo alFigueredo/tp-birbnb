@@ -6,7 +6,7 @@ GET http://localhost:4000/health HTTP/1.1
 
 GET http://localhost:4000/api-docs HTTP/1.1
 
-### obtener_notif
+### obtener_notificaciones
 
 GET http://localhost:4000/notificacion HTTP/1.1
 
@@ -14,23 +14,23 @@ GET http://localhost:4000/notificacion HTTP/1.1
 
 GET http://localhost:4000/usuario HTTP/1.1
 
-### notif_sin_leer
+### notificaciones_sin_leer
 
-GET http://localhost:4000/notificacion/68370c535198cf164a309d79/sinleer HTTP/1.1
+GET http://localhost:4000/usuario/68370c535198cf164a309d79/notificacion/sinleer HTTP/1.1
 
-### notif_leidas
+### notificaciones_leidas
 
-GET http://localhost:4000/notificacion/68370c535198cf164a309d79/leida HTTP/1.1
+GET http://localhost:4000/usuario/68370c535198cf164a309d79/notificacion/leida HTTP/1.1
 
-### leer_notif
+### leer_notificacion
 
-PUT http://localhost:4000/notificacion/leer/6837585414214f84c533d292 HTTP/1.1
+PUT http://localhost:4000/notificacion/6837585414214f84c533d292/leer HTTP/1.1
 
 ### obtener_reservas
 
 GET http://localhost:4000/reserva HTTP/1.1
 
-### hacer_reserva
+### realizar_reserva
 
 POST http://localhost:4000/reserva HTTP/1.1
 Content_Type: application/json
@@ -48,11 +48,15 @@ Content_Type: application/json
 
 ### historial_reservas
 
-GET http://localhost:4000/reserva/68374012eaba399eb9e6775f HTTP/1.1
+GET http://localhost:4000/huesped/68374012eaba399eb9e6775f/reserva HTTP/1.1
+
+### reservas_anfitrion
+
+GET http://localhost:4000/anfitrion/68374012eaba399eb9e6775f/reserva HTTP/1.1
 
 ### cancelar_reserva
 
-PUT http://localhost:4000/reserva/cancelar/683741191147eaa392a16653 HTTP/1.1
+PUT http://localhost:4000/reserva/683741191147eaa392a16653/cancelar HTTP/1.1
 
 ### modificar_reserva
 
@@ -73,11 +77,11 @@ Content_Type: application/json
 
 ### confirmar_reserva
 
-PUT http://localhost:4000/reserva/confirmar/6837585414214f84c533d2a6 HTTP/1.1
+PUT http://localhost:4000/reserva/6837585414214f84c533d2a6/confirmar HTTP/1.1
 
 ### rechazar_reserva
 
-PUT http://localhost:4000/reserva/rechazar/6837438b08f3ca1b23af7bc0 HTTP/1.1
+PUT http://localhost:4000/reserva/6837438b08f3ca1b23af7bc0/rechazar HTTP/1.1
 
 ### obtener_alojamientos
 
