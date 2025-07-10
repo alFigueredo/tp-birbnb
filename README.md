@@ -1,4 +1,4 @@
-# Trabajo Práctico de Desarrollo de Software 2025 1c
+# 🏡 Birbnb – Trabajo Práctico Desarrollo de Software 2025 – 1° Cuatrimestre
 
 ## Integrantes
 - Abigail Celina Tellez Cerna
@@ -13,7 +13,7 @@
 
 - Aplicación: [https://birbnb-front.netlify.app/](https://birbnb-front.netlify.app/)
 - Checkhealth Back-end: [https://birbnb-back.onrender.com/health/](https://birbnb-back.onrender.com/health/)
-- Documentación Back-end hecho con Swagger-UI: [https://birbnb-back.onrender.com/api-docs/](https://birbnb-back.onrender.com/api-docs/)
+- Documentación de la API: [https://birbnb-back.onrender.com/api-docs/](https://birbnb-back.onrender.com/api-docs/)
 
 ## Tecnologías Utilizadas
 
@@ -37,7 +37,7 @@
 - **Cypress**: Testing end-to-end.
 - **Docker**: Contenedores para desarrollo y testing.
 
-### Despliegue
+### Despliegue final
 - **Render**: Despliegue del back-end.
 - **Netlify**: Despliegue del front-end.
 - **MongoDB Atlas**: Proveedor de una base de datos MongoDB remota.
@@ -86,7 +86,16 @@
 └── README.md            # Documentación principal
 ```
 
+## 🛠️ Requisitos
+
+- Node.js >= 18
+- npm >= 9
+- MongoDB Atlas (o local si se desea evitar Atlas)
+- Docker y Docker Compose (una alternativa si no se cuenta con MongoDB)
+
 ## Scripts
+
+Todos estos scripts pueden ejecutarse de forma local con solo tener instaladas las dependencias necesarias, lo que sí se requiere en la mayoría de los casos es una instancia de MongoDB con la cual conectarse. De no contar con una instancia, aún así existe otra alternativa (véase Docker).
 
 ### Backend
 
@@ -111,8 +120,8 @@ Opcionales:
 - **npm run build**: Compilar frontend con next.js para producción.
 - **npm run start**: Iniciar frontend anteriormente compilado con next.js para producción.
 - **npm run lint**: ESLint revisa el código en busca de errores y/o warnings.
-- **npm run test**: Cypress ejecuta los tests sin desplegar la interfaz gráfica. Se requiere la aplicación entera funcionando para su uso.
-- **npm run test:open**: Cypress ejecuta los tests a través de la interfaz gráfica. Se requiere la aplicación entera funcionando para su uso.
+- **npm run test**: Cypress ejecuta los tests sin desplegar la interfaz gráfica. Se requiere la aplicación funcionando en segundo plano.
+- **npm run test:open**: Cypress ejecuta los tests a través de la interfaz gráfica. Se requiere la aplicación funcionando en segundo plano.
 
 #### Variables de entorno del frontend
 
@@ -123,7 +132,8 @@ Las variables de entorno se encuentran listadas en el sample.env correspondiente
 
 ## Docker
 
-Se cuentan con 4 archivos docker-compose*.yml para desplegar la aplicación en distintos contenedores:
+Si bien no es condición necesaria contar con Docker, sí se puede aprovechar esta herramienta para ejecutar la aplicacion entera sin la necesidad de una instancia externa de MongoDB. Se cuentan con 4 archivos docker-compose*.yml para desplegar la aplicación en distintos contenedores:
+
 - **docker-compose-dev.yml**: despliega dos instancias de Node (uno para el backend y uno para el frontend), ambos para desarrollo, y una instancia de Mongo (con dos volúmenes).
 - **docker-compose.yml**: despliega dos instancias de Node (uno para el backend y uno para el frontend), ambos para producción, y una instancia de Mongo (con dos volúmenes).
 - **docker-compose-test.yml**: despliega una instancia de Node (referida al backend). Al mockear la interacción con la base de datos, no requiere de una instancia de Mongo.
