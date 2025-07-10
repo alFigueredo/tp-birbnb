@@ -60,6 +60,7 @@ export default function Formulario({ aloja }) {
       <button
         onClick={toggleForm}
         className={`mt-4 px-6 py-2 rounded-lg shadow-md text-white font-semibold ${usuarioActual.tipo === "ANFITRION" || loadingReserva ? "bg-gray-800 cursor-not-allowed" : "bg-emerald-600 hover:bg-emerald-700 transition duration-300"}`}
+        data-cy="abrir-formulario-button"
         disabled={usuarioActual.tipo === "ANFITRION"}
       >
         {loadingReserva ? "Reservando..." : "Reservar"}

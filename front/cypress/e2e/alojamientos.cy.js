@@ -7,8 +7,11 @@ describe("Navegación y error al reservar", () => {
     ).click();
     cy.url().should("include", "/alojamientos");
 
-    cy.get("main button").should("have.text", "Reservar");
-    cy.get("main button").click();
+    cy.get("main [data-cy='abrir-formulario-button']").should(
+      "have.text",
+      "Reservar",
+    );
+    cy.get("main [data-cy='abrir-formulario-button']").click();
     cy.get("main form button").should("have.text", "Realizar reserva");
 
     cy.get("#cantHuespedes").type(3);
