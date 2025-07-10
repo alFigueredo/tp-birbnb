@@ -35,7 +35,7 @@
 
 ### General
 - **Cypress**: Testing end-to-end.
-- **Docker**: Contenedores para desarrollo y testing.
+- **Docker (opcional)**: Contenedores para desarrollo y testing.
 
 ### Despliegue final
 - **Render**: Despliegue del back-end.
@@ -134,7 +134,7 @@ Las variables de entorno se encuentran listadas en el sample.env correspondiente
 
 Si bien no es condición necesaria contar con Docker, sí se puede aprovechar esta herramienta para ejecutar la aplicacion entera sin la necesidad de una instancia externa de MongoDB. Se cuentan con 4 archivos docker-compose*.yml para desplegar la aplicación en distintos contenedores:
 
-- **docker-compose-dev.yml**: despliega dos instancias de Node (uno para el backend y uno para el frontend), ambos para desarrollo, y una instancia de Mongo (con dos volúmenes).
-- **docker-compose.yml**: despliega dos instancias de Node (uno para el backend y uno para el frontend), ambos para producción, y una instancia de Mongo (con dos volúmenes).
-- **docker-compose-test.yml**: despliega una instancia de Node (referida al backend). Al mockear la interacción con la base de datos, no requiere de una instancia de Mongo.
-- **docker-compose-cypress.yml**: despliega dos instancias de Node (uno para el backend y uno para el frontend, ambos para producción), una instancia de mongo (con dos volúmenes creados aparte) y una instancia de Cypress que ejecuta tests E2E. Al no mockear ninguna parte de la aplicación, se requiere el despliegue de la aplicación entera.
+- **docker-compose.yml**: Entorno para producción. Despliega dos instancias de Node (uno para el backend y uno para el frontend), ambos para producción, y una instancia de Mongo (con dos volúmenes).
+- **docker-compose-dev.yml**: Entorno para desarrollo. Despliega dos instancias de Node (uno para el backend y uno para el frontend), ambos para desarrollo, y una instancia de Mongo (con dos volúmenes).
+- **docker-compose-test.yml**: Entorno para testing unitario y de integración (back-end). Despliega una instancia de Node (referida al backend). Al mockear la interacción con la base de datos, no requiere de una instancia de Mongo.
+- **docker-compose-cypress.yml**: Entorno para testing E2E. Despliega dos instancias de Node (uno para el backend y uno para el frontend, ambos para producción), una instancia de mongo (con dos volúmenes creados aparte) y una instancia de Cypress que ejecuta los tests correspondientes. Al no mockear ninguna parte de la aplicación, se requiere el despliegue de la aplicación entera.
