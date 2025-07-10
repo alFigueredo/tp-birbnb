@@ -12,7 +12,6 @@ import VentanaRechazo from "@/app/components/Reservas/VentanaRechazo";
 
 export default function ReservasCard({ reserva, obtenerReservas }) {
   const { usuarioActual } = useUsuario();
-  // const [ventVisible, setVentVisible] = useState(false);
   const [loading, setLoading] = useState({
     cancelar: false,
     confirmar: false,

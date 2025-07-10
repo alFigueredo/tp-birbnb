@@ -8,12 +8,7 @@ export default function FormularioEditarReserva({ reserva, obtenerReservas }) {
   const [showForm, setShowForm] = useState(false);
   const toggleForm = () => setShowForm(!showForm);
   const { usuarioActual } = useUsuario();
-  console.debug(reserva.rangoFechas.fechaInicio.split("T")[0]);
-  const [detallesReserva, setDetallesReserva] = useState({
-    cantHuespedes: reserva.cantHuespedes,
-    fechaInicio: reserva.rangoFechas.fechaInicio.split("T")[0],
-    fechaFin: reserva.rangoFechas.fechaFin.split("T")[0],
-  });
+  const [detallesReserva, setDetallesReserva] = useState({});
   const [mensaje, setMensaje] = useState("");
   const [loadingReserva, setLoadingReserva] = useState(false);
 
@@ -50,6 +45,11 @@ export default function FormularioEditarReserva({ reserva, obtenerReservas }) {
 
       setMensaje("✅ ¡Reserva editada con éxito!");
       obtenerReservas();
+      setDetallesReserva({
+        ...detallesReserva,
+        fechaInicio: "",
+        fechaFin: "",
+      });
     } catch (err) {
       console.error("Error al editar la reserva:", err);
       setMensaje("❌ " + err.response.data.message);
@@ -104,7 +104,6 @@ export default function FormularioEditarReserva({ reserva, obtenerReservas }) {
               }
               className="border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"
               min="1"
-              required
             />
             <label
               htmlFor="fechaInicio"
@@ -123,7 +122,6 @@ export default function FormularioEditarReserva({ reserva, obtenerReservas }) {
                 })
               }
               className="border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"
-              required
             />
 
             <label
@@ -143,7 +141,6 @@ export default function FormularioEditarReserva({ reserva, obtenerReservas }) {
                 })
               }
               className="border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"
-              required
             />
             <button
               type="submit"
