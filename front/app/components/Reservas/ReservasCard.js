@@ -6,9 +6,11 @@ import {
 } from "@/app/services/api";
 import FormularioEditarReserva from "@/app/components/Reservas/FormularioEditarReserva";
 import { useState } from "react";
+import VentanaConfirmacion from "@/app/components/Reservas/VentanaConfirmacion";
 
 export default function ReservasCard({ reserva, obtenerReservas }) {
   const { usuarioActual } = useUsuario();
+  const [ventVisible, setVentVisible] = useState(false);
   const [loading, setLoading] = useState({
     cancelar: false,
     confirmar: false,
@@ -19,9 +21,9 @@ export default function ReservasCard({ reserva, obtenerReservas }) {
     return fecha.split("T")[0].split("-").reverse().join("/");
   }
 
-  function cancelar(reservaId) {
+  function cancelar(motivo) {
     setLoading({ ...loading, cancelar: true });
-    cancelarReserva(reservaId)
+    cancelarReserva(reserva._id, motivo)
       .then(() => {
         obtenerReservas();
       })
@@ -86,7 +88,7 @@ export default function ReservasCard({ reserva, obtenerReservas }) {
             reserva.estado === "CONFIRMADA") && (
             <button
               className={`text-white text-sm font-medium px-4 py-1.5 rounded ${loading.cancelar ? "bg-gray-800 cursor-not-allowed" : "bg-red-600 hover:bg-red-700 transition duration-300"}`}
-              onClick={() => cancelar(reserva._id)}
+              onClick={() => setVentVisible(true)}
               disabled={loading.cancelar}
             >
               {loading.cancelar ? "Cancelando..." : "Cancelar"}
@@ -113,6 +115,11 @@ export default function ReservasCard({ reserva, obtenerReservas }) {
             </button>
           )}
       </div>
+      <VentanaConfirmacion
+        visible={ventVisible}
+        onClose={() => setVentVisible(false)}
+        onConfirm={cancelar}
+      />
     </div>
   );
 }

@@ -56,8 +56,11 @@ export const putReserva = async (reserva) => {
   return res;
 };
 
-export const cancelarReserva = async (reservaId) => {
-  const res = await axios.put(`${API_BASE_URL}/reserva/${reservaId}/cancelar`);
+export const cancelarReserva = async (reservaId, motivo) => {
+  const res = await axios.put(`${API_BASE_URL}/reserva/${reservaId}/cancelar`, {
+    _id: reservaId,
+    motivo,
+  });
   return res;
 };
 

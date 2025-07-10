@@ -33,7 +33,7 @@ export default function Alojamientos() {
     getAlojamientos(filtrosLimpios)
       .then((res) => {
         setAlojamientos(res.data.alojamientos || []);
-        const cantPaginas = parseInt(res.data.total / res.data.limit) + 1 || 1;
+        const cantPaginas = Math.ceil(res.data.total / res.data.limit) || 1;
         const nueva = {
           page: Math.min(res.data.page, cantPaginas) || 1,
           limit: res.data.limit || 12,
