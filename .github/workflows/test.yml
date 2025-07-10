@@ -15,6 +15,9 @@ jobs:
       - name: 📥 Checkout
         uses: actions/checkout@v3
 
+      - name: Copy sample envs
+        run: cp back/sample.env back/.env
+
       - name: 🐳 Docker Compose - Unit & Integration Tests
         run: docker compose -f docker-compose-test.yml up --abort-on-container-exit --exit-code-from node-back-test
 
@@ -26,6 +29,11 @@ jobs:
     steps:
       - name: 📥 Checkout
         uses: actions/checkout@v3
+
+      - name: Copy sample envs
+        run: |
+          cp back/sample.env back/.env
+          cp front/sample.env front/.env
 
       - name: 🐳 Docker Compose - E2E (Cypress)
         run: |
