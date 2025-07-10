@@ -196,7 +196,6 @@ export class ReservaService {
     return reservaActualizada;
   }
 
-  //cancelacion reserva
   async confirmacionReserva(idReserva) {
     const reserva = await this.reservaRepository.findById(idReserva);
     if (!reserva) {
@@ -230,7 +229,6 @@ export class ReservaService {
     return reserva;
   }
 
-  //cancelacion reserva
   async rechazoReserva(idReserva, body) {
     const reserva = await this.reservaRepository.findById(idReserva);
     if (!reserva) {

@@ -8,7 +8,12 @@ export default function FormularioEditarReserva({ reserva, obtenerReservas }) {
   const [showForm, setShowForm] = useState(false);
   const toggleForm = () => setShowForm(!showForm);
   const { usuarioActual } = useUsuario();
-  const [detallesReserva, setDetallesReserva] = useState({});
+  console.debug(reserva.rangoFechas.fechaInicio.split("T")[0]);
+  const [detallesReserva, setDetallesReserva] = useState({
+    cantHuespedes: reserva.cantHuespedes,
+    fechaInicio: reserva.rangoFechas.fechaInicio.split("T")[0],
+    fechaFin: reserva.rangoFechas.fechaFin.split("T")[0],
+  });
   const [mensaje, setMensaje] = useState("");
   const [loadingReserva, setLoadingReserva] = useState(false);
 
@@ -45,11 +50,6 @@ export default function FormularioEditarReserva({ reserva, obtenerReservas }) {
 
       setMensaje("✅ ¡Reserva editada con éxito!");
       obtenerReservas();
-      setDetallesReserva({
-        ...detallesReserva,
-        fechaInicio: "",
-        fechaFin: "",
-      });
     } catch (err) {
       console.error("Error al editar la reserva:", err);
       setMensaje("❌ " + err.response.data.message);
@@ -62,10 +62,10 @@ export default function FormularioEditarReserva({ reserva, obtenerReservas }) {
     <div className="relative">
       <button
         onClick={toggleForm}
-        className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-1.5 rounded"
+        className={`text-white text-sm font-medium px-4 py-1.5 rounded ${loadingReserva ? "bg-gray-800 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700 transition duration-300"}`}
         data-cy="editar-reserva-button"
       >
-        Editar
+        {loadingReserva ? "Editando..." : "Editar"}
       </button>
 
       {showForm && (
@@ -104,6 +104,7 @@ export default function FormularioEditarReserva({ reserva, obtenerReservas }) {
               }
               className="border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"
               min="1"
+              required
             />
             <label
               htmlFor="fechaInicio"
@@ -122,6 +123,7 @@ export default function FormularioEditarReserva({ reserva, obtenerReservas }) {
                 })
               }
               className="border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              required
             />
 
             <label
@@ -141,13 +143,14 @@ export default function FormularioEditarReserva({ reserva, obtenerReservas }) {
                 })
               }
               className="border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              required
             />
             <button
               type="submit"
               className={`mt-2 text-white py-2 px-4 rounded-lg font-medium ${loadingReserva ? "bg-gray-800 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700 transition duration-300"}`}
               disabled={loadingReserva}
             >
-              {loadingReserva ? "Enviando..." : "Enviar"}
+              {loadingReserva ? "Editando reserva..." : "Editar reserva"}
             </button>
             {mensaje && (
               <p className="text-sm mt-2" data-cy="mensaje-editar-reserva">

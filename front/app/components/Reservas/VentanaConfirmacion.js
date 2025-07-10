@@ -2,53 +2,51 @@
 
 import { useState } from "react";
 
-export default function VentanaConfirmacion({ visible, onClose, onConfirm }) {
-  const [motivo, setMotivo] = useState("");
+export default function VentanaConfirmacion({ loading, onConfirm }) {
+  const [showForm, setShowForm] = useState(false);
+  const toggleForm = () => setShowForm(!showForm);
 
-  if (!visible) return null;
-
-  function confirmar(motivo) {
-    onClose();
-    onConfirm(motivo);
+  function confirmarAccion() {
+    setShowForm(false);
+    onConfirm();
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
-      <div className="bg-white w-full max-w-md rounded-lg sm:rounded-xl shadow-lg p-6">
-        <h2 className="text-lg md:text-xl font-semibold mb-4 text-gray-800">
-          ¿Estás seguro de cancelar la reserva?
-        </h2>
+    <div className="relative">
+      <button
+        onClick={toggleForm}
+        className={`text-white text-sm font-medium px-4 py-1.5 rounded ${loading ? "bg-gray-800 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700 transition duration-300"}`}
+        disabled={loading}
+      >
+        {loading ? "Confirmando..." : "Confirmar"}
+      </button>
 
-        <label
-          htmlFor="motivoCancelacion"
-          className="block text-sm font-medium text-gray-700 mb-1"
+      {showForm && (
+        <div
+          className="absolute top-1/4 -translate-y-3/4 lg:top-1/2 lg:-translate-y-1/2 left-1/2 -translate-x-1/2 bg-white p-5 rounded-xl shadow-xl border w-80 z-10"
+          onKeyDown={(e) => {
+            if (e.key === "Escape") setShowForm(false);
+          }}
         >
-          Motivo de cancelación
-        </label>
-        <textarea
-          id="motivoCancelacion"
-          className="w-full p-2 border border-gray-300 rounded mb-4 resize-none"
-          rows="3"
-          value={motivo}
-          onChange={(e) => setMotivo(e.target.value)}
-          placeholder="Especificá un motivo si lo deseás..."
-        />
-
-        <div className="flex justify-end gap-2 flex-wrap">
+          <h2 className="text-xl font-bold mb-4 text-gray-800">
+            ¿Confirmar reserva?
+          </h2>
           <button
-            onClick={onClose}
-            className="flex-1 sm:flex-none px-4 py-2 rounded bg-gray-300 hover:bg-gray-400 text-gray-800"
+            onClick={() => setShowForm(false)}
+            className="absolute top-3 right-3 text-gray-600 hover:text-black"
           >
-            Cancelar
+            ✕
           </button>
-          <button
-            onClick={() => confirmar(motivo)}
-            className="flex-1 sm:flex-none px-4 py-2 rounded bg-red-600 hover:bg-red-700 text-white"
-          >
-            Confirmar
-          </button>
+          <div className="flex flex-col gap-3">
+            <button
+              className={`mt-2 text-white py-2 px-4 rounded-lg font-medium bg-blue-600 hover:bg-blue-700 transition duration-300`}
+              onClick={confirmarAccion}
+            >
+              Confirmar reserva
+            </button>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

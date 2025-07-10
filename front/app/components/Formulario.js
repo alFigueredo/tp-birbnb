@@ -59,10 +59,10 @@ export default function Formulario({ aloja }) {
     <div className="relative">
       <button
         onClick={toggleForm}
-        className={`mt-4 px-6 py-2 rounded-lg shadow-md text-white font-semibold ${usuarioActual.tipo === "ANFITRION" ? "bg-gray-800 cursor-not-allowed" : "bg-emerald-600 hover:bg-emerald-700 transition duration-300"}`}
+        className={`mt-4 px-6 py-2 rounded-lg shadow-md text-white font-semibold ${usuarioActual.tipo === "ANFITRION" || loadingReserva ? "bg-gray-800 cursor-not-allowed" : "bg-emerald-600 hover:bg-emerald-700 transition duration-300"}`}
         disabled={usuarioActual.tipo === "ANFITRION"}
       >
-        Reservar
+        {loadingReserva ? "Reservando..." : "Reservar"}
       </button>
 
       {showForm && (
@@ -147,7 +147,7 @@ export default function Formulario({ aloja }) {
               className={`mt-2 text-white py-2 px-4 rounded-lg font-medium ${loadingReserva ? "bg-gray-800 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700 transition duration-300"}`}
               disabled={loadingReserva}
             >
-              {loadingReserva ? "Enviando..." : "Enviar"}
+              {loadingReserva ? "Realizando reserva..." : "Realizar reserva"}
             </button>
             {mensaje && (
               <p data-cy="mensaje-reserva" className="text-sm mt-2">

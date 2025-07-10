@@ -8,3 +8,5 @@ README.md
 docker-compose.yml
 Dockerfile
 package-lock.json
+cypress/screenshots/
+cypress/videos/

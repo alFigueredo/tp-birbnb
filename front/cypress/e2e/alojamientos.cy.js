@@ -9,7 +9,7 @@ describe("Navegación y error al reservar", () => {
 
     cy.get("main button").should("have.text", "Reservar");
     cy.get("main button").click();
-    cy.get("main form button").should("have.text", "Enviar");
+    cy.get("main form button").should("have.text", "Realizar reserva");
 
     cy.get("#cantHuespedes").type(3);
     cy.get("#fechaInicio").type("2025-04-03");

@@ -69,7 +69,10 @@ export const confirmarReserva = async (reservaId) => {
   return res;
 };
 
-export const rechazarReserva = async (reservaId) => {
-  const res = await axios.put(`${API_BASE_URL}/reserva/${reservaId}/rechazar`);
+export const rechazarReserva = async (reservaId, motivo) => {
+  const res = await axios.put(`${API_BASE_URL}/reserva/${reservaId}/rechazar`, {
+    _id: reservaId,
+    motivo,
+  });
   return res;
 };

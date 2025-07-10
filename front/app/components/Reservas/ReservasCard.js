@@ -6,11 +6,13 @@ import {
 } from "@/app/services/api";
 import FormularioEditarReserva from "@/app/components/Reservas/FormularioEditarReserva";
 import { useState } from "react";
+import VentanaCancelacion from "@/app/components/Reservas/VentanaCancelacion";
 import VentanaConfirmacion from "@/app/components/Reservas/VentanaConfirmacion";
+import VentanaRechazo from "@/app/components/Reservas/VentanaRechazo";
 
 export default function ReservasCard({ reserva, obtenerReservas }) {
   const { usuarioActual } = useUsuario();
-  const [ventVisible, setVentVisible] = useState(false);
+  // const [ventVisible, setVentVisible] = useState(false);
   const [loading, setLoading] = useState({
     cancelar: false,
     confirmar: false,
@@ -31,9 +33,9 @@ export default function ReservasCard({ reserva, obtenerReservas }) {
       .finally(() => setLoading({ ...loading, cancelar: true }));
   }
 
-  function confirmar(reservaId) {
+  function confirmar() {
     setLoading({ ...loading, confirmar: true });
-    confirmarReserva(reservaId)
+    confirmarReserva(reserva._id)
       .then(() => {
         obtenerReservas();
       })
@@ -41,9 +43,9 @@ export default function ReservasCard({ reserva, obtenerReservas }) {
       .finally(() => setLoading({ ...loading, confirmar: true }));
   }
 
-  function rechazar(reservaId) {
+  function rechazar(motivo) {
     setLoading({ ...loading, rechazar: true });
-    rechazarReserva(reservaId)
+    rechazarReserva(reserva._id, motivo)
       .then(() => {
         obtenerReservas();
       })
@@ -86,40 +88,23 @@ export default function ReservasCard({ reserva, obtenerReservas }) {
         {usuarioActual.tipo === "HUESPED" &&
           (reserva.estado === "PENDIENTE" ||
             reserva.estado === "CONFIRMADA") && (
-            <button
-              className={`text-white text-sm font-medium px-4 py-1.5 rounded ${loading.cancelar ? "bg-gray-800 cursor-not-allowed" : "bg-red-600 hover:bg-red-700 transition duration-300"}`}
-              onClick={() => setVentVisible(true)}
-              disabled={loading.cancelar}
-            >
-              {loading.cancelar ? "Cancelando..." : "Cancelar"}
-            </button>
+            <VentanaCancelacion
+              loading={loading.cancelar}
+              onConfirm={cancelar}
+            />
           )}
         {usuarioActual.tipo === "ANFITRION" &&
           reserva.estado === "PENDIENTE" && (
-            <button
-              className={`text-white text-sm font-medium px-4 py-1.5 rounded ${loading.confirmar ? "bg-gray-800 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700 transition duration-300"}`}
-              onClick={() => confirmar(reserva._id)}
-              disabled={loading.confirmar}
-            >
-              {loading.confirmar ? "Confirmando..." : "Confirmar"}
-            </button>
+            <VentanaConfirmacion
+              loading={loading.confirmar}
+              onConfirm={confirmar}
+            />
           )}
         {usuarioActual.tipo === "ANFITRION" &&
           reserva.estado === "PENDIENTE" && (
-            <button
-              className={`text-white text-sm font-medium px-4 py-1.5 rounded ${loading.rechazar ? "bg-gray-800 cursor-not-allowed" : "bg-red-600 hover:bg-red-700 transition duration-300"}`}
-              onClick={() => rechazar(reserva._id)}
-              disabled={loading.rechazar}
-            >
-              {loading.rechazar ? "Rechazando..." : "Rechazar"}
-            </button>
+            <VentanaRechazo loading={loading.rechazar} onConfirm={rechazar} />
           )}
       </div>
-      <VentanaConfirmacion
-        visible={ventVisible}
-        onClose={() => setVentVisible(false)}
-        onConfirm={cancelar}
-      />
     </div>
   );
 }
