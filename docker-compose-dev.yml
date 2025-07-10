@@ -1,5 +1,5 @@
 services:
-  node-back:
+  node-back-dev:
     build:
       context: ./back
       args:
@@ -9,6 +9,7 @@ services:
       - ./back/.env
     environment:
       - NODE_ENV=development
+      - MONGO_URL=mongodb://username:password@mongo-dev:27017/
     ports:
       - "4000:4000"
     develop:
@@ -20,9 +21,9 @@ services:
           path: ./back/package.json
     command: "npm run dev"
     depends_on:
-      - mongo
+      - mongo-dev
 
-  node-front:
+  node-front-dev:
     build:
       context: ./front
       args:
@@ -43,17 +44,17 @@ services:
           path: ./front/package.json
     command: "npm run dev"
     depends_on:
-      - node-back
+      - node-back-dev
 
-  mongo:
+  mongo-dev:
     image: mongo
     attach: false
     env_file:
       - ./back/.env
     volumes:
-      - mongo-db-data:/data/db
-      - mongo-db-config:/data/configdb
+      - mongo-db-dev-data:/data/db
+      - mongo-db-dev-config:/data/configdb
 
 volumes:
-  mongo-db-data:
-  mongo-db-config:
+  mongo-db-dev-data:
+  mongo-db-dev-config:
