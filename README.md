@@ -9,10 +9,9 @@
 ### Backend
 - **Node.js**: Entorno de ejecución para JavaScript en el servidor.
 - **Express.js**: Framework para la creación de APIs REST.
-- **Sequelize**: ORM para la gestión de la base de datos.
+- **Mongoose**: ORM para la gestión de la base de datos.
 - **Jest** y **Supertest**: Testing unitario e integración.
 - **Swagger**: Documentación de la API.
-- **Docker**: Contenedores para desarrollo y testing.
 
 ### Frontend
 - **Next.js**: Framework de React para SSR y SSG.
@@ -21,7 +20,10 @@
 - **Cypress**: Testing end-to-end.
 
 ### Base de Datos
-- **PostgreSQL**: Base de datos relacional utilizada en el entorno productivo y de desarrollo.
+- **MongoDB**: Base de datos no relacional utilizada en el entorno productivo y de desarrollo.
+
+### Despliegue
+- **Docker**: Contenedores para desarrollo y testing.
 
 ## Estructura del Proyecto
 
