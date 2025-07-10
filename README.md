@@ -105,7 +105,7 @@ Todos estos scripts pueden ejecutarse de forma local con solo tener instaladas l
 
 #### Variables de entorno del backend
 
-Las variables de entorno se encuentran listadas en el sample.env correspondiente:
+Las variables de entorno se encuentran listadas en el sample.env correspondiente. Se deben escribir en un archivo .env local:
 - **SERVER_PORT**: Puerto del servidor en el cual funcionará el servidor.
 - **NODE_ENV**: Variable de entorno de Node.js, tenerlo en 'production' evita que se instalen las dependencias de desarrollo.
 - **MONGO_URL**: Dirección para conectarse a una base de datos MongoDB.
@@ -125,7 +125,7 @@ Opcionales:
 
 #### Variables de entorno del frontend
 
-Las variables de entorno se encuentran listadas en el sample.env correspondiente:
+Las variables de entorno se encuentran listadas en el sample.env correspondiente. Se deben escribir en un archivo .env local:
 - **NODE_ENV**: Variable de entorno de Node.js, tenerlo en 'production' evita que se instalen las dependencias de desarrollo.
 - **NEXT_PUBLIC_APP_URL**: Dirección en donde funciona la aplicación (para uso de Cypress).
 - **NEXT_PUBLIC_SERVER_URL**: Dirección en donde funciona el servidor.
