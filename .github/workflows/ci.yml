@@ -18,13 +18,13 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Cache Docker layers
-        uses: actions/cache@v4
+      - name: Build and push
+        uses: docker/build-push-action@v6
         with:
-          path: /tmp/.buildx-cache
-          key: docker-${{ hashFiles('docker-compose-test.yml', 'back/Dockerfile') }}
-          restore-keys: |
-            docker-
+          push: true
+          tags: user/app:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       - name: Copy sample envs
         run: cp ./back/sample.env ./back/.env
@@ -50,7 +50,6 @@ jobs:
           key: docker-${{ hashFiles('docker-compose-cypress.yml', 'back/Dockerfile*') }}
           restore-keys: |
             docker-
-
 
       - name: Copy sample envs
         run: |
