@@ -15,6 +15,18 @@ jobs:
       - name: 📥 Checkout
         uses: actions/checkout@v4
 
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./back
+          push: true
+          tags: user/app:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
       - name: Copy sample envs
         run: cp ./back/sample.env ./back/.env
 
