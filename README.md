@@ -1,6 +1,7 @@
 # 🏡 Birbnb – Trabajo Práctico Desarrollo de Software 2025 – 1° Cuatrimestre
 
 ## Integrantes
+
 - Abigail Celina Tellez Cerna
 - Alan Lionel Figueredo Aguilar
 - Lara Nicole Galván
@@ -18,6 +19,7 @@
 ## Tecnologías Utilizadas
 
 ### Backend
+
 - **Node.js**: Entorno de ejecución para JavaScript en el servidor.
 - **Express.js**: Framework para la creación de APIs REST.
 - **Mongoose**: ODM para la gestión de la base de datos.
@@ -25,19 +27,23 @@
 - **Swagger**: Documentación de la API.
 
 ### Frontend
+
 - **Next.js**: Framework de React para SSR y SSG.
 - **React**: Librería principal para la UI.
 - **Tailwind CSS**: Utilidades CSS para estilos rápidos y responsivos.
 - **Axios**: Cliente HTTP basado en promesas para Node.js y para el navegador.
 
 ### Base de Datos
+
 - **MongoDB**: Base de datos no relacional utilizada en el entorno productivo y de desarrollo.
 
 ### General
+
 - **Cypress**: Testing end-to-end.
 - **Docker (opcional)**: Contenedores para desarrollo y testing.
 
 ### Despliegue final
+
 - **Render**: Despliegue del back-end.
 - **Netlify**: Despliegue del front-end.
 - **MongoDB Atlas**: Proveedor de una base de datos MongoDB remota.
@@ -69,12 +75,15 @@
 │   │   ├── components/      # Componentes reutilizables
 │   │   ├── context/         # Contextos globales (ej: usuario)
 │   │   ├── services/        # Servicios de consumo de API
-│   ├── cypress/         # Tests E2E
 │   └── public/          # Archivos estáticos
 │   └── Dockerfile       # Imagen del frontend
-│   └── Dockerfile.cypress   # Imagen de cypress (Tests E2E)
-│   └── public/          # Archivos estáticos
 │   └── package.json     # Archivo de configuración de Node
+│   └── sample.env       # Variables de entorno utilizadas
+│
+│
+├── cypress/             # Tests (Cypress)
+│   ├── cypress/         # Tests E2E
+│   └── Dockerfile       # Imagen de cypress (Tests E2E)
 │   └── sample.env       # Variables de entorno utilizadas
 │
 ├── docs/                # Documentación general y utilidades
@@ -106,11 +115,13 @@ Todos estos scripts pueden ejecutarse de forma local con solo tener instaladas l
 #### Variables de entorno del backend
 
 Las variables de entorno se encuentran listadas en el sample.env correspondiente. Se deben escribir en un archivo .env local:
+
 - **SERVER_PORT**: Puerto del servidor en el cual funcionará el servidor.
 - **NODE_ENV**: Variable de entorno de Node.js, tenerlo en 'production' evita que se instalen las dependencias de desarrollo.
 - **MONGO_URL**: Dirección para conectarse a una base de datos MongoDB.
 
 Opcionales:
+
 - **MONGO_INITDB_ROOT_USERNAME**: Usuario de la base de datos a crear (si es creada con Docker).
 - **MONGO_INITDB_ROOT_PASSWORD**: Contraseña de la base de datos a crear (si es creada con Docker).
 
@@ -120,19 +131,29 @@ Opcionales:
 - **npm run build**: Compilar frontend con next.js para producción.
 - **npm run start**: Iniciar frontend anteriormente compilado con next.js para producción.
 - **npm run lint**: ESLint revisa el código en busca de errores y/o warnings.
-- **npm run test**: Cypress ejecuta los tests sin desplegar la interfaz gráfica. Se requiere la aplicación funcionando en segundo plano.
-- **npm run test:open**: Cypress ejecuta los tests a través de la interfaz gráfica. Se requiere la aplicación funcionando en segundo plano.
 
 #### Variables de entorno del frontend
 
 Las variables de entorno se encuentran listadas en el sample.env correspondiente. Se deben escribir en un archivo .env local:
+
 - **NODE_ENV**: Variable de entorno de Node.js, tenerlo en 'production' evita que se instalen las dependencias de desarrollo.
-- **NEXT_PUBLIC_APP_URL**: Dirección en donde funciona la aplicación (para uso de Cypress).
 - **NEXT_PUBLIC_SERVER_URL**: Dirección en donde funciona el servidor.
+
+### Cypress
+
+- **npm run test**: Cypress ejecuta los tests sin desplegar la interfaz gráfica. Se requiere la aplicación funcionando en segundo plano.
+- **npm run test:open**: Cypress ejecuta los tests a través de la interfaz gráfica. Se requiere la aplicación funcionando en segundo plano.
+
+#### Variables de entorno de cypress
+
+Las variables de entorno se encuentran listadas en el sample.env correspondiente. Se deben escribir en un archivo .env local:
+
+- **NODE_ENV**: Variable de entorno de Node.js, tenerlo en 'production' evita que se instalen las dependencias de desarrollo.
+- **NEXT_PUBLIC_APP_URL**: Dirección en donde funciona la aplicación.
 
 ## Docker
 
-Si bien no es condición necesaria contar con Docker, sí se puede aprovechar esta herramienta para ejecutar la aplicacion entera sin la necesidad de una instancia externa de MongoDB. Se cuentan con 4 archivos docker-compose*.yml para desplegar la aplicación en distintos contenedores:
+Si bien no es condición necesaria contar con Docker, sí se puede aprovechar esta herramienta para ejecutar la aplicacion entera sin la necesidad de una instancia externa de MongoDB. Se cuentan con 4 archivos docker-compose\*.yml para desplegar la aplicación en distintos contenedores:
 
 - **docker-compose.yml**: Entorno para producción. Despliega dos instancias de Node (uno para el backend y uno para el frontend), ambos para producción, y una instancia de Mongo (con dos volúmenes).
 - **docker-compose-dev.yml**: Entorno para desarrollo. Despliega dos instancias de Node (uno para el backend y uno para el frontend), ambos para desarrollo, y una instancia de Mongo (con dos volúmenes).
