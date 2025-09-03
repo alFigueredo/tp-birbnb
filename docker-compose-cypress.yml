@@ -19,16 +19,12 @@ services:
 
   cypress:
     build:
-      context: ./front
-      dockerfile: Dockerfile.cypress
+      context: ./cypress
       args:
         - NODE_ENV
     user: "node"
     env_file:
-      - ./front/.env
-    environment:
-      - NODE_ENV=test
-      - NEXT_PUBLIC_APP_URL=http://node-front-test:3000
+      - ./cypress/.env
     command: "npm run test"
     depends_on:
       node-front-test:

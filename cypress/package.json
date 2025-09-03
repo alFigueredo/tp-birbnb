@@ -1,0 +1,13 @@
+{
+  "name": "birbnb-cypress",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "cypress run",
+    "test:open": "cypress open"
+  },
+  "devDependencies": {
+    "cypress": "^14.5.1"
+  }
+}
