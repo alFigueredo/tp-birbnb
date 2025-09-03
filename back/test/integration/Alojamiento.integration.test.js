@@ -13,6 +13,8 @@ const anfi1 = {
   tipo: TipoUsuario.ANFITRION,
 };
 
+const anioActualMasUno = new Date().getFullYear() + 1;
+
 const aloja1 = {
   id: 1,
   anfitrion: anfi1,
@@ -23,22 +25,22 @@ const aloja1 = {
   reservas: [
     {
       rangoFechas: {
-        fechaInicio: new Date(2025, 7, 1),
-        fechaFin: new Date(2025, 7, 3),
+        fechaInicio: new Date(anioActualMasUno, 7, 1),
+        fechaFin: new Date(anioActualMasUno, 7, 3),
       },
       estado: "PENDIENTE",
     },
     {
       rangoFechas: {
-        fechaInicio: new Date(2025, 7, 4),
-        fechaFin: new Date(2025, 7, 6),
+        fechaInicio: new Date(anioActualMasUno, 7, 4),
+        fechaFin: new Date(anioActualMasUno, 7, 6),
       },
       estado: "PENDIENTE",
     },
     {
       rangoFechas: {
-        fechaInicio: new Date(2025, 7, 7),
-        fechaFin: new Date(2025, 7, 9),
+        fechaInicio: new Date(anioActualMasUno, 7, 7),
+        fechaFin: new Date(anioActualMasUno, 7, 9),
       },
       estado: "PENDIENTE",
     },

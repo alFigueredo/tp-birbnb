@@ -64,12 +64,29 @@ export async function exec() {
     ),
   ];
 
+  const anioActualMasUno = new Date().getFullYear() + 1;
+
   const rangoFechas = [
-    new RangoFechas(new Date(2025, 7, 1), new Date(2025, 7, 3)),
-    new RangoFechas(new Date(2025, 7, 4), new Date(2025, 7, 6)),
-    new RangoFechas(new Date(2025, 7, 7), new Date(2025, 7, 9)),
-    new RangoFechas(new Date(2025, 7, 10), new Date(2025, 7, 12)),
-    new RangoFechas(new Date(2025, 7, 13), new Date(2025, 7, 15)),
+    new RangoFechas(
+      new Date(anioActualMasUno, 7, 1),
+      new Date(anioActualMasUno, 7, 3),
+    ),
+    new RangoFechas(
+      new Date(anioActualMasUno, 7, 4),
+      new Date(anioActualMasUno, 7, 6),
+    ),
+    new RangoFechas(
+      new Date(anioActualMasUno, 7, 7),
+      new Date(anioActualMasUno, 7, 9),
+    ),
+    new RangoFechas(
+      new Date(anioActualMasUno, 7, 10),
+      new Date(anioActualMasUno, 7, 12),
+    ),
+    new RangoFechas(
+      new Date(anioActualMasUno, 7, 13),
+      new Date(anioActualMasUno, 7, 15),
+    ),
   ];
 
   const fotos = [
@@ -219,9 +236,11 @@ export async function exec() {
         "10:00",
         direcciones[5],
         5,
-        [Caracteristica.WIFI, 
-        Caracteristica.ESTACIONAMIENTO,
-        Caracteristica.PISCINA],
+        [
+          Caracteristica.WIFI,
+          Caracteristica.ESTACIONAMIENTO,
+          Caracteristica.PISCINA,
+        ],
         fotos[6],
       ),
     ),
@@ -251,9 +270,11 @@ export async function exec() {
         "10:00",
         direcciones[7],
         5,
-        [Caracteristica.WIFI, 
-        Caracteristica.ESTACIONAMIENTO,
-        Caracteristica.PISCINA],
+        [
+          Caracteristica.WIFI,
+          Caracteristica.ESTACIONAMIENTO,
+          Caracteristica.PISCINA,
+        ],
         fotos[8],
       ),
     ),
@@ -283,9 +304,11 @@ export async function exec() {
         "10:00",
         direcciones[0],
         5,
-        [Caracteristica.WIFI, 
-        Caracteristica.ESTACIONAMIENTO,
-        Caracteristica.PISCINA],
+        [
+          Caracteristica.WIFI,
+          Caracteristica.ESTACIONAMIENTO,
+          Caracteristica.PISCINA,
+        ],
         fotos[10],
       ),
     ),

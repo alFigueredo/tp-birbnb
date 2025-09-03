@@ -14,6 +14,8 @@ const usu1 = {
   tipo: TipoUsuario.HUESPED,
 };
 
+const anioActualMasUno = new Date().getFullYear() + 1;
+
 const aloja1 = {
   id: 1,
   nombre: "Alojamiento 1",
@@ -23,36 +25,36 @@ const aloja1 = {
   reservas: [
     {
       rangoFechas: {
-        fechaInicio: new Date(2025, 7, 1),
-        fechaFin: new Date(2025, 7, 3),
+        fechaInicio: new Date(anioActualMasUno, 7, 1),
+        fechaFin: new Date(anioActualMasUno, 7, 3),
       },
       estado: "PENDIENTE",
     },
     {
       rangoFechas: {
-        fechaInicio: new Date(2025, 7, 4),
-        fechaFin: new Date(2025, 7, 6),
+        fechaInicio: new Date(anioActualMasUno, 7, 4),
+        fechaFin: new Date(anioActualMasUno, 7, 6),
       },
       estado: "PENDIENTE",
     },
     {
       rangoFechas: {
-        fechaInicio: new Date(2025, 7, 7),
-        fechaFin: new Date(2025, 7, 9),
+        fechaInicio: new Date(anioActualMasUno, 7, 7),
+        fechaFin: new Date(anioActualMasUno, 7, 9),
       },
       estado: "PENDIENTE",
     },
     {
       rangoFechas: {
-        fechaInicio: new Date(2025, 7, 10),
-        fechaFin: new Date(2025, 7, 12),
+        fechaInicio: new Date(anioActualMasUno, 7, 10),
+        fechaFin: new Date(anioActualMasUno, 7, 12),
       },
       estado: "PENDIENTE",
     },
     {
       rangoFechas: {
-        fechaInicio: new Date(2025, 7, 13),
-        fechaFin: new Date(2025, 7, 15),
+        fechaInicio: new Date(anioActualMasUno, 7, 13),
+        fechaFin: new Date(anioActualMasUno, 7, 15),
       },
       estado: "PENDIENTE",
     },
@@ -69,8 +71,8 @@ const reser1 = {
   cantHuespedes: 3,
   alojamiento: aloja1,
   rangoFechas: {
-    fechaInicio: new Date(2025, 7, 1),
-    fechaFin: new Date(2025, 7, 3),
+    fechaInicio: new Date(anioActualMasUno, 7, 1),
+    fechaFin: new Date(anioActualMasUno, 7, 3),
   },
   estado: "PENDIENTE",
   precioPorNoche: 7000,
@@ -86,8 +88,8 @@ const reservaRepository = {
       cantHuespedes: 3,
       alojamiento: aloja1,
       rangoFechas: {
-        fechaInicio: new Date(2025, 7, 1),
-        fechaFin: new Date(2025, 7, 3),
+        fechaInicio: new Date(anioActualMasUno, 7, 1),
+        fechaFin: new Date(anioActualMasUno, 7, 3),
       },
       estado: "PENDIENTE",
       precioPorNoche: 7000,
@@ -99,8 +101,8 @@ const reservaRepository = {
       cantHuespedes: 3,
       alojamiento: aloja1,
       rangoFechas: {
-        fechaInicio: new Date(2025, 7, 4),
-        fechaFin: new Date(2025, 7, 6),
+        fechaInicio: new Date(anioActualMasUno, 7, 4),
+        fechaFin: new Date(anioActualMasUno, 7, 6),
       },
       estado: "PENDIENTE",
       precioPorNoche: 7000,
@@ -112,8 +114,8 @@ const reservaRepository = {
       cantHuespedes: 3,
       alojamiento: aloja1,
       rangoFechas: {
-        fechaInicio: new Date(2025, 7, 7),
-        fechaFin: new Date(2025, 7, 9),
+        fechaInicio: new Date(anioActualMasUno, 7, 7),
+        fechaFin: new Date(anioActualMasUno, 7, 9),
       },
       estado: "PENDIENTE",
       precioPorNoche: 7000,
@@ -125,8 +127,8 @@ const reservaRepository = {
       cantHuespedes: 3,
       alojamiento: aloja1,
       rangoFechas: {
-        fechaInicio: new Date(2025, 7, 10),
-        fechaFin: new Date(2025, 7, 12),
+        fechaInicio: new Date(anioActualMasUno, 7, 10),
+        fechaFin: new Date(anioActualMasUno, 7, 12),
       },
       estado: "CONFIRMADA",
       precioPorNoche: 7000,
@@ -138,8 +140,8 @@ const reservaRepository = {
       cantHuespedes: 3,
       alojamiento: aloja1,
       rangoFechas: {
-        fechaInicio: new Date(2025, 7, 13),
-        fechaFin: new Date(2025, 7, 15),
+        fechaInicio: new Date(anioActualMasUno, 7, 13),
+        fechaFin: new Date(anioActualMasUno, 7, 15),
       },
       estado: "CANCELADA",
       precioPorNoche: 7000,
@@ -214,8 +216,8 @@ describe("POST /reserva", () => {
     cantHuespedes: 3,
     alojamiento: aloja1,
     rangoFechas: {
-      fechaInicio: new Date(2025, 7, 16),
-      fechaFin: new Date(2025, 7, 18),
+      fechaInicio: new Date(anioActualMasUno, 7, 16),
+      fechaFin: new Date(anioActualMasUno, 7, 18),
     },
     estado: "PENDIENTE",
     precioPorNoche: 7000,
