@@ -15,8 +15,11 @@ jobs:
       - name: 📥 Checkout
         uses: actions/checkout@v4
 
-      - name: Copy sample envs
-        run: cp ./back/sample.env ./back/.env
-
       - name: 🐳 Docker Compose - Unit & Integration Tests
+        env:
+          SERVER_PORT: 4000
+          NODE_ENV: test
+          MONGO_URL: mongodb://username:password@mongo-test:27017/
+          MONGO_INITDB_ROOT_USERNAME: username
+          MONGO_INITDB_ROOT_PASSWORD: password
         run: docker compose -f docker-compose-test.yml up --abort-on-container-exit --exit-code-from node-back-test
